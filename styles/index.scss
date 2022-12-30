@@ -29,8 +29,8 @@ $imageBorderColor: #CCCCCC;
   color: $fontColorLight;
   background-color: $bgColor;
   display: grid;
-  grid-template-columns: 130px 1fr;
-  grid-template-rows: 150px 1fr;
+  grid-template-columns: 100px 1fr;
+  grid-template-rows: 100px 1fr;
   height: 100vh;
 }
 .header{
