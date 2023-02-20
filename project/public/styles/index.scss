@@ -52,6 +52,7 @@ body{
     .header__user{
       display: flex;
       align-items: center;
+      cursor: pointer;
       span{
         font-size: 10pt;
       }
