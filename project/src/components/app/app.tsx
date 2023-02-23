@@ -1,7 +1,7 @@
-import {Chat} from '../chat/chat';
-import { Header } from '../header/header';
+import Chat from '../chat/chat';
+import Header from '../header/header';
 
-export function App(): JSX.Element {
+function App(): JSX.Element {
 
   return (
     <>
@@ -38,3 +38,4 @@ export function App(): JSX.Element {
   );
 }
 
+export default App;

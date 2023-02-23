@@ -2,7 +2,7 @@ import { useContext, useState } from 'react';
 import { GContext } from '../..';
 import { UserType } from '../../types/User';
 
-export function Header(): JSX.Element {
+function Header(): JSX.Element {
 
   const {signIn} = useContext(GContext);
   const [userInfo, setUserInfo] = useState<UserType>({
@@ -38,3 +38,4 @@ export function Header(): JSX.Element {
   );
 }
 
+export default Header;

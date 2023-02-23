@@ -1,7 +1,7 @@
 import { UserCredential } from 'firebase/auth';
-import { Database } from 'firebase/database';
+import { Firestore } from 'firebase/firestore';
 
 export type ContextType = {
   signIn: () => Promise<UserCredential>;
-  database: Database;
+  database: Firestore;
 };

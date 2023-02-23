@@ -1,25 +1,43 @@
-import { useContext, useState } from 'react';
+import { addDoc, collection } from 'firebase/firestore';
+import { ChangeEvent, memo, useContext, useState } from 'react';
 import { GContext } from '../..';
+import MessageList from '../message-list/message-list';
 
-export function Chat(): JSX.Element {
+function Chat(): JSX.Element {
 
   const {database} = useContext(GContext);
   const [inputLine, setInputLine] = useState<string>('');
 
+  const sendMessage = async (message:string) => {
+    try {
+      await addDoc(collection(database, 'messages'), {
+        username: 'test-user',
+        email: 'test-email',
+        profilePicture : 'text-imageUrl',
+        message: message
+      });
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.warn('Error adding document: ', e);
+    }
+  };
+
+
   const sendMessageClickHandler = () => {
-    console.log(database);
+    sendMessage(inputLine);
+    setInputLine('');
+  };
+
+  const messageChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setInputLine(e.target.value);
   };
 
   return (
     <section className="messenger wrapper">
-      <div className="messenger__message-list">
-        <div className="message">
-        Hello Ether!
-        </div>
-      </div>
+      <MessageList/>
       <div className="messenger__input-line">
         <form action='' className="input-line__form">
-          <input className="form__message" defaultValue={''} />
+          <input onChange={messageChangeHandler} className="form__message" value={inputLine}/>
         </form>
       </div>
       <div className="messenger__buttons-section">
@@ -28,3 +46,5 @@ export function Chat(): JSX.Element {
     </section>
   );
 }
+
+export default memo(Chat);
