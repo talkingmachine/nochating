@@ -9,7 +9,7 @@ function MessageList(): JSX.Element {
 
   useEffect(() => {
     const q = query(collection(database, 'messages'));
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+    onSnapshot(q, (querySnapshot) => { //const unsubscribe =
       const currentList: DocumentData[] = [];
       querySnapshot.forEach((doc) => {
         currentList.push({...doc.data(), id: doc.id});
