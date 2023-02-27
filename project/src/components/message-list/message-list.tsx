@@ -1,14 +1,16 @@
-import { collection,DocumentData,onSnapshot, query } from 'firebase/firestore';
+import { collection,DocumentData,onSnapshot, orderBy, query } from 'firebase/firestore';
 import { useContext, useEffect, useState } from 'react';
 import { GContext } from '../..';
+import { useAppSelector } from '../../hooks/useStoreSelectors';
 
 function MessageList(): JSX.Element {
 
   const {database} = useContext(GContext);
   const [messageList, setMessageList] = useState<DocumentData[]>([]);
+  const user = useAppSelector((state) => state.user);
 
   useEffect(() => {
-    const q = query(collection(database, 'messages'));
+    const q = query(collection(database, 'messages'), orderBy('createdAt'));
     onSnapshot(q, (querySnapshot) => { //const unsubscribe =
       const currentList: DocumentData[] = [];
       querySnapshot.forEach((doc) => {
@@ -23,7 +25,9 @@ function MessageList(): JSX.Element {
     <div className="messenger__message-list">
       {messageList.map((document)=> (
         <div key={document.id as string} className="message">
-          {document.message}
+          <img src={document.profilePicture as string} alt="message avatar" className="message__avatar" />
+          <div className="message__user-name">{document.username}</div>
+          <div className="message__text">{document.message}</div>
         </div>
       ))}
     </div>

@@ -1,4 +1,4 @@
-import { addDoc, collection } from 'firebase/firestore';
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { ChangeEvent, memo, useContext, useState } from 'react';
 import { GContext } from '../..';
 import MessageList from '../message-list/message-list';
@@ -14,7 +14,8 @@ function Chat(): JSX.Element {
         username: 'test-user',
         email: 'test-email',
         profilePicture : 'text-imageUrl',
-        message: message
+        message: message,
+        createdAt: serverTimestamp(),
       });
     } catch (e) {
       // eslint-disable-next-line no-console

@@ -5,6 +5,8 @@ import {initializeApp} from 'firebase/app';
 import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { ContextType } from './types/Context';
 import { getFirestore } from 'firebase/firestore';
+import { Provider } from 'react-redux';
+import { store } from './store';
 
 
 const firebaseConfig = {
@@ -40,13 +42,15 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  <GContext.Provider value={{
-    signIn,
-    database,
-  }}
-  >
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  </GContext.Provider>,
+  <Provider store={store}>
+    <GContext.Provider value={{
+      signIn,
+      database,
+    }}
+    >
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </GContext.Provider>
+  </Provider>
 );

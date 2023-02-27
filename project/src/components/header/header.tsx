@@ -1,24 +1,27 @@
 import { useContext, useState } from 'react';
 import { GContext } from '../..';
+import { USER_INFO } from '../../consts/constUserInfo';
+import { useAppDispatch } from '../../hooks/useStoreSelectors';
+import { setUser } from '../../store/actions';
 import { UserType } from '../../types/User';
 
 function Header(): JSX.Element {
 
+  const dispatch = useAppDispatch();
   const {signIn} = useContext(GContext);
-  const [userInfo, setUserInfo] = useState<UserType>({
-    photoURL: 'img/user-avatar1.jpg',
-    displayName: 'Incognito',
-  });
+  const [userInfo, setUserInfo] = useState<UserType>(USER_INFO);
 
   const signInClickHandler = () => {
-    signIn().then((result) => {
-      const user = result.user;
 
+    signIn().then((result) => {
+      const user: UserType = {
+        displayName: result.user.displayName ? result.user.displayName : USER_INFO.displayName,
+        photoURL: result.user.photoURL ? result.user.photoURL : USER_INFO.photoURL,
+      };
       if (user.photoURL && user.displayName) {
-        setUserInfo({...userInfo,
-          photoURL: user.photoURL,
-          displayName: user.displayName,
-        });
+        setUserInfo(user);
+        dispatch(setUser(user));
+        console.log('user dispatched');
       }
     });
   };
