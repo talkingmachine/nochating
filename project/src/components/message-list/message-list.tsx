@@ -22,7 +22,7 @@ function MessageList(): JSX.Element {
   }, [database]);
 
   return (
-    <div className="messenger__message-list">
+    <div className="chat__message-list">
       {messageList.map((document)=> (
         <div key={document.id as string} className="message">
           <img src={document.profilePicture as string} alt="message avatar" className="message__avatar" />

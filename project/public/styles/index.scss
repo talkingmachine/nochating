@@ -94,7 +94,7 @@ body{
     width: 15px;
   }
 }
-.messenger{
+.chat{
   display: flex;
   flex-direction: column;
   justify-self: flex-start;
@@ -103,7 +103,7 @@ body{
   width: 100%;
   margin: 20px 0 25px 0;
   background-color: #CCCCCC;
-  .messenger__message-list{
+  .chat__message-list{
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -123,10 +123,17 @@ body{
       background-color: #CCCCCC;
     }
   }
-  .messenger__input-line{
-
+  .chat__input-line{
+    display: flex;
+    .input-line__form{
+      width: 100%;
+      input.form__message{
+        width: 100%;
+      }
+    }
+    button.buttons-section__send{
+      margin: 0 5px 0 5px;
+    }
   }
-  .messenger__buttons-section{
 
-  }
 }
