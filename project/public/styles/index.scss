@@ -24,7 +24,6 @@ $imageBorderColor: #CCCCCC;
 
 
 body{
-  overflow: hidden;
   font-family: Lucida-Console, sans-serif;
   color: $fontColorLight;
   background-color: $bgColor;
@@ -98,12 +97,13 @@ body{
   display: flex;
   flex-direction: column;
   justify-self: flex-start;
-  overflow: auto;
 
   width: 100%;
   margin: 20px 0 25px 0;
   background-color: #CCCCCC;
   .chat__message-list{
+    overflow: auto;
+
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -111,25 +111,48 @@ body{
     width: 100%;
     height: 100%;
 
-    background-color: black;
+    background-color: $bgColor;
     .message{
       display: flex;
       padding: 5px 7px;
-      width: 200px;//tofix
-      height: 50px;//tofix
+      width: auto;
+      height: auto;
       margin: 0 0 5px 0;
 
-      color: black;
-      background-color: #CCCCCC;
+      .message__avatar{
+        width: 40px;
+        height: 40px;
+        align-self: flex-end;
+        margin: 5px 0;
+
+        object-fit: cover;
+        object-position: 50% 50%;
+        border-radius: 50%;
+      }
+      .message__body{
+        display: flex;
+        flex-direction: column;
+        margin: 0 10px;
+        min-width: 150px;
+
+        color: $bgColor;
+        background-color: #CCCCCC;
+        .body__user-name{
+          font-size: 12px;
+          margin: 5px 0 0 7px;
+        }
+        .body__text{
+          font-size: 16px;
+          margin: 0 7px 5px 7px ;
+
+        }
+      }
     }
   }
   .chat__input-line{
     display: flex;
-    .input-line__form{
+    input.form__message{
       width: 100%;
-      input.form__message{
-        width: 100%;
-      }
     }
     button.buttons-section__send{
       margin: 0 5px 0 5px;

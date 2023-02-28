@@ -10,7 +10,7 @@ function Header(): JSX.Element {
   const dispatch = useAppDispatch();
   const {signIn} = useContext(GContext);
   const [userInfo, setUserInfo] = useState<UserType>(USER_INFO);
-
+  console.log(userInfo.photoURL);
   const signInClickHandler = () => {
 
     signIn().then((result) => {

@@ -21,7 +21,6 @@
 }
 
 body {
-  overflow: hidden;
   font-family: Lucida-Console, sans-serif;
   color: #CCCCCC;
   background-color: black;
@@ -98,12 +97,12 @@ body {
   display: flex;
   flex-direction: column;
   justify-self: flex-start;
-  overflow: auto;
   width: 100%;
   margin: 20px 0 25px 0;
   background-color: #CCCCCC;
 }
 .chat .chat__message-list {
+  overflow: auto;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -114,19 +113,39 @@ body {
 .chat .chat__message-list .message {
   display: flex;
   padding: 5px 7px;
-  width: 200px;
-  height: 50px;
+  width: auto;
+  height: auto;
   margin: 0 0 5px 0;
+}
+.chat .chat__message-list .message .message__avatar {
+  width: 40px;
+  height: 40px;
+  align-self: flex-end;
+  margin: 5px 0;
+  object-fit: cover;
+  object-position: 50% 50%;
+  border-radius: 50%;
+}
+.chat .chat__message-list .message .message__body {
+  display: flex;
+  flex-direction: column;
+  margin: 0 10px;
+  min-width: 150px;
   color: black;
   background-color: #CCCCCC;
+}
+.chat .chat__message-list .message .message__body .body__user-name {
+  font-size: 12px;
+  margin: 5px 0 0 7px;
+}
+.chat .chat__message-list .message .message__body .body__text {
+  font-size: 16px;
+  margin: 0 7px 5px 7px;
 }
 .chat .chat__input-line {
   display: flex;
 }
-.chat .chat__input-line .input-line__form {
-  width: 100%;
-}
-.chat .chat__input-line .input-line__form input.form__message {
+.chat .chat__input-line input.form__message {
   width: 100%;
 }
 .chat .chat__input-line button.buttons-section__send {

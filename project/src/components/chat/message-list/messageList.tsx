@@ -22,11 +22,14 @@ function MessageList(): JSX.Element {
 
   return (
     <div className="chat__message-list">
-      {messageList.map((document)=> (
+      {messageList.map((document) => (
         <div key={document.id as string} className="message self-message">
-          <img src={document.profilePicture as string} alt="message avatar" className="message__avatar" />
-          <div className="message__user-name">{document.username}</div>
-          <div className="message__text">{document.message}</div>
+          <img src={document.profilePicture} alt="avatar" className="message__avatar" />
+          <div className="message__body">
+            <div className="body__user-name">{document.username}</div>
+            <div className="body__text">{document.message}</div>
+          </div>
+
         </div>
       ))}
     </div>
