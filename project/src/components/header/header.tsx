@@ -21,7 +21,6 @@ function Header(): JSX.Element {
       if (user.photoURL && user.displayName) {
         setUserInfo(user);
         dispatch(setUser(user));
-        console.log('user dispatched');
       }
     });
   };
