@@ -33,6 +33,7 @@ body{
   height: 100vh;
 }
 .wrapper {
+  overflow: auto;
   max-width: 90%;
   margin: 0 5% 0 5%;
 }
@@ -94,6 +95,7 @@ body{
   }
 }
 .chat{
+  overflow: auto;
   display: flex;
   flex-direction: column;
   justify-self: flex-start;
@@ -103,14 +105,6 @@ body{
   background-color: #CCCCCC;
   .chat__message-list{
     overflow: auto;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-
-    width: 100%;
-    height: 100%;
-
     background-color: $bgColor;
     .message{
       display: flex;

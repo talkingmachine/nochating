@@ -1,12 +1,12 @@
 import { collection,DocumentData,onSnapshot, orderBy, query } from 'firebase/firestore';
 import { useContext, useEffect, useState } from 'react';
 import { GContext } from '../../..';
-import { useAppSelector } from '../../../hooks/useStoreSelectors';
+//import { useAppSelector } from '../../../hooks/useStoreSelectors';
 
 function MessageList(): JSX.Element {
   const {database} = useContext(GContext);
   const [messageList, setMessageList] = useState<DocumentData[]>([]);
-  const user = useAppSelector((state) => state.user);
+  //const user = useAppSelector((state) => state.user);
 
   useEffect(() => {
     const q = query(collection(database, 'messages'), orderBy('createdAt'));
@@ -21,18 +21,18 @@ function MessageList(): JSX.Element {
   }, [database]);
 
   return (
-    <div className="chat__message-list">
+    <ul className="chat__message-list">
       {messageList.map((document) => (
-        <div key={document.id as string} className="message self-message">
-          <img src={document.profilePicture} alt="avatar" className="message__avatar" />
+        <li key={document.id as string} className="message self-message">
+          <img src={document.profilePicture as string} alt="avatar" className="message__avatar" />
           <div className="message__body">
             <div className="body__user-name">{document.username}</div>
             <div className="body__text">{document.message}</div>
           </div>
 
-        </div>
+        </li>
       ))}
-    </div>
+    </ul>
   );
 }
 
