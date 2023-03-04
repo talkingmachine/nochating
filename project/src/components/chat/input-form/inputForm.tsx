@@ -1,5 +1,5 @@
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
-import { memo, useContext, useRef, FocusEvent } from 'react';
+import { useContext, useRef, FocusEvent } from 'react';
 import { GContext } from '../../..';
 import { useAppSelector } from '../../../hooks/useStoreSelectors';
 
@@ -38,7 +38,7 @@ function InputForm(): JSX.Element {
       input.current.value = '';
     }
   };
-  //-------------EventListenerExpr---
+  //-------------EventListeners---
   const enterClickHandler = (e: KeyboardEvent) => {
     if (e.key === 'Enter') {
       sendMessageClickHandler();
@@ -53,4 +53,4 @@ function InputForm(): JSX.Element {
   );
 }
 
-export default memo(InputForm);
+export default InputForm;

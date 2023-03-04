@@ -1,4 +1,4 @@
-import Chat from '../chat/chat';
+import Rooms from '../../pages/rooms/rooms';
 import Header from '../header/header';
 
 function App(): JSX.Element {
@@ -8,7 +8,7 @@ function App(): JSX.Element {
       <Header/>
       <aside className="sidebar">
       </aside>
-      <Chat/>
+      <Rooms/>
     </>
   );
 }

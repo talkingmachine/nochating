@@ -1,6 +1,7 @@
 import { memo, } from 'react';
-import InputForm from './input-form/inputForm';
-import MessageList from './message-list/messageList';
+import InputForm from '../../components/chat/input-form/inputForm';
+import MessageList from '../../components/chat/message-list/messageList';
+
 
 function Chat(): JSX.Element {
   return (

@@ -14,7 +14,6 @@ function MessageList(): JSX.Element {
       const currentList: DocumentData[] = [];
       querySnapshot.forEach((doc) => {
         currentList.push({...doc.data(), id: doc.id});
-        //console.log({...doc.data(), id: doc.id});
       });
       setMessageList(currentList);
     });
@@ -29,7 +28,6 @@ function MessageList(): JSX.Element {
             <div className="body__user-name">{document.username}</div>
             <div className="body__text">{document.message}</div>
           </div>
-
         </li>
       ))}
     </ul>

@@ -105,6 +105,10 @@ body{
   background-color: #CCCCCC;
   .chat__message-list{
     overflow: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 100%;
     background-color: $bgColor;
     .message{
       display: flex;
