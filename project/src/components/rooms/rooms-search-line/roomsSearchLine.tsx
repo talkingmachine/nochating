@@ -15,6 +15,7 @@ function RoomsSearchLine(): JSX.Element {
     e.target.removeEventListener('keydown', enterClickHandler);
   };
   //-------------Actions---
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   const searchClickHandler = () => {
   };
   //-------------EventListeners---
@@ -27,7 +28,6 @@ function RoomsSearchLine(): JSX.Element {
   return (
     <div className="rooms__search-line">
       <input onFocus={messageFocusHandler} onBlur={messageBlurHandler} className="search-line__input" ref={input}/>
-      <button onClick={searchClickHandler} className="search-line__button">search</button>
       <button onClick={searchClickHandler} className="search-line__new-room">+new</button>
     </div>
   );

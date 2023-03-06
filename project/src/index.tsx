@@ -1,8 +1,8 @@
 import React, { createContext } from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
-import {initializeApp} from 'firebase/app';
-import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import { initializeApp } from 'firebase/app';
+import { getAuth, signInWithRedirect, GoogleAuthProvider } from 'firebase/auth';
 import { ContextType } from './types/Context';
 import { getFirestore } from 'firebase/firestore';
 import { Provider } from 'react-redux';
@@ -26,7 +26,7 @@ const app = initializeApp(firebaseConfig);
 const database = getFirestore(app);
 const auth = getAuth(app);
 
-const signIn = () => signInWithPopup(auth, provider);
+const signIn = () => signInWithRedirect(auth, provider);
 //.catch((error) => {
 //const errorCode = error.code;
 //const errorMessage = error.message;

@@ -153,4 +153,81 @@ body {
   margin: 0 5px 0 5px;
 }
 
+.rooms {
+  padding-top: 50px;
+}
+.rooms .rooms__search-line {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 20px;
+  font-size: 21px;
+}
+.rooms .rooms__search-line input.search-line__input {
+  width: 100%;
+  background-color: black;
+  border: 1px solid rgba(204, 204, 204, 0.5019607843);
+  color: #CCCCCC;
+  outline: none;
+  padding-left: 5px;
+}
+.rooms .rooms__search-line button.search-line__new-room {
+  width: 100px;
+  margin-left: 10px;
+  border: 1px solid rgba(204, 204, 204, 0.5019607843);
+  color: #CCCCCC;
+  font-size: 19px;
+}
+.rooms ul.rooms__list li.list__room {
+  border: 1px solid rgba(204, 204, 204, 0.5019607843);
+  margin-bottom: 15px;
+}
+.rooms ul.rooms__list li.list__room .room__top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+}
+.rooms ul.rooms__list li.list__room .room__top-row .top-row__room-header {
+  font-size: 21px;
+  padding-left: 6px;
+}
+.rooms ul.rooms__list li.list__room .room__top-row .top-row__star {
+  height: 30px;
+  width: 30px;
+}
+.rooms ul.rooms__list li.list__room .room__middle-row {
+  display: flex;
+  padding: 0 15px 15px 15px;
+}
+.rooms ul.rooms__list li.list__room .room__middle-row img {
+  max-width: 220px;
+  max-height: 140px;
+  border: 1px solid rgba(204, 204, 204, 0.5019607843);
+  border-radius: 5px;
+  padding: 5px;
+  margin-right: 20px;
+}
+.rooms ul.rooms__list li.list__room .room__middle-row .room__users-list {
+  display: flex;
+  align-items: end;
+}
+.rooms ul.rooms__list li.list__room .room__middle-row .room__users-list .users-list__item {
+  height: 80px;
+  width: 80px;
+  padding: 4px;
+  margin-right: 10px;
+}
+.rooms ul.rooms__list li.list__room .room__middle-row .room__users-list .users-list__item img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: 50% 50%;
+}
+.rooms ul.rooms__list li.list__room .room__middle-row .room__join {
+  align-self: end;
+  margin-left: auto;
+  font-size: 20px;
+  color: #CCCCCC;
+}
+
 /*# sourceMappingURL=index.css.map */
