@@ -181,6 +181,25 @@ body{
       font-size: 19px;
     }
   }
+  .room__new-room{
+    border: 1px solid $borderColor;
+    margin-bottom: 15px;
+    padding: 15px;
+    display: flex;
+    form.new-room__form{
+      display: flex;
+      input.form__picture{
+        width: 220px;
+        height: 140px;
+        border: 1px solid $borderColor;
+      }
+      .form__wrapper{
+        display: flex;
+        flex-direction: column;
+      }
+    }
+
+  }
   ul.rooms__list{
     li.list__room{
       border: 1px solid $borderColor;

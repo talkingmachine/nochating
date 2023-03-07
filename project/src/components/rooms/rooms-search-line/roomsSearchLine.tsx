@@ -1,4 +1,5 @@
 import { useRef, FocusEvent } from 'react';
+import NewRoom from '../new-room/newRoom';
 
 
 function RoomsSearchLine(): JSX.Element {
@@ -26,10 +27,13 @@ function RoomsSearchLine(): JSX.Element {
   };
 
   return (
-    <div className="rooms__search-line">
-      <input onFocus={messageFocusHandler} onBlur={messageBlurHandler} className="search-line__input" ref={input}/>
-      <button onClick={searchClickHandler} className="search-line__new-room">+new</button>
-    </div>
+    <>
+      <div className="rooms__search-line">
+        <input onFocus={messageFocusHandler} onBlur={messageBlurHandler} className="search-line__input" ref={input}/>
+        <button onClick={searchClickHandler} className="search-line__new-room">+new</button>
+      </div>
+      <NewRoom/>
+    </>
   );
 }
 

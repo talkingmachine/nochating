@@ -177,6 +177,24 @@ body {
   color: #CCCCCC;
   font-size: 19px;
 }
+.rooms .room__new-room {
+  border: 1px solid rgba(204, 204, 204, 0.5019607843);
+  margin-bottom: 15px;
+  padding: 15px;
+  display: flex;
+}
+.rooms .room__new-room form.new-room__form {
+  display: flex;
+}
+.rooms .room__new-room form.new-room__form input.form__picture {
+  width: 220px;
+  height: 140px;
+  border: 1px solid rgba(204, 204, 204, 0.5019607843);
+}
+.rooms .room__new-room form.new-room__form .form__wrapper {
+  display: flex;
+  flex-direction: column;
+}
 .rooms ul.rooms__list li.list__room {
   border: 1px solid rgba(204, 204, 204, 0.5019607843);
   margin-bottom: 15px;
