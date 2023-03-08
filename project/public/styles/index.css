@@ -161,6 +161,7 @@ body {
   flex-direction: row;
   margin-bottom: 20px;
   font-size: 21px;
+  width: 97%;
 }
 .rooms .rooms__search-line input.search-line__input {
   width: 100%;
@@ -178,6 +179,7 @@ body {
   font-size: 19px;
 }
 .rooms .room__new-room {
+  max-width: 50vw;
   border: 1px solid rgba(204, 204, 204, 0.5019607843);
   margin-bottom: 15px;
   padding: 15px;
@@ -194,10 +196,45 @@ body {
 .rooms .room__new-room form.new-room__form .form__wrapper {
   display: flex;
   flex-direction: column;
+  margin: 6px 0 0 6px;
+}
+.rooms .room__new-room form.new-room__form .form__wrapper .form__title {
+  display: flex;
+  align-items: center;
+  margin-bottom: 6px;
+}
+.rooms .room__new-room form.new-room__form .form__wrapper .form__title input {
+  width: 100%;
+  background-color: black;
+  border: 1px solid rgba(204, 204, 204, 0.5019607843);
+  color: #CCCCCC;
+  outline: none;
+  padding-left: 5px;
+  margin-left: 6px;
+}
+.rooms .room__new-room form.new-room__form .form__wrapper .form__password {
+  display: flex;
+  align-items: center;
+}
+.rooms .room__new-room form.new-room__form .form__wrapper .form__password input {
+  width: 100%;
+  background-color: black;
+  border: 1px solid rgba(204, 204, 204, 0.5019607843);
+  color: #CCCCCC;
+  outline: none;
+  padding-left: 5px;
+  margin-left: 6px;
+}
+.rooms .room__new-room button.new-room__accept {
+  align-self: end;
+  margin-left: auto;
+  font-size: 20px;
+  color: #CCCCCC;
 }
 .rooms ul.rooms__list li.list__room {
   border: 1px solid rgba(204, 204, 204, 0.5019607843);
   margin-bottom: 15px;
+  width: 97%;
 }
 .rooms ul.rooms__list li.list__room .room__top-row {
   display: flex;

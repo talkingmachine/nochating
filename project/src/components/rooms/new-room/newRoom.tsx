@@ -1,20 +1,23 @@
 import { memo } from 'react';
 
 function NewRoom(): JSX.Element {
+
   return (
     <div className="room__new-room">
-      <form className="new-room__form">
+      <form className="new-room__form" autoComplete='Off'>
         <input type="image" alt ="insert picture" className="form__picture" />
         <div className="form__wrapper">
-          <label>
-            <input type="text" className="form__title" />
+          <label className="form__title" >
+            <svg width={24} height={24} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.8 19.5514H19.8M4.20007 19.5514L8.56606 18.6717C8.79784 18.625 9.01065 18.5109 9.17779 18.3437L18.9515 8.56461C19.4201 8.09576 19.4197 7.33577 18.9508 6.86731L16.8803 4.79923C16.4115 4.33097 15.6519 4.33129 15.1835 4.79995L5.40884 14.58C5.24202 14.7469 5.12812 14.9593 5.08138 15.1906L4.20007 19.5514Z" stroke="white" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" /></svg>
+            <input type="text" autoComplete="off" />
           </label>
-          <label>
-            <input type="password" className="form__password" placeholder="Password:"/>
+          <label className="form__password">
+            <svg width={24} height={24} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.60005 8.7999V7.88562C6.60005 4.84671 9.00862 2.3999 12 2.3999C14.9915 2.3999 17.4001 4.84671 17.4001 7.88562V8.7999M6.60005 8.7999C5.61005 8.7999 4.80005 9.62276 4.80005 10.6285V19.7713C4.80005 20.777 5.61005 21.5999 6.60005 21.5999H17.4001C18.3901 21.5999 19.2001 20.777 19.2001 19.7713V10.6285C19.2001 9.62276 18.3901 8.7999 17.4001 8.7999M6.60005 8.7999H17.4001M12 16.1999V13.7999" stroke="white" strokeWidth={2} strokeLinecap="round" /></svg>
+            <input type="password" placeholder="Password:" autoComplete="off"/>
           </label>
         </div>
       </form>
-      <button className="new-room__accept"><u>Accept</u></button>
+      <button className="new-room__accept"><u>Create</u></button>
     </div>
   );
 }
