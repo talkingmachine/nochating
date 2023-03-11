@@ -16,6 +16,7 @@ function Header(): JSX.Element {
       const user: UserType = {
         displayName: result.user.displayName ? result.user.displayName : USER_INFO.displayName,
         photoURL: result.user.photoURL ? result.user.photoURL : USER_INFO.photoURL,
+        uid: result.user.photoURL ? result.user.uid : USER_INFO.uid,
       };
       if (user.photoURL && user.displayName) {
         setUserInfo(user);

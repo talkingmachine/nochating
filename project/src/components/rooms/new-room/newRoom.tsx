@@ -1,6 +1,45 @@
-import { memo } from 'react';
+import { addDoc, collection, doc, serverTimestamp, setDoc } from 'firebase/firestore';
+import { nanoid } from 'nanoid';
+import { memo, useContext } from 'react';
+import { GContext } from '../../..';
+import { useAppSelector } from '../../../hooks/useStoreSelectors';
 
 function NewRoom(): JSX.Element {
+
+  const {database} = useContext(GContext);
+  const user = useAppSelector((state) => state.user);
+
+  const addRoom = async (chatId:string) => {
+    try {
+      await addDoc(collection(database, 'rooms'), {
+        title: 'title',
+        password: '12345',
+        picture : '/image.jpg',
+        owner: user.uid,
+        chatId: chatId,
+        createdAt: serverTimestamp(),
+      });
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.warn('Error adding room: ', e);
+    }
+  };
+
+  const addChat = async (chatId: string) => {
+    try {
+      await setDoc(doc(database, 'chats', chatId), {});
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.warn('Error adding message: ', e);
+    }
+  };
+
+
+  const newRoomCreateHandler = () => {
+    const currentRoomId = nanoid();
+    addRoom(currentRoomId);
+    addChat(currentRoomId); // TODO - add toast if success
+  };
 
   return (
     <div className="room__new-room">
@@ -17,7 +56,7 @@ function NewRoom(): JSX.Element {
           </label>
         </div>
       </form>
-      <button className="new-room__accept"><u>Create</u></button>
+      <button onClick={newRoomCreateHandler} className="new-room__accept"><u>Create</u></button>
     </div>
   );
 }

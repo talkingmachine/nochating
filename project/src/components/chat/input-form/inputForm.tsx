@@ -11,7 +11,7 @@ function InputForm(): JSX.Element {
 
   const sendMessage = async (message:string) => {
     try {
-      await addDoc(collection(database, 'messages'), {
+      await addDoc(collection(database, 'chat/123', 'messages'), { // TODO change 123
         username: user.displayName,
         email: 'test-email',
         profilePicture : user.photoURL,
@@ -20,7 +20,7 @@ function InputForm(): JSX.Element {
       });
     } catch (e) {
       // eslint-disable-next-line no-console
-      console.warn('Error adding document: ', e);
+      console.warn('Error adding message: ', e);
     }
   };
 
