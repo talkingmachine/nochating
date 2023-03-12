@@ -9,6 +9,7 @@ function MessageList(): JSX.Element {
   //const user = useAppSelector((state) => state.user);
 
   useEffect(() => {
+    //console.log('obserwed');
     const q = query(collection(database, 'messages'), orderBy('createdAt'));
     onSnapshot(q, (querySnapshot) => { //const unsubscribe =
       const currentList: DocumentData[] = [];
@@ -17,6 +18,7 @@ function MessageList(): JSX.Element {
       });
       setMessageList(currentList);
     });
+    //return console.log('returnned');
   }, [database]);
 
   return (
