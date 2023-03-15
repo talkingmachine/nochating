@@ -1,6 +1,6 @@
 import { addDoc, collection, doc, serverTimestamp, setDoc } from 'firebase/firestore';
 import { nanoid } from 'nanoid';
-import { memo, useContext, useState } from 'react';
+import { FormEvent, memo, useContext, useState } from 'react';
 import { GContext } from '../../..';
 import { useAppSelector } from '../../../hooks/useStoreSelectors';
 
@@ -11,14 +11,18 @@ function NewRoom(): JSX.Element {
   type FormDataType = {
     [field: string]: string;
   }
-  const [formData, setFormData] = useState<FormDataType>();
+  const [formData, setFormData] = useState<FormDataType>({
+    title: '',
+    picture : '/image.jpg', // TODO Mockpicture add
+    password: ''
+  });
 
   const addRoom = async (chatId:string) => {
     try {
       await addDoc(collection(database, 'rooms'), {
-        title: 'title',
-        password: '12345',
-        picture : '/image.jpg',
+        title: formData.title,
+        password: formData.password,
+        picture : formData.picture,
         owner: user.uid,
         chatId: chatId,
         createdAt: serverTimestamp(),
@@ -38,8 +42,9 @@ function NewRoom(): JSX.Element {
     }
   };
 
-  const titleChangeHandler = () => {
-    setFormData({...formData, title: formData?.title});
+  const titleChangeHandler = (e: FormEvent<HTMLInputElement>) => {
+    const {value} = e.target as HTMLInputElement;
+    setFormData({...formData, title: value});
   };
 
   const newRoomCreateHandler = () => {

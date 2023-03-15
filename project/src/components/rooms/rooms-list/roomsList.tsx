@@ -2,11 +2,14 @@ import { collection, DocumentData, onSnapshot, orderBy, query } from 'firebase/f
 import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { GContext } from '../../..';
+import { useAppDispatch } from '../../../hooks/useStoreSelectors';
+import { setCurrentChatId } from '../../../store/actions';
 
 function RoomsList(): JSX.Element {
 
   const {database} = useContext(GContext);
   const [roomsList, setRoomsList] = useState<DocumentData[]>([]);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const q = query(collection(database, 'rooms'), orderBy('createdAt'));
@@ -18,6 +21,10 @@ function RoomsList(): JSX.Element {
       setRoomsList(currentList);
     });
   }, [database]);
+
+  const joinClickHandler = (chatId: string) => {
+    dispatch(setCurrentChatId(chatId));
+  };
 
   return (
     <ul className="rooms__list">
@@ -39,7 +46,7 @@ function RoomsList(): JSX.Element {
                 <img src="img/user-avatar1.jpg" alt="user avatar" />
               </li>
             </ul>
-            <Link to="/chat" className="room__join"><u>Join</u>-&#62;</Link>
+            <Link to="/chat" onClick={() => joinClickHandler(document.chatId as string)} className="room__join"><u>Join</u>-&#62;</Link>
           </div>
         </li>
       ))}

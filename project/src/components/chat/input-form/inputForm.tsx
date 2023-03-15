@@ -6,12 +6,13 @@ import { useAppSelector } from '../../../hooks/useStoreSelectors';
 function InputForm(): JSX.Element {
 
   const {database} = useContext(GContext);
+  const chatId = useAppSelector((state) => state.currentChatId);
   const input = useRef<HTMLInputElement>(null);
   const user = useAppSelector((state) => state.user);
 
   const sendMessage = async (message:string) => {
     try {
-      await addDoc(collection(database, 'chat/123', 'messages'), { // TODO change 123
+      await addDoc(collection(database, `chats/${chatId}`, 'messages'), { // TODO change 123
         username: user.displayName,
         email: 'test-email',
         profilePicture : user.photoURL,

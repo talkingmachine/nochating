@@ -1,16 +1,16 @@
 import { collection,DocumentData,onSnapshot, orderBy, query } from 'firebase/firestore';
 import { useContext, useEffect, useState } from 'react';
 import { GContext } from '../../..';
-//import { useAppSelector } from '../../../hooks/useStoreSelectors';
+import { useAppSelector } from '../../../hooks/useStoreSelectors';
+
 
 function MessageList(): JSX.Element {
   const {database} = useContext(GContext);
+  const chatId = useAppSelector((state) => state.currentChatId);
   const [messageList, setMessageList] = useState<DocumentData[]>([]);
-  //const user = useAppSelector((state) => state.user);
 
   useEffect(() => {
-    //console.log('obserwed');
-    const q = query(collection(database, 'messages'), orderBy('createdAt'));
+    const q = query(collection(database, `chats/${chatId}`, 'messages'), orderBy('createdAt'));
     onSnapshot(q, (querySnapshot) => { //const unsubscribe =
       const currentList: DocumentData[] = [];
       querySnapshot.forEach((doc) => {
@@ -18,8 +18,8 @@ function MessageList(): JSX.Element {
       });
       setMessageList(currentList);
     });
-    //return console.log('returnned');
-  }, [database]);
+    //return console.log('returned');
+  }, [chatId, database]);
 
   return (
     <ul className="chat__message-list">
