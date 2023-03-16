@@ -1,4 +1,4 @@
-import { useRef, FocusEvent } from 'react';
+import { useRef, FocusEvent, useState } from 'react';
 import NewRoom from '../new-room/newRoom';
 
 
@@ -6,6 +6,7 @@ function RoomsSearchLine(): JSX.Element {
 
 
   const input = useRef<HTMLInputElement>(null);
+  const [isShown, setIsShown] = useState<boolean>(false);
 
 
   //-------------Handleres---
@@ -17,12 +18,13 @@ function RoomsSearchLine(): JSX.Element {
   };
   //-------------Actions---
   // eslint-disable-next-line @typescript-eslint/no-empty-function
-  const searchClickHandler = () => {
+  const showNewRoomToggle = () => {
+    setIsShown((prev) => !prev);
   };
   //-------------EventListeners---
   const enterClickHandler = (e: KeyboardEvent) => {
     if (e.key === 'Enter') {
-      searchClickHandler();
+      showNewRoomToggle();
     }
   };
 
@@ -30,9 +32,9 @@ function RoomsSearchLine(): JSX.Element {
     <>
       <div className="rooms__search-line">
         <input onFocus={messageFocusHandler} onBlur={messageBlurHandler} className="search-line__input" ref={input}/>
-        <button onClick={searchClickHandler} className="search-line__new-room">+new</button>
+        <button onClick={showNewRoomToggle} className="search-line__new-room">+new</button>
       </div>
-      <NewRoom/>
+      {isShown ? <NewRoom/> : false}
     </>
   );
 }
