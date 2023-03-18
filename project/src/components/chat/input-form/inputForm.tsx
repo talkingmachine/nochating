@@ -12,7 +12,7 @@ function InputForm(): JSX.Element {
 
   const sendMessage = async (message:string) => {
     try {
-      await addDoc(collection(database, `chats/${chatId}`, 'messages'), { // TODO change 123
+      await addDoc(collection(database, `chats/${chatId}`, 'messages'), {
         username: user.displayName,
         email: 'test-email',
         profilePicture : user.photoURL,

@@ -1,14 +1,16 @@
 import { collection, DocumentData, onSnapshot, orderBy, query } from 'firebase/firestore';
 import { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { GContext } from '../../..';
 import { useAppDispatch } from '../../../hooks/useStoreSelectors';
 import { setCurrentChatId } from '../../../store/actions';
+import PasswordInput from './passwordPlate/passwordPlate';
 
 function RoomsList(): JSX.Element {
 
   const {database} = useContext(GContext);
   const [roomsList, setRoomsList] = useState<DocumentData[]>([]);
+  const [isPasswordPlateOpened, setIsPasswordPlateOpened] = useState<boolean>(false);
+
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -24,6 +26,7 @@ function RoomsList(): JSX.Element {
 
   const joinClickHandler = (chatId: string) => {
     dispatch(setCurrentChatId(chatId));
+    setIsPasswordPlateOpened(true);
   };
 
   return (
@@ -46,8 +49,9 @@ function RoomsList(): JSX.Element {
                 <img src="img/user-avatar1.jpg" alt="user avatar" />
               </li>
             </ul>
-            <Link to="/chat" onClick={() => joinClickHandler(document.chatId as string)} className="room__join"><u>Join</u>-&#62;</Link>
+            <button onClick={() => joinClickHandler(document.chatId as string)} className="room__join"><u>Join</u>-&#62;</button>
           </div>
+          {isPasswordPlateOpened ? <PasswordInput setIsPasswordPlateOpened={setIsPasswordPlateOpened} password={document.password as string}/> : null}
         </li>
       ))}
     </ul>

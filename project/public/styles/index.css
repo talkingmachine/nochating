@@ -20,6 +20,15 @@
   background: rgba(204, 204, 204, 0.5019607843);
 }
 
+.defaultInput, .rooms .password-plate .password-plate__input, .rooms .room__new-room form.new-room__form .form__wrapper .form__password input, .rooms .room__new-room form.new-room__form .form__wrapper .form__title input {
+  background-color: black;
+  border: 1px solid rgba(204, 204, 204, 0.5019607843);
+  border-right: black;
+  border-left: black;
+  color: #CCCCCC;
+  outline: none;
+}
+
 body {
   font-family: Lucida-Console, sans-serif;
   color: #CCCCCC;
@@ -205,10 +214,6 @@ body {
 }
 .rooms .room__new-room form.new-room__form .form__wrapper .form__title input {
   width: 100%;
-  background-color: black;
-  border: 1px solid rgba(204, 204, 204, 0.5019607843);
-  color: #CCCCCC;
-  outline: none;
   padding-left: 5px;
   margin-left: 6px;
 }
@@ -218,10 +223,6 @@ body {
 }
 .rooms .room__new-room form.new-room__form .form__wrapper .form__password input {
   width: 100%;
-  background-color: black;
-  border: 1px solid rgba(204, 204, 204, 0.5019607843);
-  color: #CCCCCC;
-  outline: none;
   padding-left: 5px;
   margin-left: 6px;
 }
@@ -229,6 +230,25 @@ body {
   align-self: end;
   margin-left: auto;
   font-size: 20px;
+  color: #CCCCCC;
+}
+.rooms .password-plate {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  width: 500px;
+  padding: 15px;
+  margin-left: -250px;
+  border: 1px solid rgba(204, 204, 204, 0.5019607843);
+}
+.rooms .password-plate button.exit {
+  position: absolute;
+  top: -5px;
+  right: 10px;
+}
+.rooms .password-plate .password-plate__join {
   color: #CCCCCC;
 }
 .rooms ul.rooms__list li.list__room {

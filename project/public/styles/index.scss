@@ -22,6 +22,14 @@ $imageBorderColor: #CCCCCC;
   background: $borderColor;
 }
 
+.defaultInput{
+  background-color: $bgColor;
+  border: 1px solid $borderColor;
+  border-right: black;
+  border-left: black;
+  color: $fontColorLight;
+  outline: none;
+}
 
 body{
   font-family: Lucida-Console, sans-serif;
@@ -205,10 +213,7 @@ body{
           margin-bottom: 6px;
           input{
             width: 100%;
-            background-color: $bgColor;
-            border: 1px solid $borderColor;
-            color: $fontColorLight;
-            outline: none;
+            @extend .defaultInput;
             padding-left: 5px;
             margin-left: 6px;
           }
@@ -218,10 +223,7 @@ body{
           align-items: center;
           input{
             width: 100%;
-            background-color: $bgColor;
-            border: 1px solid $borderColor;
-            color: $fontColorLight;
-            outline: none;
+            @extend .defaultInput;
             padding-left: 5px;
             margin-left: 6px;
           }
@@ -235,6 +237,29 @@ body{
       color: $fontColorLight;
     }
 
+  }
+  .password-plate{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    width: 500px;
+    padding: 15px;
+    margin-left: -250px;
+
+    border: 1px solid $borderColor;
+    button.exit{
+      position: absolute;
+      top: -5px;
+      right: 10px;
+    }
+    .password-plate__input{
+      @extend .defaultInput;
+    }
+    .password-plate__join{
+      color: $fontColorLight;
+    }
   }
   ul.rooms__list{
     li.list__room{
