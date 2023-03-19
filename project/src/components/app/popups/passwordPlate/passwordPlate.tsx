@@ -6,7 +6,10 @@ import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../../hooks/useStoreSelectors';
 import { setCurrentRoomIsPasswordPlateOpened } from '../../../../store/actions';
 
-function PasswordPlate(): JSX.Element {
+type PasswordPlateProps = {
+  backgroundRef: React.RefObject<HTMLDivElement>;
+}
+function PasswordPlate({backgroundRef}: PasswordPlateProps): JSX.Element {
 
   const passwordInput = useRef<HTMLInputElement>(null);
   const passwordPlate = useRef<HTMLElement>(null);
@@ -24,7 +27,7 @@ function PasswordPlate(): JSX.Element {
       }
     };
     const removePasswordPlateClick = (e: MouseEvent) => {
-      if (passwordPlate.current && !passwordPlate.current.contains(e.target as HTMLElement) && !passwordPlate.current.style.visibility === true) { // click outside the plate
+      if (backgroundRef.current && e.target === backgroundRef.current) { // click outside the plate
         window.removeEventListener('keydown', removePasswordPlateWhenEsc);
         window.removeEventListener('click', removePasswordPlateClick);
         dispatch(setCurrentRoomIsPasswordPlateOpened(false));
@@ -33,14 +36,16 @@ function PasswordPlate(): JSX.Element {
 
     if (isPasswordPlateOpened) {
       window.addEventListener('keydown', removePasswordPlateWhenEsc);
-      setTimeout(() => window.addEventListener('click', removePasswordPlateClick), 10); // otherwise closes immediately
+      window.addEventListener('click', removePasswordPlateClick); // otherwise closes immediately
     }
     if (!isPasswordPlateOpened) {
       window.removeEventListener('click', removePasswordPlateClick);
       window.removeEventListener('keydown', removePasswordPlateWhenEsc);
-
+      if (passwordInput.current) {
+        passwordInput.current.value = '';
+      }
     }
-  }, [dispatch, isPasswordPlateOpened]);
+  }, [backgroundRef, dispatch, isPasswordPlateOpened]);
 
   const exitButtonHandler = () => {
     dispatch(setCurrentRoomIsPasswordPlateOpened(false));
@@ -48,6 +53,7 @@ function PasswordPlate(): JSX.Element {
 
   const joinClickHandler = () => {
     if (passwordInput.current && passwordInput.current.value === password) {
+      dispatch(setCurrentRoomIsPasswordPlateOpened(false));
       navigate('/chat');
     }
   };
@@ -58,7 +64,7 @@ function PasswordPlate(): JSX.Element {
       <button onClick={exitButtonHandler} className="exit">
         <svg width={24} height={24} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 6L6 18M18 18L6 6" stroke="#CCCCCC" strokeWidth={2} strokeLinecap="round" /></svg>
       </button>
-      <input type="text" className="password-plate__Plate" placeholder='Password:' ref={passwordInput}/>
+      <input type="text" className="password-plate__input" placeholder='Password:' ref={passwordInput}/>
       <button onClick={joinClickHandler} className="password-plate__join"><u>Join us</u></button>
     </article>
   );

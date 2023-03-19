@@ -20,7 +20,7 @@
   background: rgba(204, 204, 204, 0.5019607843);
 }
 
-.defaultInput, .rooms .room__new-room form.new-room__form .form__wrapper .form__password input, .rooms .room__new-room form.new-room__form .form__wrapper .form__title input, .popups .password-plate .password-plate__input {
+.defaultInput, .rooms .room__new-room form.new-room__form .form__wrapper .form__password input, .rooms .room__new-room form.new-room__form .form__wrapper .form__title input, .chat .chat__input-line input.form__message, .popups .password-plate .password-plate__input, .popups .password-plate input.password-plate__input {
   background-color: black;
   border: 1px solid rgba(204, 204, 204, 0.5019607843);
   border-right: black;

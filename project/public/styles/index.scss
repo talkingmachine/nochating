@@ -65,6 +65,9 @@ body{
 
     border: 1px solid $borderColor;
     background: black;
+    input.password-plate__input{
+      @extend .defaultInput;
+    }
     button.exit{
       position: absolute;
       top: -5px;
@@ -196,6 +199,7 @@ body{
     display: flex;
     input.form__message{
       width: 100%;
+      @extend .defaultInput;
     }
     button.buttons-section__send{
       margin: 0 5px 0 5px;
