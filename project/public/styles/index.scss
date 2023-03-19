@@ -45,6 +45,43 @@ body{
   max-width: 90%;
   margin: 0 5% 0 5%;
 }
+.popups{
+  position: absolute;
+  background: #00000080;
+  width: 100vw;
+  height: 100vh;
+  .password-plate{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    width: 500px;
+    padding: 15px;
+    margin-left: -250px;
+
+    visibility: hidden;
+    opacity: 0;
+
+    border: 1px solid $borderColor;
+    background: black;
+    button.exit{
+      position: absolute;
+      top: -5px;
+      right: 10px;
+    }
+    .password-plate__input{
+      @extend .defaultInput;
+    }
+    .password-plate__join{
+      color: $fontColorLight;
+    }
+  }
+  .shown{
+    visibility: visible;
+    opacity: 1;
+  }
+}
 .header{
   grid-column-start: 1;
   grid-column-end: 3;
@@ -237,29 +274,6 @@ body{
       color: $fontColorLight;
     }
 
-  }
-  .password-plate{
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    width: 500px;
-    padding: 15px;
-    margin-left: -250px;
-
-    border: 1px solid $borderColor;
-    button.exit{
-      position: absolute;
-      top: -5px;
-      right: 10px;
-    }
-    .password-plate__input{
-      @extend .defaultInput;
-    }
-    .password-plate__join{
-      color: $fontColorLight;
-    }
   }
   ul.rooms__list{
     li.list__room{

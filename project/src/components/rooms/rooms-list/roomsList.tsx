@@ -2,19 +2,17 @@ import { collection, DocumentData, onSnapshot, orderBy, query } from 'firebase/f
 import { useContext, useEffect, useState } from 'react';
 import { GContext } from '../../..';
 import { useAppDispatch } from '../../../hooks/useStoreSelectors';
-import { setCurrentChatId } from '../../../store/actions';
-import PasswordInput from './passwordPlate/passwordPlate';
+import { setCurrentRoomChatId, setCurrentRoomIsPasswordPlateOpened, setCurrentRoomPassword } from '../../../store/actions';
 
 function RoomsList(): JSX.Element {
 
   const {database} = useContext(GContext);
   const [roomsList, setRoomsList] = useState<DocumentData[]>([]);
-  const [isPasswordPlateOpened, setIsPasswordPlateOpened] = useState<boolean>(false);
 
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    const q = query(collection(database, 'rooms'), orderBy('createdAt'));
+    const q = query(collection(database, 'rooms'), orderBy('createdAt', 'desc'));
     onSnapshot(q, (querySnapshot) => { //const unsubscribe =
       const currentList: DocumentData[] = [];
       querySnapshot.forEach((doc) => {
@@ -24,9 +22,10 @@ function RoomsList(): JSX.Element {
     });
   }, [database]);
 
-  const joinClickHandler = (chatId: string) => {
-    dispatch(setCurrentChatId(chatId));
-    setIsPasswordPlateOpened(true);
+  const joinClickHandler = (document: DocumentData) => {
+    dispatch(setCurrentRoomChatId(document.chatId as string));
+    dispatch(setCurrentRoomPassword(document.password as string));
+    dispatch(setCurrentRoomIsPasswordPlateOpened(true));
   };
 
   return (
@@ -49,9 +48,8 @@ function RoomsList(): JSX.Element {
                 <img src="img/user-avatar1.jpg" alt="user avatar" />
               </li>
             </ul>
-            <button onClick={() => joinClickHandler(document.chatId as string)} className="room__join"><u>Join</u>-&#62;</button>
+            <button onClick={() => joinClickHandler(document)} className="room__join"><u>Join</u>-&#62;</button>
           </div>
-          {isPasswordPlateOpened ? <PasswordInput setIsPasswordPlateOpened={setIsPasswordPlateOpened} password={document.password as string}/> : null}
         </li>
       ))}
     </ul>

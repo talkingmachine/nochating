@@ -20,7 +20,7 @@
   background: rgba(204, 204, 204, 0.5019607843);
 }
 
-.defaultInput, .rooms .password-plate .password-plate__input, .rooms .room__new-room form.new-room__form .form__wrapper .form__password input, .rooms .room__new-room form.new-room__form .form__wrapper .form__title input {
+.defaultInput, .rooms .room__new-room form.new-room__form .form__wrapper .form__password input, .rooms .room__new-room form.new-room__form .form__wrapper .form__title input, .popups .password-plate .password-plate__input {
   background-color: black;
   border: 1px solid rgba(204, 204, 204, 0.5019607843);
   border-right: black;
@@ -43,6 +43,39 @@ body {
   overflow: auto;
   max-width: 90%;
   margin: 0 5% 0 5%;
+}
+
+.popups {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.5019607843);
+  width: 100vw;
+  height: 100vh;
+}
+.popups .password-plate {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  width: 500px;
+  padding: 15px;
+  margin-left: -250px;
+  visibility: hidden;
+  opacity: 0;
+  border: 1px solid rgba(204, 204, 204, 0.5019607843);
+  background: black;
+}
+.popups .password-plate button.exit {
+  position: absolute;
+  top: -5px;
+  right: 10px;
+}
+.popups .password-plate .password-plate__join {
+  color: #CCCCCC;
+}
+.popups .shown {
+  visibility: visible;
+  opacity: 1;
 }
 
 .header {
@@ -230,25 +263,6 @@ body {
   align-self: end;
   margin-left: auto;
   font-size: 20px;
-  color: #CCCCCC;
-}
-.rooms .password-plate {
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  width: 500px;
-  padding: 15px;
-  margin-left: -250px;
-  border: 1px solid rgba(204, 204, 204, 0.5019607843);
-}
-.rooms .password-plate button.exit {
-  position: absolute;
-  top: -5px;
-  right: 10px;
-}
-.rooms .password-plate .password-plate__join {
   color: #CCCCCC;
 }
 .rooms ul.rooms__list li.list__room {

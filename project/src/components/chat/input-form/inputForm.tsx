@@ -6,7 +6,7 @@ import { useAppSelector } from '../../../hooks/useStoreSelectors';
 function InputForm(): JSX.Element {
 
   const {database} = useContext(GContext);
-  const chatId = useAppSelector((state) => state.currentChatId);
+  const chatId = useAppSelector((state) => state.currentRoomInfo.chatId);
   const input = useRef<HTMLInputElement>(null);
   const user = useAppSelector((state) => state.user);
 

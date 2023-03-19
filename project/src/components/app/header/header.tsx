@@ -1,9 +1,9 @@
 import { useContext, useState } from 'react';
-import { GContext } from '../..';
-import { USER_INFO } from '../../consts/constUserInfo';
-import { useAppDispatch } from '../../hooks/useStoreSelectors';
-import { setUser } from '../../store/actions';
-import { UserType } from '../../types/User';
+import { GContext } from '../../..';
+import { USER_INFO } from '../../../consts/constUserInfo';
+import { useAppDispatch } from '../../../hooks/useStoreSelectors';
+import { setUser } from '../../../store/actions';
+import { UserType } from '../../../types/User';
 
 function Header(): JSX.Element {
 

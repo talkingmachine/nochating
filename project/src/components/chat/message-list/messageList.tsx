@@ -6,7 +6,7 @@ import { useAppSelector } from '../../../hooks/useStoreSelectors';
 
 function MessageList(): JSX.Element {
   const {database} = useContext(GContext);
-  const chatId = useAppSelector((state) => state.currentChatId);
+  const chatId = useAppSelector((state) => state.currentRoomInfo.chatId);
   const [messageList, setMessageList] = useState<DocumentData[]>([]);
 
   useEffect(() => {
