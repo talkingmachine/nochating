@@ -13,11 +13,13 @@ function Header(): JSX.Element {
   const signInClickHandler = () => {
 
     signIn().then((result) => {
+      console.log('fine');
       const user: UserType = {
         displayName: result.user.displayName ? result.user.displayName : USER_INFO.displayName,
         photoURL: result.user.photoURL ? result.user.photoURL : USER_INFO.photoURL,
         uid: result.user.photoURL ? result.user.uid : USER_INFO.uid,
       };
+      console.log(user);
       if (user.photoURL && user.displayName) {
         setUserInfo(user);
         dispatch(setUser(user));
