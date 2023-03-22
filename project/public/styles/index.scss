@@ -47,7 +47,7 @@ body{
 }
 .popups{
   position: absolute;
-  background: #00000080;
+  background: none;
   width: 100vw;
   height: 100vh;
   .password-plate{
@@ -61,7 +61,6 @@ body{
     margin-left: -250px;
 
     visibility: hidden;
-    opacity: 0;
 
     border: 1px solid $borderColor;
     background: black;
@@ -80,11 +79,25 @@ body{
       color: $fontColorLight;
     }
   }
+
   .shown{
     visibility: visible;
-    opacity: 1;
   }
 }
+.back-blur{
+  background: #00000080;
+}
+.alt-context-menu{
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+
+  padding: 15px;
+
+  border: 1px solid $borderColor;
+  background: black;
+}
+///////////////////////////////////////////////////
 .header{
   grid-column-start: 1;
   grid-column-end: 3;

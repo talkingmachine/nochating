@@ -1,8 +1,8 @@
 import { collection, DocumentData, onSnapshot, orderBy, query } from 'firebase/firestore';
-import { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { GContext } from '../../..';
 import { useAppDispatch } from '../../../hooks/useStoreSelectors';
-import { setCurrentRoomChatId, setCurrentRoomIsPasswordPlateOpened, setCurrentRoomPassword } from '../../../store/actions';
+import { setContextMenuCoords, setContextMenuIsOpen, setCurrentRoomChatId, setCurrentRoomId, setCurrentRoomIsPasswordPlateOpened, setCurrentRoomPassword } from '../../../store/actions';
 
 function RoomsList(): JSX.Element {
 
@@ -28,10 +28,20 @@ function RoomsList(): JSX.Element {
     dispatch(setCurrentRoomIsPasswordPlateOpened(true));
   };
 
+  const RMCHandler = (e: React.MouseEvent<HTMLLIElement, MouseEvent>, document: DocumentData) => {
+    e.preventDefault();
+    dispatch(setCurrentRoomId(document.id as string));
+    dispatch(setContextMenuCoords({
+      x: e.clientX,
+      y: e.clientY
+    }));
+    dispatch(setContextMenuIsOpen(true));
+  };
+
   return (
     <ul className="rooms__list">
       {roomsList.map((document) => (
-        <li key={document.id as string} className="list__room">
+        <li key={document.id as string} onContextMenu={(e) => RMCHandler(e, document)} className="list__room">
           <div className="room__top-row">
             <div className="top-row__room-header">{document.title}</div>
             <button className="top-row__star">

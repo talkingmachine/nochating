@@ -47,7 +47,7 @@ body {
 
 .popups {
   position: absolute;
-  background: rgba(0, 0, 0, 0.5019607843);
+  background: none;
   width: 100vw;
   height: 100vh;
 }
@@ -61,7 +61,6 @@ body {
   padding: 15px;
   margin-left: -250px;
   visibility: hidden;
-  opacity: 0;
   border: 1px solid rgba(204, 204, 204, 0.5019607843);
   background: black;
 }
@@ -75,7 +74,19 @@ body {
 }
 .popups .shown {
   visibility: visible;
-  opacity: 1;
+}
+
+.back-blur {
+  background: rgba(0, 0, 0, 0.5019607843);
+}
+
+.alt-context-menu {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  padding: 15px;
+  border: 1px solid rgba(204, 204, 204, 0.5019607843);
+  background: black;
 }
 
 .header {
