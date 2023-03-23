@@ -1,6 +1,7 @@
 import { createAction } from '@reduxjs/toolkit';
 import { UserType } from '../types/User';
 
+
 export const setUser = createAction<UserType>('setUser');
 
 export const setCurrentRoomChatId = createAction<string>('setCurrentRoomChatId');
@@ -11,3 +12,5 @@ export const setCurrentRoomIsPasswordPlateOpened = createAction<boolean>('setCur
 export const setContextMenuIsOpen = createAction<boolean>('setContextMenuIsOpen');
 export const setContextMenuType = createAction<string>('setContextMenuType');
 export const setContextMenuCoords = createAction<{x: number; y: number}>('setContextMenuCoords');
+
+export const setPasswordPlateState = createAction<string>('setPasswordPlateState');

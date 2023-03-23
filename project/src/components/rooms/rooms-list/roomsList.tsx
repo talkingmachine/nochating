@@ -1,8 +1,9 @@
 import { collection, DocumentData, onSnapshot, orderBy, query } from 'firebase/firestore';
 import React, { useContext, useEffect, useState } from 'react';
 import { GContext } from '../../..';
+import { ALT_MENU_TYPES } from '../../../consts/altMenuTypes';
 import { useAppDispatch } from '../../../hooks/useStoreSelectors';
-import { setContextMenuCoords, setContextMenuIsOpen, setCurrentRoomChatId, setCurrentRoomId, setCurrentRoomIsPasswordPlateOpened, setCurrentRoomPassword } from '../../../store/actions';
+import { setContextMenuCoords, setContextMenuIsOpen, setContextMenuType, setCurrentRoomChatId, setCurrentRoomId, setCurrentRoomIsPasswordPlateOpened, setCurrentRoomPassword } from '../../../store/actions';
 
 function RoomsList(): JSX.Element {
 
@@ -31,6 +32,8 @@ function RoomsList(): JSX.Element {
   const RMCHandler = (e: React.MouseEvent<HTMLLIElement, MouseEvent>, document: DocumentData) => {
     e.preventDefault();
     dispatch(setCurrentRoomId(document.id as string));
+    dispatch(setCurrentRoomChatId(document.chatId as string));
+    dispatch(setContextMenuType(ALT_MENU_TYPES.roomContextMenu));
     dispatch(setContextMenuCoords({
       x: e.clientX,
       y: e.clientY

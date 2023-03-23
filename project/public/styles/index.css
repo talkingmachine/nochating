@@ -84,9 +84,18 @@ body {
   display: flex;
   flex-direction: column;
   position: absolute;
-  padding: 15px;
+  padding: 5px;
   border: 1px solid rgba(204, 204, 204, 0.5019607843);
   background: black;
+  font-size: 12px;
+}
+.alt-context-menu ul.context-menu__options li {
+  display: flex;
+  justify-items: center;
+  cursor: pointer;
+}
+.alt-context-menu ul.context-menu__options li span {
+  margin: 0 3px;
 }
 
 .header {

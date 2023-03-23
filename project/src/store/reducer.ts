@@ -36,7 +36,7 @@ const initialState: InitialStateType = {
       y: 0
     },
     menuType: ALT_MENU_TYPES.undefinedType,
-  }
+  },
 };
 
 const reducer = createReducer(initialState, (builder) => {
