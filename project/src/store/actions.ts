@@ -9,8 +9,4 @@ export const setCurrentRoomPassword = createAction<string>('setCurrentRoomPasswo
 export const setCurrentRoomId = createAction<string>('setCurrentRoomId');
 export const setCurrentRoomIsPasswordPlateOpened = createAction<boolean>('setCurrentRoomIsPasswordPlateOpened');
 
-export const setContextMenuIsOpen = createAction<boolean>('setContextMenuIsOpen');
-export const setContextMenuType = createAction<string>('setContextMenuType');
-export const setContextMenuCoords = createAction<{x: number; y: number}>('setContextMenuCoords');
-
 export const setPasswordPlateState = createAction<string>('setPasswordPlateState');

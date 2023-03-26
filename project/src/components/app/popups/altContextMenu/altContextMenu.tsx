@@ -2,49 +2,61 @@ import { deleteDoc, doc } from 'firebase/firestore';
 import { useContext } from 'react';
 import { GContext } from '../../../..';
 import { ALT_MENU_TYPES } from '../../../../consts/altMenuTypes';
-import { useAppDispatch, useAppSelector } from '../../../../hooks/useStoreSelectors';
-import { setContextMenuIsOpen, setContextMenuType } from '../../../../store/actions';
 
-function AltContextMenu(): JSX.Element {
-
+type AltContextMenuProps = {
+  contextMenuType: string;
+  contextMenuCoords: {
+    x: number;
+    y: number;
+  };
+  roomId?: string;
+  messageId?: string;
+  chatId: string;
+  closeContextMenu: () => void;
+}
+function AltContextMenu({contextMenuType, contextMenuCoords, roomId = '', messageId = '', chatId, closeContextMenu}: AltContextMenuProps): JSX.Element {
   const {database} = useContext(GContext);
-  const dispatch = useAppDispatch();
-  const drawPosition = useAppSelector((state) => state.altContextMenu.coords);
-  const contextMenuType = useAppSelector((state) => state.altContextMenu.menuType);
-  const currentRoomId = useAppSelector((state) => state.currentRoomInfo.id);
-  const currentChatId = useAppSelector((state) => state.currentRoomInfo.chatId);
   const style = {
-    left: drawPosition.x,
-    top: drawPosition.y,
+    left: contextMenuCoords.x,
+    top: contextMenuCoords.y,
   };
 
-  const removeRoom = async (roomId: string, chatId: string) => {
+  const removeRoom = async (currentRoomId: string) => {
     try {
       await deleteDoc(doc(database, 'chats', chatId));
     } catch (e) {
       // eslint-disable-next-line no-console
       console.warn('Error removing chat message: ', e);
     }
-
     try {
-      await deleteDoc(doc(database, 'rooms', roomId));
+      await deleteDoc(doc(database, 'rooms', currentRoomId));
     } catch (e) {
       // eslint-disable-next-line no-console
       console.warn('Error removing room message: ', e);
     }
   };
 
+  const removeMessage = async (currentMessageId: string) => {
+    try {
+      await deleteDoc(doc(database, 'chats', chatId, 'messages', currentMessageId));
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.warn('Error removing message message: ', e);
+    }
+  };
 
   const deleteClickHandler = (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
     switch (contextMenuType) {
       case ALT_MENU_TYPES.roomContextMenu:
-        removeRoom(currentRoomId, currentChatId);
-        break; /// TODO add more / default
+        closeContextMenu();
+        removeRoom(roomId);
+        break;
+      case ALT_MENU_TYPES.messageContextMenu:
+        closeContextMenu();
+        removeMessage(messageId);
+        break;
     }
-    dispatch(setContextMenuType(ALT_MENU_TYPES.undefinedType));
-    dispatch(setContextMenuIsOpen(false));
   };
-
   return (
     <article className='alt-context-menu' style={style}>
       <ul className="context-menu__options">

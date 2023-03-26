@@ -3,12 +3,17 @@ import React, { useContext, useEffect, useState } from 'react';
 import { GContext } from '../../..';
 import { ALT_MENU_TYPES } from '../../../consts/altMenuTypes';
 import { useAppDispatch } from '../../../hooks/useStoreSelectors';
-import { setContextMenuCoords, setContextMenuIsOpen, setContextMenuType, setCurrentRoomChatId, setCurrentRoomId, setCurrentRoomIsPasswordPlateOpened, setCurrentRoomPassword } from '../../../store/actions';
+import { setCurrentRoomChatId, setCurrentRoomIsPasswordPlateOpened, setCurrentRoomPassword } from '../../../store/actions';
+import { RoomInfoDocumentData } from '../../../types/DocumentData';
+import AltContextMenu from '../../app/popups/altContextMenu/altContextMenu';
 
 function RoomsList(): JSX.Element {
 
   const {database} = useContext(GContext);
   const [roomsList, setRoomsList] = useState<DocumentData[]>([]);
+  const [isContextMenuOpen, setIsContextMenuOpen] = useState<boolean>(false);
+  const [contextMenuCoords, setContextMenuCoords] = useState<{x: number; y: number}>({x: 0, y: 0});
+  const [contextMenuIds, setContextMenuIds] = useState<{roomId: string; chatId: string}>({ roomId: '', chatId: ''});
 
   const dispatch = useAppDispatch();
 
@@ -29,22 +34,23 @@ function RoomsList(): JSX.Element {
     dispatch(setCurrentRoomIsPasswordPlateOpened(true));
   };
 
-  const RMCHandler = (e: React.MouseEvent<HTMLLIElement, MouseEvent>, document: DocumentData) => {
+  const RMCHandler = (e: React.MouseEvent<HTMLLIElement, MouseEvent>, document: RoomInfoDocumentData) => {
     e.preventDefault();
-    dispatch(setCurrentRoomId(document.id as string));
-    dispatch(setCurrentRoomChatId(document.chatId as string));
-    dispatch(setContextMenuType(ALT_MENU_TYPES.roomContextMenu));
-    dispatch(setContextMenuCoords({
+    setIsContextMenuOpen(true);
+    setContextMenuIds({
+      roomId: document.id,
+      chatId: document.chatId
+    });
+    setContextMenuCoords({
       x: e.clientX,
       y: e.clientY
-    }));
-    dispatch(setContextMenuIsOpen(true));
+    });
   };
 
   return (
     <ul className="rooms__list">
       {roomsList.map((document) => (
-        <li key={document.id as string} onContextMenu={(e) => RMCHandler(e, document)} className="list__room">
+        <li key={document.id as string} onContextMenu={(e) => RMCHandler(e, document as RoomInfoDocumentData)} className="list__room">
           <div className="room__top-row">
             <div className="top-row__room-header">{document.title}</div>
             <button className="top-row__star">
@@ -63,6 +69,15 @@ function RoomsList(): JSX.Element {
             </ul>
             <button onClick={() => joinClickHandler(document)} className="room__join"><u>Join</u>-&#62;</button>
           </div>
+          {isContextMenuOpen ?
+            <AltContextMenu
+              contextMenuType={ALT_MENU_TYPES.roomContextMenu}
+              contextMenuCoords={contextMenuCoords}
+              roomId={contextMenuIds.roomId}
+              chatId={contextMenuIds.chatId}
+              closeContextMenu={() => setIsContextMenuOpen(false)}
+            />
+            : false}
         </li>
       ))}
     </ul>
