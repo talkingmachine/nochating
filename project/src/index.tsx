@@ -34,7 +34,6 @@ const signIn = () => signInWithPopup(auth, provider);
 //const credential = GoogleAuthProvider.credentialFromError(error);// The AuthCredential type that was used.
 //});
 
-
 export const GContext = createContext<ContextType>({signIn, database});
 
 const root = ReactDOM.createRoot(
