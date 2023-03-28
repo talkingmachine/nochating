@@ -250,10 +250,17 @@ body {
 .rooms .room__new-room form.new-room__form {
   display: flex;
 }
-.rooms .room__new-room form.new-room__form input.form__picture {
+.rooms .room__new-room form.new-room__form label.form__picture {
   width: 220px;
   height: 140px;
   border: 1px solid rgba(204, 204, 204, 0.5019607843);
+}
+.rooms .room__new-room form.new-room__form label.form__picture img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 50%;
+  border: 2px rgba(204, 204, 204, 0.5019607843) solid;
 }
 .rooms .room__new-room form.new-room__form .form__wrapper {
   display: flex;
@@ -309,12 +316,14 @@ body {
   padding: 0 15px 15px 15px;
 }
 .rooms ul.rooms__list li.list__room .room__middle-row img {
-  max-width: 220px;
-  max-height: 140px;
+  width: 220px;
+  height: 140px;
   border: 1px solid rgba(204, 204, 204, 0.5019607843);
   border-radius: 5px;
   padding: 5px;
   margin-right: 20px;
+  object-fit: cover;
+  object-position: 50% 50%;
 }
 .rooms ul.rooms__list li.list__room .room__middle-row .room__users-list {
   display: flex;

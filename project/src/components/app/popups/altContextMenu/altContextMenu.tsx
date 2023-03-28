@@ -1,4 +1,5 @@
 import { deleteDoc, doc } from 'firebase/firestore';
+import { deleteObject, ref } from 'firebase/storage';
 import { useContext, useEffect, useRef } from 'react';
 import { GContext } from '../../../..';
 import { ALT_MENU_TYPES } from '../../../../consts/altMenuTypes';
@@ -16,7 +17,7 @@ type AltContextMenuProps = {
 }
 function AltContextMenu({contextMenuType, contextMenuCoords, roomId = '', messageId = '', chatId, closeContextMenu}: AltContextMenuProps): JSX.Element {
 
-  const {database} = useContext(GContext);
+  const {database, storage} = useContext(GContext);
   const contextMenuRef = useRef(null);
   const style = {
     left: contextMenuCoords.x,
@@ -38,13 +39,19 @@ function AltContextMenu({contextMenuType, contextMenuCoords, roomId = '', messag
       await deleteDoc(doc(database, 'chats', chatId));
     } catch (e) {
       // eslint-disable-next-line no-console
-      console.warn('Error removing chat message: ', e);
+      console.warn('Error removing chat: ', e);
     }
     try {
       await deleteDoc(doc(database, 'rooms', currentRoomId));
     } catch (e) {
       // eslint-disable-next-line no-console
-      console.warn('Error removing room message: ', e);
+      console.warn('Error removing room: ', e);
+    }
+    try {
+      await deleteObject(ref(storage, `img/room-image/${chatId}`));
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.warn('Error removing room-image: ', e);
     }
   };
 

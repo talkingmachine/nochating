@@ -5,6 +5,7 @@ import { initializeApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { ContextType } from './types/Context';
 import { getFirestore } from 'firebase/firestore';
+import { getStorage } from 'firebase/storage';
 import { Provider } from 'react-redux';
 import { store } from './store';
 
@@ -23,6 +24,7 @@ const firebaseConfig = {
 const provider = new GoogleAuthProvider();
 const app = initializeApp(firebaseConfig);
 
+const storage = getStorage();
 const database = getFirestore(app);
 const auth = getAuth(app);
 
@@ -34,7 +36,7 @@ const signIn = () => signInWithPopup(auth, provider);
 //const credential = GoogleAuthProvider.credentialFromError(error);// The AuthCredential type that was used.
 //});
 
-export const GContext = createContext<ContextType>({signIn, database});
+export const GContext = createContext<ContextType>({signIn, database, storage});
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -45,6 +47,7 @@ root.render(
     <GContext.Provider value={{
       signIn,
       database,
+      storage
     }}
     >
       <React.StrictMode>

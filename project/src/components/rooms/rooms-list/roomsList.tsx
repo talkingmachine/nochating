@@ -6,6 +6,7 @@ import { useAppDispatch } from '../../../hooks/useStoreSelectors';
 import { setCurrentRoomChatId, setCurrentRoomIsPasswordPlateOpened, setCurrentRoomPassword } from '../../../store/actions';
 import { RoomInfoDocumentData } from '../../../types/DocumentData';
 import AltContextMenu from '../../app/popups/altContextMenu/altContextMenu';
+import RoomMiddleRow from './RoomMiddleRow/RoomMiddleRow';
 
 function RoomsList(): JSX.Element {
 
@@ -58,15 +59,7 @@ function RoomsList(): JSX.Element {
             </button>
           </div>
           <div className="room__middle-row">
-            <img src="img/course-preview.jpg" alt="room preview" className="room__picture" />
-            <ul className="room__users-list">
-              <li className="users-list__item">
-                <img src="img/user-avatar1.jpg" alt="user avatar"/>
-              </li>
-              <li className="users-list__item">
-                <img src="img/user-avatar1.jpg" alt="user avatar" />
-              </li>
-            </ul>
+            <RoomMiddleRow chatId={document.chatId as string}/>
             <button onClick={() => joinClickHandler(document)} className="room__join"><u>Join</u>-&#62;</button>
           </div>
           {isContextMenuOpen ?
