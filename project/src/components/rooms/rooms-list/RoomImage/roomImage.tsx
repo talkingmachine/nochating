@@ -5,7 +5,7 @@ import { GContext } from '../../../..';
 type RoomImageProps = {
   chatId: string;
 }
-function RoomMiddleRow({chatId}: RoomImageProps): JSX.Element {
+function RoomImage({chatId}: RoomImageProps): JSX.Element {
 
   const [imageUrl, setImageUrl] = useState<string>();
   const {storage} = useContext(GContext);
@@ -20,17 +20,10 @@ function RoomMiddleRow({chatId}: RoomImageProps): JSX.Element {
       {imageUrl ? <img src={imageUrl} alt="room preview" className="room__picture" />
         :
         <img src='img/course-preview.jpg' alt="room preview" className="room__picture" />}
-      <ul className="room__users-list">
-        <li className="users-list__item">
-          <img src="img/user-avatar1.jpg" alt="user avatar"/>
-        </li>
-        <li className="users-list__item">
-          <img src="img/user-avatar1.jpg" alt="user avatar" />
-        </li>
-      </ul>
+      {}
     </>
   );
 }
 
-export default RoomMiddleRow;
+export default RoomImage;
 

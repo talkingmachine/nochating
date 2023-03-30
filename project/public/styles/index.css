@@ -12,30 +12,28 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: black;
+  background: #0A0613;
   margin-block-end: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(204, 204, 204, 0.5019607843);
+  background: rgba(81, 75, 95, 0.3137254902);
 }
 
-.defaultInput, .rooms .room__new-room form.new-room__form .form__wrapper .form__password input, .rooms .room__new-room form.new-room__form .form__wrapper .form__title input, .chat .chat__input-line input.form__message, .popups .password-plate .password-plate__input, .popups .password-plate input.password-plate__input {
-  background-color: black;
-  border: 1px solid rgba(204, 204, 204, 0.5019607843);
-  border-right: black;
-  border-left: black;
-  color: #CCCCCC;
+.defaultInput, .chat .chat__input-line input.form__message, .sidebar .rooms .room__new-room form.new-room__form .form__wrapper .form__password input, .sidebar .rooms .room__new-room form.new-room__form .form__wrapper .form__title input, .popups .password-plate .password-plate__input, .popups .password-plate input.password-plate__input {
+  background-color: rgba(255, 255, 255, 0);
+  border: none;
+  color: white;
   outline: none;
 }
 
 body {
   font-family: Lucida-Console, sans-serif;
-  color: #CCCCCC;
-  background-color: black;
+  color: white;
+  background-color: #0A0613;
   display: grid;
-  grid-template-columns: 100px 1fr;
-  grid-template-rows: 100px 1fr;
+  grid-template-columns: 3fr 10fr;
+  grid-template-rows: 1fr 10fr;
   height: 100vh;
 }
 
@@ -61,7 +59,7 @@ body {
   padding: 15px;
   margin-left: -250px;
   visibility: hidden;
-  border: 1px solid rgba(204, 204, 204, 0.5019607843);
+  border: 1px solid rgba(81, 75, 95, 0.3137254902);
   background: black;
 }
 .popups .password-plate button.exit {
@@ -70,7 +68,7 @@ body {
   right: 10px;
 }
 .popups .password-plate .password-plate__join {
-  color: #CCCCCC;
+  color: white;
 }
 .popups .shown {
   visibility: visible;
@@ -85,7 +83,7 @@ body {
   flex-direction: column;
   position: absolute;
   padding: 5px;
-  border: 1px solid rgba(204, 204, 204, 0.5019607843);
+  border: 1px solid rgba(81, 75, 95, 0.3137254902);
   background: black;
   font-size: 12px;
 }
@@ -128,35 +126,124 @@ body {
   height: 100%;
   object-fit: cover;
   object-position: 50% 50%;
-  border: 2px rgba(204, 204, 204, 0.5019607843) solid;
+  border: 2px rgba(81, 75, 95, 0.3137254902) solid;
   border-radius: 50%;
 }
 
 .sidebar {
+  grid-column-start: 1;
+  grid-column-end: 2;
+}
+.sidebar .rooms {
+  padding-top: 50px;
+}
+.sidebar .rooms .rooms__search-line {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
+  flex-direction: row;
+  margin-bottom: 20px;
+  font-size: 13px;
+  width: 97%;
+}
+.sidebar .rooms .rooms__search-line input.search-line__input {
   width: 100%;
+  background-color: #0A0613;
+  border: 1px solid rgba(81, 75, 95, 0.3137254902);
+  color: white;
+  outline: none;
+  padding-left: 5px;
 }
-.sidebar svg {
-  height: 20px;
-  width: 20px;
+.sidebar .rooms .rooms__search-line button.search-line__new-room {
+  margin-left: 10px;
+  padding: 0 7px;
+  color: white;
+  font-size: 16px;
+  background: rgba(255, 255, 255, 0.0823529412);
 }
-.sidebar .sidebar__icons-list {
+.sidebar .rooms .room__new-room {
+  margin-bottom: 15px;
+  padding: 15px;
+  display: flex;
+  position: absolute;
+  top: 40%;
+  left: 30%;
+  background: rgba(255, 255, 255, 0.0823529412);
+  border-radius: 5px;
+}
+.sidebar .rooms .room__new-room form.new-room__form {
+  display: flex;
+}
+.sidebar .rooms .room__new-room form.new-room__form label.form__picture {
+  width: 100px;
+  height: 100px;
+  border: 1px solid rgba(81, 75, 95, 0.3137254902);
+}
+.sidebar .rooms .room__new-room form.new-room__form label.form__picture img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 50%;
+  border: 2px rgba(81, 75, 95, 0.3137254902) solid;
+}
+.sidebar .rooms .room__new-room form.new-room__form .form__wrapper {
   display: flex;
   flex-direction: column;
+  margin: 6px 0 0 15px;
+}
+.sidebar .rooms .room__new-room form.new-room__form .form__wrapper .form__title {
+  display: flex;
+  align-items: center;
+  margin-bottom: 6px;
+}
+.sidebar .rooms .room__new-room form.new-room__form .form__wrapper .form__title input {
+  width: 100%;
+  padding-left: 5px;
+  margin-left: 6px;
+}
+.sidebar .rooms .room__new-room form.new-room__form .form__wrapper .form__password {
+  display: flex;
   align-items: center;
 }
-.sidebar .sidebar__icons-list a {
-  margin-bottom: 30px;
+.sidebar .rooms .room__new-room form.new-room__form .form__wrapper .form__password input {
+  width: 100%;
+  padding-left: 5px;
+  margin-left: 6px;
 }
-.sidebar .navigation__add-action > svg {
-  height: 15px;
-  width: 15px;
+.sidebar .rooms .room__new-room button.new-room__accept {
+  align-self: end;
+  margin-left: auto;
+  margin-bottom: -9px;
+  font-size: 20px;
+  color: white;
+}
+.sidebar .rooms ul.rooms__list li.list__room .room__content {
+  margin-bottom: 15px;
+  background: rgba(81, 75, 95, 0.3137254902);
+  border-radius: 5px;
+  width: 97%;
+  display: flex;
+  padding: 5px;
+  cursor: pointer;
+}
+.sidebar .rooms ul.rooms__list li.list__room .room__content img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  padding: 5px;
+  margin-right: 5px;
+  object-fit: cover;
+  object-position: 50% 50%;
+}
+.sidebar .rooms ul.rooms__list li.list__room .room__content .room__middle-row {
+  padding: 5px 0;
+}
+.sidebar .rooms ul.rooms__list li.list__room .room__content .room__middle-row .room-header {
+  font-size: 13px;
+  padding-left: 6px;
 }
 
 .chat {
+  grid-column-start: 2;
+  grid-column-end: 3;
   overflow: auto;
   display: flex;
   flex-direction: column;
@@ -171,7 +258,7 @@ body {
   flex-direction: column;
   justify-content: flex-end;
   height: 100%;
-  background-color: black;
+  background-color: #0A0613;
 }
 .chat .chat__message-list .message {
   display: flex;
@@ -194,7 +281,7 @@ body {
   flex-direction: column;
   margin: 0 10px;
   min-width: 150px;
-  color: black;
+  color: #0A0613;
   background-color: #CCCCCC;
 }
 .chat .chat__message-list .message .message__body .body__user-name {
@@ -214,138 +301,14 @@ body {
 .chat .chat__input-line button.buttons-section__send {
   margin: 0 5px 0 5px;
 }
-
-.rooms {
-  padding-top: 50px;
-}
-.rooms .rooms__search-line {
-  display: flex;
-  flex-direction: row;
-  margin-bottom: 20px;
-  font-size: 21px;
-  width: 97%;
-}
-.rooms .rooms__search-line input.search-line__input {
-  width: 100%;
-  background-color: black;
-  border: 1px solid rgba(204, 204, 204, 0.5019607843);
-  color: #CCCCCC;
-  outline: none;
-  padding-left: 5px;
-}
-.rooms .rooms__search-line button.search-line__new-room {
-  width: 100px;
-  margin-left: 10px;
-  border: 1px solid rgba(204, 204, 204, 0.5019607843);
-  color: #CCCCCC;
-  font-size: 19px;
-}
-.rooms .room__new-room {
-  max-width: 50vw;
-  border: 1px solid rgba(204, 204, 204, 0.5019607843);
-  margin-bottom: 15px;
-  padding: 15px;
-  display: flex;
-}
-.rooms .room__new-room form.new-room__form {
-  display: flex;
-}
-.rooms .room__new-room form.new-room__form label.form__picture {
-  width: 220px;
-  height: 140px;
-  border: 1px solid rgba(204, 204, 204, 0.5019607843);
-}
-.rooms .room__new-room form.new-room__form label.form__picture img {
-  width: 100%;
+.chat .chat__no-data {
+  background-color: #0A0613;
   height: 100%;
-  object-fit: cover;
-  object-position: 50% 50%;
-  border: 2px rgba(204, 204, 204, 0.5019607843) solid;
 }
-.rooms .room__new-room form.new-room__form .form__wrapper {
-  display: flex;
-  flex-direction: column;
-  margin: 6px 0 0 6px;
-}
-.rooms .room__new-room form.new-room__form .form__wrapper .form__title {
-  display: flex;
-  align-items: center;
-  margin-bottom: 6px;
-}
-.rooms .room__new-room form.new-room__form .form__wrapper .form__title input {
-  width: 100%;
-  padding-left: 5px;
-  margin-left: 6px;
-}
-.rooms .room__new-room form.new-room__form .form__wrapper .form__password {
-  display: flex;
-  align-items: center;
-}
-.rooms .room__new-room form.new-room__form .form__wrapper .form__password input {
-  width: 100%;
-  padding-left: 5px;
-  margin-left: 6px;
-}
-.rooms .room__new-room button.new-room__accept {
-  align-self: end;
-  margin-left: auto;
-  font-size: 20px;
-  color: #CCCCCC;
-}
-.rooms ul.rooms__list li.list__room {
-  border: 1px solid rgba(204, 204, 204, 0.5019607843);
-  margin-bottom: 15px;
-  width: 97%;
-}
-.rooms ul.rooms__list li.list__room .room__top-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px;
-}
-.rooms ul.rooms__list li.list__room .room__top-row .top-row__room-header {
-  font-size: 21px;
-  padding-left: 6px;
-}
-.rooms ul.rooms__list li.list__room .room__top-row .top-row__star {
-  height: 30px;
-  width: 30px;
-}
-.rooms ul.rooms__list li.list__room .room__middle-row {
-  display: flex;
-  padding: 0 15px 15px 15px;
-}
-.rooms ul.rooms__list li.list__room .room__middle-row img {
-  width: 220px;
-  height: 140px;
-  border: 1px solid rgba(204, 204, 204, 0.5019607843);
-  border-radius: 5px;
-  padding: 5px;
-  margin-right: 20px;
-  object-fit: cover;
-  object-position: 50% 50%;
-}
-.rooms ul.rooms__list li.list__room .room__middle-row .room__users-list {
-  display: flex;
-  align-items: end;
-}
-.rooms ul.rooms__list li.list__room .room__middle-row .room__users-list .users-list__item {
-  height: 80px;
-  width: 80px;
-  padding: 4px;
-  margin-right: 10px;
-}
-.rooms ul.rooms__list li.list__room .room__middle-row .room__users-list .users-list__item img {
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
-  object-position: 50% 50%;
-}
-.rooms ul.rooms__list li.list__room .room__middle-row .room__join {
-  align-self: end;
-  margin-left: auto;
-  font-size: 20px;
-  color: #CCCCCC;
+.chat .chat__no-data span.no-data__message {
+  position: relative;
+  left: 40%;
+  top: 40%;
 }
 
 /*# sourceMappingURL=index.css.map */

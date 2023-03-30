@@ -26,7 +26,7 @@ function RoomsSearchLine(): JSX.Element {
     <>
       <div className="rooms__search-line">
         <input onFocus={messageFocusHandler} onBlur={messageBlurHandler} className="search-line__input" ref={input}/>
-        <button onClick={showNewRoomToggle} className="search-line__new-room">+new</button>
+        <button onClick={showNewRoomToggle} className="search-line__new-room">+</button>
       </div>
       {isShown ? <NewRoom/> : false}
     </>

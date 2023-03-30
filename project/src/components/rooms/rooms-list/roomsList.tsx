@@ -6,7 +6,7 @@ import { useAppDispatch } from '../../../hooks/useStoreSelectors';
 import { setCurrentRoomChatId, setCurrentRoomIsPasswordPlateOpened, setCurrentRoomPassword } from '../../../store/actions';
 import { RoomInfoDocumentData } from '../../../types/DocumentData';
 import AltContextMenu from '../../app/popups/altContextMenu/altContextMenu';
-import RoomMiddleRow from './RoomMiddleRow/RoomMiddleRow';
+import RoomImage from './RoomImage/roomImage';
 
 function RoomsList(): JSX.Element {
 
@@ -51,17 +51,17 @@ function RoomsList(): JSX.Element {
   return (
     <ul className="rooms__list">
       {roomsList.map((document) => (
-        <li key={document.id as string} onContextMenu={(e) => RMCHandler(e, document as RoomInfoDocumentData)} className="list__room">
-          <div className="room__top-row">
-            <div className="top-row__room-header">{document.title}</div>
-            <button className="top-row__star">
-              <svg id="icon-star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 35.82 34.26"><path d="M959.37,524.49a1,1,0,0,1,1.71,0l4.53,9.18a1,1,0,0,0,.72.52l10.13,1.47a1,1,0,0,1,.53,1.63l-7.33,7.14a.94.94,0,0,0-.27.84l1.73,10.09a1,1,0,0,1-1.38,1l-9.06-4.76a.94.94,0,0,0-.89,0l-9.06,4.76a1,1,0,0,1-1.38-1l1.73-10.09a1,1,0,0,0-.27-.84l-7.33-7.14a1,1,0,0,1,.53-1.63l10.13-1.47a1,1,0,0,0,.72-.52Z" transform="translate(-942.32 -523.09)" style={{stroke: '#ccc', strokeLinecap: 'round', strokeLinejoin: 'round', strokeWidth: '1.73259997367859px'}} /></svg>
-            </button>
+        <li key={document.id as string}
+          onContextMenu={(e) => RMCHandler(e, document as RoomInfoDocumentData)}
+          className="list__room"
+        >
+          <div onClick={() => joinClickHandler(document)} className="room__content">
+            <RoomImage chatId={document.chatId as string}/>
+            <div className="room__middle-row">
+              <h3 className="room-header">{document.title}</h3>
+            </div>
           </div>
-          <div className="room__middle-row">
-            <RoomMiddleRow chatId={document.chatId as string}/>
-            <button onClick={() => joinClickHandler(document)} className="room__join"><u>Join</u>-&#62;</button>
-          </div>
+
           {isContextMenuOpen ?
             <AltContextMenu
               contextMenuType={ALT_MENU_TYPES.roomContextMenu}

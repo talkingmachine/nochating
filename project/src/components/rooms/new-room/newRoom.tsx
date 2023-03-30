@@ -92,7 +92,7 @@ function NewRoom(): JSX.Element {
           </label>
         </div>
       </form>
-      <button onClick={newRoomCreateHandler} className="new-room__accept"><u>Create</u></button>
+      <button onClick={newRoomCreateHandler} className="new-room__accept">Create</button>
     </div>
   );
 }

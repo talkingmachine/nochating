@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter} from 'react-router-dom';
 import Chat from '../../pages/chat/chat';
 import Rooms from '../../pages/rooms/rooms';
 import Header from './header/header';
@@ -11,17 +11,19 @@ function App(): JSX.Element {
       <Popups/>
       <Header/>
       <aside className="sidebar">
+        <Rooms/>
       </aside>
-      <Routes>
+      <Chat/>
+      {/* <Routes>
         <Route
           path='/'
-          element={<Rooms/>}
+          element={<Chat/>}
         />
         <Route
           path='/chat'
           element={<Chat/>}
         />
-      </Routes>
+      </Routes> */}
     </BrowserRouter>
   );
 }
