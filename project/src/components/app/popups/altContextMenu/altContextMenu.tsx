@@ -25,7 +25,7 @@ function AltContextMenu({contextMenuType, contextMenuCoords, roomId = '', messag
   };
 
   const removePasswordPlateClick = (e: MouseEvent) => {
-    if (e.target !== contextMenuRef.current) { // click outside the plate
+    if (e.target !== contextMenuRef.current) {
       window.removeEventListener('click', removePasswordPlateClick);
       closeContextMenu();
     }

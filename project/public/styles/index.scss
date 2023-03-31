@@ -37,54 +37,38 @@ body{
   background-color: $bgColor;
   display: grid;
   grid-template-columns: 3fr 10fr;
-  grid-template-rows: 1fr 10fr;
-  height: 100vh;
 }
 .wrapper {
   overflow: auto;
   max-width: 90%;
   margin: 0 5% 0 5%;
 }
-.popups{
+.password-plate{
+  display: flex;
+  flex-direction: column;
   position: absolute;
-  background: none;
-  width: 100vw;
-  height: 100vh;
-  .password-plate{
-    display: flex;
-    flex-direction: column;
+  top: 40%;
+  left: 50%;
+  width: 500px;
+  padding: 15px;
+  margin-left: -250px;
+
+  border: 1px solid $borderColor;
+  background: black;
+  input.password-plate__input{
+    @extend .defaultInput;
+  }
+  button.exit{
     position: absolute;
-    top: 40%;
-    left: 50%;
-    width: 500px;
-    padding: 15px;
-    margin-left: -250px;
-
-    visibility: hidden;
-
-    border: 1px solid $borderColor;
-    background: black;
-    input.password-plate__input{
-      @extend .defaultInput;
-    }
-    button.exit{
-      position: absolute;
-      top: -5px;
-      right: 10px;
-    }
-    .password-plate__input{
-      @extend .defaultInput;
-    }
-    .password-plate__join{
-      color: $fontColorLight;
-    }
+    top: -5px;
+    right: 10px;
   }
-  .shown{
-    visibility: visible;
+  .password-plate__input{
+    @extend .defaultInput;
   }
-}
-.back-blur{
-  background: #00000080;
+  .password-plate__join{
+    color: $fontColorLight;
+  }
 }
 .alt-context-menu{
   display: flex;
@@ -107,234 +91,201 @@ body{
   }
 }
 ///////////////////////////////////////////////////
-.header{
-  grid-column-start: 1;
-  grid-column-end: 3;
-  display: flex;
-
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 25px;
-    .header__logo{
-      margin-left: 10%;
-      width: 200px;
-    }
-    .header__user{
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-      span{
-        font-size: 10pt;
-      }
-      a{
-        width: 60px;
-        height: 60px;
-        margin-left: 10px;
-        img{
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          object-position: 50% 50%;
-          border: 2px $borderColor solid;
-          border-radius: 50%;
-        }
-      }
-    }
-}
 .sidebar{
   grid-column-start: 1;
   grid-column-end: 2;
   .rooms{
-  padding-top: 50px;
-  .rooms__search-line{
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 20px;
-    font-size: 13px;
-    width: 97%;
-    input.search-line__input{
-      width: 100%;
-      background-color: $bgColor;
-      border: 1px solid $borderColor;
-      color: $fontColorLight;
-      outline: none;
-      padding-left: 5px;
-    }
-    button.search-line__new-room{
-      margin-left: 10px;
-      padding: 0 7px;
-      color: $fontColorLight;
-      font-size: 16px;
-      background: #ffffff15;
-    }
-  }
-  .room__new-room{
-    margin-bottom: 15px;
-    padding: 15px;
-    display: flex;
-
-    position: absolute;
-    top: 40%;
-    left: 30%;
-
-    background: #ffffff15;
-    border-radius: 5px;
-    form.new-room__form{
+    padding-top: 50px;
+    .rooms__search-line{
       display: flex;
-      label.form__picture{
-        width: 100px;
-        height: 100px;
+      flex-direction: row;
+      margin-bottom: 20px;
+      font-size: 13px;
+      width: 97%;
+      input.search-line__input{
+        width: 100%;
+        background-color: $bgColor;
         border: 1px solid $borderColor;
-        img{
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          object-position: 50% 50%;
-          border: 2px $borderColor solid;
-        }
+        color: $fontColorLight;
+        outline: none;
+        padding-left: 5px;
       }
-      .form__wrapper{
-        display: flex;
-        flex-direction: column;
-        margin: 6px 0 0 15px;
-        .form__title{
-          display: flex;
-          align-items: center;
-          margin-bottom: 6px;
-          input{
-            width: 100%;
-            @extend .defaultInput;
-            padding-left: 5px;
-            margin-left: 6px;
-          }
-        }
-        .form__password{
-          display: flex;
-          align-items: center;
-          input{
-            width: 100%;
-            @extend .defaultInput;
-            padding-left: 5px;
-            margin-left: 6px;
-          }
-        }
+      button.search-line__new-room{
+        margin-left: 10px;
+        padding: 0 7px;
+        color: $fontColorLight;
+        font-size: 16px;
+        background: #ffffff15;
       }
     }
-    button.new-room__accept{
-      align-self: end;
-      margin-left: auto;
-      margin-bottom: -9px;
-      font-size: 20px;
+    .room__new-room{
+      margin-bottom: 15px;
+      padding: 15px;
+      display: flex;
 
-      color: $fontColorLight;
-    }
+      position: absolute;
+      top: 40%;
+      left: 30%;
 
-  }
-  ul.rooms__list{
-    li.list__room{
-      .room__content{
-        margin-bottom: 15px;
-        background: $roomPlatesBgColor;
-        border-radius: 5px;
-        width: 97%;
+      background: #ffffff15;
+      border-radius: 5px;
+      form.new-room__form{
         display: flex;
-        padding: 5px;
-        cursor: pointer;
-        img{
-          width: 60px;
-          height: 60px;
-          border-radius: 50%;
+        label.form__picture{
+          width: 100px;
+          height: 100px;
+          border: 1px solid $borderColor;
+          img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: 50% 50%;
+            border: 2px $borderColor solid;
+          }
+        }
+        .form__wrapper{
+          display: flex;
+          flex-direction: column;
+          margin: 6px 0 0 15px;
+          .form__title{
+            display: flex;
+            align-items: center;
+            margin-bottom: 6px;
+            input{
+              width: 100%;
+              @extend .defaultInput;
+              padding-left: 5px;
+              margin-left: 6px;
+            }
+          }
+          .form__password{
+            display: flex;
+            align-items: center;
+            input{
+              width: 100%;
+              @extend .defaultInput;
+              padding-left: 5px;
+              margin-left: 6px;
+            }
+          }
+        }
+      }
+      button.new-room__accept{
+        align-self: end;
+        margin-left: auto;
+        margin-bottom: -9px;
+        font-size: 20px;
+
+        color: $fontColorLight;
+      }
+
+    }
+    ul.rooms__list{
+      li.list__room{
+        .room__content{
+          margin-bottom: 15px;
+          background: $roomPlatesBgColor;
+          border-radius: 5px;
+          width: 97%;
+          display: flex;
           padding: 5px;
-          margin-right: 5px;
-          object-fit: cover;
-          object-position: 50% 50%;
-        }
-        .room__middle-row{
-          padding: 5px 0;
-          .room-header{
-            font-size: 13px;
-            padding-left: 6px;
+          cursor: pointer;
+          img{
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            padding: 5px;
+            margin-right: 5px;
+            object-fit: cover;
+            object-position: 50% 50%;
+          }
+          .room__middle-row{
+            padding: 5px 0;
+            .room-header{
+              font-size: 13px;
+              padding-left: 6px;
+            }
           }
         }
       }
     }
-  }
   }
 }
-.chat{
-  grid-column-start: 2;
-  grid-column-end: 3;
-  overflow: auto;
-  display: flex;
-  flex-direction: column;
-  justify-self: flex-start;
-
-  width: 100%;
-  margin: 20px 0 25px 0;
-  background-color: #CCCCCC;
-  .chat__message-list{
+.content{
+  .chat{
+    grid-column-start: 2;
+    grid-column-end: 3;
     overflow: auto;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-self: flex-start;
+    width: 100%;
     height: 100%;
-    background-color: $chatBgColor;
-    .message{
+    background-color: #CCCCCC;
+    .chat__message-list{
+      overflow: auto;
       display: flex;
-      padding: 5px 7px;
-      width: auto;
-      height: auto;
-      margin: 0 0 5px 0;
-
-      .message__avatar{
-        width: 40px;
-        height: 40px;
-        align-self: flex-end;
-        margin: 5px 0;
-
-        object-fit: cover;
-        object-position: 50% 50%;
-        border-radius: 50%;
-      }
-      .message__body{
+      flex-direction: column;
+      justify-content: flex-end;
+      height: 100%;
+      background-color: $chatBgColor;
+      .message{
         display: flex;
-        flex-direction: column;
-        margin: 0 10px;
-        min-width: 150px;
+        padding: 5px 7px;
+        width: auto;
+        height: auto;
+        margin: 0 0 5px 0;
 
-        color: $bgColor;
-        background-color: #CCCCCC;
-        .body__user-name{
-          font-size: 12px;
-          margin: 5px 0 0 7px;
+        .message__avatar{
+          width: 40px;
+          height: 40px;
+          align-self: flex-end;
+          margin: 5px 0;
+
+          object-fit: cover;
+          object-position: 50% 50%;
+          border-radius: 50%;
         }
-        .body__text{
-          font-size: 16px;
-          margin: 0 7px 5px 7px ;
+        .message__body{
+          display: flex;
+          flex-direction: column;
+          margin: 0 10px;
+          min-width: 150px;
 
+          color: $bgColor;
+          background-color: #CCCCCC;
+          .body__user-name{
+            font-size: 12px;
+            margin: 5px 0 0 7px;
+          }
+          .body__text{
+            font-size: 16px;
+            margin: 0 7px 5px 7px ;
+
+          }
         }
       }
     }
-  }
-  .chat__input-line{
-    display: flex;
-    input.form__message{
-      width: 100%;
-      @extend .defaultInput;
+    .chat__input-line{
+      display: flex;
+      input.form__message{
+        width: 100%;
+        @extend .defaultInput;
+      }
+      button.buttons-section__send{
+        margin: 0 5px 0 5px;
+      }
     }
-    button.buttons-section__send{
-      margin: 0 5px 0 5px;
+    .chat__no-data{
+      background-color: $chatBgColor;
+      height: 100%;
+      span.no-data__message{
+        position: relative;
+        left: 40%;
+        top: 40%;
+      }
     }
   }
-  .chat__no-data{
-    background-color: $chatBgColor;
-    height: 100%;
-    span.no-data__message{
-      position: relative;
-      left: 40%;
-      top: 40%;
-    }
-  }
-
 }
+
 

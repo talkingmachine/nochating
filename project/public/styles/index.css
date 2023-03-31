@@ -20,7 +20,7 @@
   background: rgba(81, 75, 95, 0.3137254902);
 }
 
-.defaultInput, .chat .chat__input-line input.form__message, .sidebar .rooms .room__new-room form.new-room__form .form__wrapper .form__password input, .sidebar .rooms .room__new-room form.new-room__form .form__wrapper .form__title input, .popups .password-plate .password-plate__input, .popups .password-plate input.password-plate__input {
+.defaultInput, .content .chat .chat__input-line input.form__message, .sidebar .rooms .room__new-room form.new-room__form .form__wrapper .form__password input, .sidebar .rooms .room__new-room form.new-room__form .form__wrapper .form__title input, .password-plate .password-plate__input, .password-plate input.password-plate__input {
   background-color: rgba(255, 255, 255, 0);
   border: none;
   color: white;
@@ -33,8 +33,6 @@ body {
   background-color: #0A0613;
   display: grid;
   grid-template-columns: 3fr 10fr;
-  grid-template-rows: 1fr 10fr;
-  height: 100vh;
 }
 
 .wrapper {
@@ -43,13 +41,7 @@ body {
   margin: 0 5% 0 5%;
 }
 
-.popups {
-  position: absolute;
-  background: none;
-  width: 100vw;
-  height: 100vh;
-}
-.popups .password-plate {
+.password-plate {
   display: flex;
   flex-direction: column;
   position: absolute;
@@ -58,24 +50,16 @@ body {
   width: 500px;
   padding: 15px;
   margin-left: -250px;
-  visibility: hidden;
   border: 1px solid rgba(81, 75, 95, 0.3137254902);
   background: black;
 }
-.popups .password-plate button.exit {
+.password-plate button.exit {
   position: absolute;
   top: -5px;
   right: 10px;
 }
-.popups .password-plate .password-plate__join {
+.password-plate .password-plate__join {
   color: white;
-}
-.popups .shown {
-  visibility: visible;
-}
-
-.back-blur {
-  background: rgba(0, 0, 0, 0.5019607843);
 }
 
 .alt-context-menu {
@@ -94,40 +78,6 @@ body {
 }
 .alt-context-menu ul.context-menu__options li span {
   margin: 0 3px;
-}
-
-.header {
-  grid-column-start: 1;
-  grid-column-end: 3;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 25px;
-}
-.header .header__logo {
-  margin-left: 10%;
-  width: 200px;
-}
-.header .header__user {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-}
-.header .header__user span {
-  font-size: 10pt;
-}
-.header .header__user a {
-  width: 60px;
-  height: 60px;
-  margin-left: 10px;
-}
-.header .header__user a img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 50% 50%;
-  border: 2px rgba(81, 75, 95, 0.3137254902) solid;
-  border-radius: 50%;
 }
 
 .sidebar {
@@ -241,7 +191,7 @@ body {
   padding-left: 6px;
 }
 
-.chat {
+.content .chat {
   grid-column-start: 2;
   grid-column-end: 3;
   overflow: auto;
@@ -249,10 +199,10 @@ body {
   flex-direction: column;
   justify-self: flex-start;
   width: 100%;
-  margin: 20px 0 25px 0;
+  height: 100%;
   background-color: #CCCCCC;
 }
-.chat .chat__message-list {
+.content .chat .chat__message-list {
   overflow: auto;
   display: flex;
   flex-direction: column;
@@ -260,14 +210,14 @@ body {
   height: 100%;
   background-color: #0A0613;
 }
-.chat .chat__message-list .message {
+.content .chat .chat__message-list .message {
   display: flex;
   padding: 5px 7px;
   width: auto;
   height: auto;
   margin: 0 0 5px 0;
 }
-.chat .chat__message-list .message .message__avatar {
+.content .chat .chat__message-list .message .message__avatar {
   width: 40px;
   height: 40px;
   align-self: flex-end;
@@ -276,7 +226,7 @@ body {
   object-position: 50% 50%;
   border-radius: 50%;
 }
-.chat .chat__message-list .message .message__body {
+.content .chat .chat__message-list .message .message__body {
   display: flex;
   flex-direction: column;
   margin: 0 10px;
@@ -284,28 +234,28 @@ body {
   color: #0A0613;
   background-color: #CCCCCC;
 }
-.chat .chat__message-list .message .message__body .body__user-name {
+.content .chat .chat__message-list .message .message__body .body__user-name {
   font-size: 12px;
   margin: 5px 0 0 7px;
 }
-.chat .chat__message-list .message .message__body .body__text {
+.content .chat .chat__message-list .message .message__body .body__text {
   font-size: 16px;
   margin: 0 7px 5px 7px;
 }
-.chat .chat__input-line {
+.content .chat .chat__input-line {
   display: flex;
 }
-.chat .chat__input-line input.form__message {
+.content .chat .chat__input-line input.form__message {
   width: 100%;
 }
-.chat .chat__input-line button.buttons-section__send {
+.content .chat .chat__input-line button.buttons-section__send {
   margin: 0 5px 0 5px;
 }
-.chat .chat__no-data {
+.content .chat .chat__no-data {
   background-color: #0A0613;
   height: 100%;
 }
-.chat .chat__no-data span.no-data__message {
+.content .chat .chat__no-data span.no-data__message {
   position: relative;
   left: 40%;
   top: 40%;
