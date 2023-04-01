@@ -15,10 +15,12 @@ function RoomsList(): JSX.Element {
   type PasswordMenuType = {
     isOpen: boolean;
     password: string;
+    chatId: string;
   }
   const [passwordMenuState, setPasswordMenuState] = useState<PasswordMenuType>({
     isOpen: false,
-    password: ''
+    password: '',
+    chatId: '',
   });
 
   type ContextMenuType = {
@@ -51,6 +53,7 @@ function RoomsList(): JSX.Element {
   const joinClickHandler = (document: RoomInfoDocumentData) => {
     setPasswordMenuState((prev) => ({...prev, isOpen: true}));
     setPasswordMenuState((prev) => ({...prev, password: document.password}));
+    setPasswordMenuState((prev) => ({...prev, chatId: document.chatId}));
   };
 
   const RMCHandler = (e: React.MouseEvent<HTMLLIElement, MouseEvent>, document: RoomInfoDocumentData) => {
@@ -94,6 +97,7 @@ function RoomsList(): JSX.Element {
         <PasswordPlate
           password={passwordMenuState.password}
           closePasswordMenu={() => setPasswordMenuState((prev) => ({...prev, isOpen: false}))}
+          chatId = {passwordMenuState.chatId}
           isOpen={passwordMenuState.isOpen}
         />
         : false}

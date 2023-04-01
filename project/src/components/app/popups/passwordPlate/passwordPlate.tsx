@@ -2,16 +2,20 @@
 import { useEffect } from 'react';
 import { memo, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { setCurrentRoomChatId } from '../../../../store/actions';
+import { useAppDispatch } from '../../../../hooks/useStoreSelectors';
 
 type PasswordPlateProps = {
   password: string;
   closePasswordMenu: () => void;
+  chatId: string;
   isOpen: boolean;
 }
-function PasswordPlate({password, closePasswordMenu, isOpen}: PasswordPlateProps): JSX.Element {
+function PasswordPlate({password, closePasswordMenu, chatId, isOpen}: PasswordPlateProps): JSX.Element {
 
   const passwordInput = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const removePasswordPlateWhenEsc = (e: KeyboardEvent) => {
@@ -47,8 +51,9 @@ function PasswordPlate({password, closePasswordMenu, isOpen}: PasswordPlateProps
 
   const joinClickHandler = () => {
     if (passwordInput.current && passwordInput.current.value === password) {
-      closePasswordMenu();
+      dispatch(setCurrentRoomChatId(chatId));
       navigate('/chat');
+      closePasswordMenu();
     }
   };
 

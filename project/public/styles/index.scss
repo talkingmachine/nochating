@@ -9,6 +9,7 @@
 $bgColor: #0A0613;
 $chatBgColor: #0A0613;
 $roomPlatesBgColor: #514b5f50;
+$messageBgColor: #514b5f50;
 $fontColorLight: white;
 $borderColor: #514b5f50;
 $imageBorderColor: #CCCCCC;
@@ -35,14 +36,11 @@ body{
   font-family: Lucida-Console, sans-serif;
   color: $fontColorLight;
   background-color: $bgColor;
-  display: grid;
-  grid-template-columns: 3fr 10fr;
+  display: flex;
+  overflow: hidden;
 }
-.wrapper {
-  overflow: auto;
-  max-width: 90%;
-  margin: 0 5% 0 5%;
-}
+// .wrapper {
+// }
 .password-plate{
   display: flex;
   flex-direction: column;
@@ -90,10 +88,12 @@ body{
     }
   }
 }
-///////////////////////////////////////////////////
+//////////
 .sidebar{
-  grid-column-start: 1;
-  grid-column-end: 2;
+  min-width: 350px;
+  height: 100vh;
+  margin-left: 20px;
+  overflow: auto;
   .rooms{
     padding-top: 50px;
     .rooms__search-line{
@@ -178,7 +178,6 @@ body{
 
         color: $fontColorLight;
       }
-
     }
     ul.rooms__list{
       li.list__room{
@@ -212,22 +211,19 @@ body{
   }
 }
 .content{
+  width: 100%;
+  padding: 0 30px 0 30px;
   .chat{
-    grid-column-start: 2;
-    grid-column-end: 3;
-    overflow: auto;
-    display: flex;
-    flex-direction: column;
     justify-self: flex-start;
-    width: 100%;
-    height: 100%;
-    background-color: #CCCCCC;
-    .chat__message-list{
+    width: auto;
+    background-color: $chatBgColor;
+    ul.chat__message-list{
+      height: calc(100vh - 35px);
       overflow: auto;
       display: flex;
       flex-direction: column;
-      justify-content: flex-end;
-      height: 100%;
+      justify-content: end;
+      align-items: start;
       background-color: $chatBgColor;
       .message{
         display: flex;
@@ -252,8 +248,8 @@ body{
           margin: 0 10px;
           min-width: 150px;
 
-          color: $bgColor;
-          background-color: #CCCCCC;
+          color: $fontColorLight;
+          background-color: $messageBgColor;
           .body__user-name{
             font-size: 12px;
             margin: 5px 0 0 7px;
@@ -271,14 +267,21 @@ body{
       input.form__message{
         width: 100%;
         @extend .defaultInput;
+        background-color: $roomPlatesBgColor;
+        height: 35px;
+        padding-left: 7px;
       }
-      button.buttons-section__send{
-        margin: 0 5px 0 5px;
+      button.buttons-section__clip{
+        width: 25px;
+        margin: 0 5px 0 -30px;
+        display: flex;
+        svg{
+          margin: auto;
+        }
       }
     }
     .chat__no-data{
       background-color: $chatBgColor;
-      height: 100%;
       span.no-data__message{
         position: relative;
         left: 40%;
