@@ -213,12 +213,33 @@ body{
 .content{
   width: 100%;
   padding: 0 30px 0 30px;
-  .chat{
+  .content__header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 30px 0 10px 0;
+    .header__logo{
+      width: 200px;
+    }
+    .header__userinfo{
+      display: flex;
+      align-items: center;
+      img{
+        width: 60px;
+        height: 60px;
+        margin-left: 20px;
+        object-fit: cover;
+        object-position: 50% 50%;
+        border-radius: 50%;
+      }
+    }
+  }
+  .content__chat{
     justify-self: flex-start;
     width: auto;
     background-color: $chatBgColor;
     ul.chat__message-list{
-      height: calc(100vh - 35px);
+      height: calc(100vh - 135px);
       overflow: auto;
       display: flex;
       flex-direction: column;

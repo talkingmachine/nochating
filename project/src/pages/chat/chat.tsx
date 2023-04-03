@@ -8,7 +8,7 @@ import { useAppSelector } from '../../hooks/useStoreSelectors';
 function Chat(): JSX.Element {
   const chatId = useAppSelector((state) => state.currentRoomInfo.chatId);
   return (
-    <section className="chat wrapper">
+    <section className="content__chat wrapper">
       {chatId ?
         <>
           <MessageList/>

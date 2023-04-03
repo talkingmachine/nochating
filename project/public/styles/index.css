@@ -20,7 +20,7 @@
   background: rgba(81, 75, 95, 0.3137254902);
 }
 
-.defaultInput, .content .chat .chat__input-line input.form__message, .sidebar .rooms .room__new-room form.new-room__form .form__wrapper .form__password input, .sidebar .rooms .room__new-room form.new-room__form .form__wrapper .form__title input, .password-plate .password-plate__input, .password-plate input.password-plate__input {
+.defaultInput, .content .content__chat .chat__input-line input.form__message, .sidebar .rooms .room__new-room form.new-room__form .form__wrapper .form__password input, .sidebar .rooms .room__new-room form.new-room__form .form__wrapper .form__title input, .password-plate .password-plate__input, .password-plate input.password-plate__input {
   background-color: rgba(255, 255, 255, 0);
   border: none;
   color: white;
@@ -191,13 +191,34 @@ body {
   width: 100%;
   padding: 0 30px 0 30px;
 }
-.content .chat {
+.content .content__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 30px 0 10px 0;
+}
+.content .content__header .header__logo {
+  width: 200px;
+}
+.content .content__header .header__userinfo {
+  display: flex;
+  align-items: center;
+}
+.content .content__header .header__userinfo img {
+  width: 60px;
+  height: 60px;
+  margin-left: 20px;
+  object-fit: cover;
+  object-position: 50% 50%;
+  border-radius: 50%;
+}
+.content .content__chat {
   justify-self: flex-start;
   width: auto;
   background-color: #0A0613;
 }
-.content .chat ul.chat__message-list {
-  height: calc(100vh - 35px);
+.content .content__chat ul.chat__message-list {
+  height: calc(100vh - 135px);
   overflow: auto;
   display: flex;
   flex-direction: column;
@@ -205,14 +226,14 @@ body {
   align-items: start;
   background-color: #0A0613;
 }
-.content .chat ul.chat__message-list .message {
+.content .content__chat ul.chat__message-list .message {
   display: flex;
   padding: 5px 7px;
   width: auto;
   height: auto;
   margin: 0 0 5px 0;
 }
-.content .chat ul.chat__message-list .message .message__avatar {
+.content .content__chat ul.chat__message-list .message .message__avatar {
   width: 40px;
   height: 40px;
   align-self: flex-end;
@@ -221,7 +242,7 @@ body {
   object-position: 50% 50%;
   border-radius: 50%;
 }
-.content .chat ul.chat__message-list .message .message__body {
+.content .content__chat ul.chat__message-list .message .message__body {
   display: flex;
   flex-direction: column;
   margin: 0 10px;
@@ -229,36 +250,35 @@ body {
   color: white;
   background-color: rgba(81, 75, 95, 0.3137254902);
 }
-.content .chat ul.chat__message-list .message .message__body .body__user-name {
+.content .content__chat ul.chat__message-list .message .message__body .body__user-name {
   font-size: 12px;
   margin: 5px 0 0 7px;
 }
-.content .chat ul.chat__message-list .message .message__body .body__text {
+.content .content__chat ul.chat__message-list .message .message__body .body__text {
   font-size: 16px;
   margin: 0 7px 5px 7px;
 }
-.content .chat .chat__input-line {
+.content .content__chat .chat__input-line {
   display: flex;
 }
-.content .chat .chat__input-line input.form__message {
+.content .content__chat .chat__input-line input.form__message {
   width: 100%;
   background-color: rgba(81, 75, 95, 0.3137254902);
   height: 35px;
   padding-left: 7px;
 }
-.content .chat .chat__input-line button.buttons-section__clip {
+.content .content__chat .chat__input-line button.buttons-section__clip {
   width: 25px;
   margin: 0 5px 0 -30px;
   display: flex;
 }
-.content .chat .chat__input-line button.buttons-section__clip svg {
+.content .content__chat .chat__input-line button.buttons-section__clip svg {
   margin: auto;
 }
-.content .chat .chat__no-data {
+.content .content__chat .chat__no-data {
   background-color: #0A0613;
-  height: 100%;
 }
-.content .chat .chat__no-data span.no-data__message {
+.content .content__chat .chat__no-data span.no-data__message {
   position: relative;
   left: 40%;
   top: 40%;

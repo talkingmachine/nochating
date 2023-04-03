@@ -1,6 +1,7 @@
 import { BrowserRouter} from 'react-router-dom';
 import Chat from '../../pages/chat/chat';
 import Rooms from '../../pages/rooms/rooms';
+import ContentHeader from '../content-header/contentHeeader';
 
 function App(): JSX.Element {
 
@@ -10,6 +11,7 @@ function App(): JSX.Element {
         <Rooms/>
       </aside>
       <section className="content">
+        <ContentHeader/>
         <Chat/>
         {/* <Routes>
           <Route

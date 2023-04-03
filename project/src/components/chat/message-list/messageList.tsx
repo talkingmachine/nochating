@@ -39,26 +39,29 @@ function MessageList(): JSX.Element {
   };
 
   return (
-    <ul className="chat__message-list">
-      {messageList.map((document) => (
-        <li key={document.id as string} onContextMenu={(e) => RMCHandler(e, document as MessageInfoDocumentData)} className="message self-message">
-          <img src={document.profilePicture as string} alt="avatar" className="message__avatar"/>
-          <div className="message__body">
-            <div className="body__user-name">{document.username}</div>
-            <div className="body__text">{document.message}</div>
-          </div>
-          {isContextMenuOpen ?
-            <AltContextMenu
-              contextMenuType={ALT_MENU_TYPES.messageContextMenu}
-              contextMenuCoords={contextMenuCoords}
-              messageId={contextMenuIds.messageId}
-              chatId={chatId}
-              closeContextMenu={() => setIsContextMenuOpen(false)}
-            />
-            : false}
-        </li>
-      ))}
-    </ul>
+    <div className='message-list__wrapper'>
+      <ul className="chat__message-list">
+        {messageList.map((document) => (
+          <li key={document.id as string} onContextMenu={(e) => RMCHandler(e, document as MessageInfoDocumentData)} className="message self-message">
+            <img src={document.profilePicture as string} alt="avatar" className="message__avatar"/>
+            <div className="message__body">
+              <div className="body__user-name">{document.username}</div>
+              <div className="body__text">{document.message}</div>
+            </div>
+            {isContextMenuOpen ?
+              <AltContextMenu
+                contextMenuType={ALT_MENU_TYPES.messageContextMenu}
+                contextMenuCoords={contextMenuCoords}
+                messageId={contextMenuIds.messageId}
+                chatId={chatId}
+                closeContextMenu={() => setIsContextMenuOpen(false)}
+              />
+              : false}
+          </li>
+        ))}
+      </ul>
+    </div>
+
   );
 }
 
