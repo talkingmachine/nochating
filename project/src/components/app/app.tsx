@@ -1,7 +1,7 @@
 import { BrowserRouter} from 'react-router-dom';
 import Chat from '../../pages/chat/chat';
 import Rooms from '../../pages/rooms/rooms';
-import ContentHeader from '../content-header/contentHeeader';
+import ContentHeader from '../content-header/contentHeader';
 
 function App(): JSX.Element {
 

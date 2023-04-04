@@ -195,42 +195,44 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 30px 0 10px 0;
+  padding: 10px;
+  height: 65px;
+  background-color: rgba(81, 75, 95, 0.3137254902);
 }
 .content .content__header .header__logo {
-  width: 200px;
+  width: 150px;
 }
 .content .content__header .header__userinfo {
   display: flex;
   align-items: center;
 }
+.content .content__header .header__userinfo span {
+  font-size: 11px;
+}
 .content .content__header .header__userinfo img {
-  width: 60px;
-  height: 60px;
-  margin-left: 20px;
+  width: 45px;
+  height: 45px;
+  margin-left: 15px;
   object-fit: cover;
   object-position: 50% 50%;
   border-radius: 50%;
 }
 .content .content__chat {
-  justify-self: flex-start;
-  width: auto;
   background-color: #0A0613;
-}
-.content .content__chat ul.chat__message-list {
-  height: calc(100vh - 135px);
-  overflow: auto;
+  height: calc(100vh - 35px - 65px);
   display: flex;
   flex-direction: column;
   justify-content: end;
-  align-items: start;
+}
+.content .content__chat ul.chat__message-list {
+  overflow: auto;
   background-color: #0A0613;
+  display: flex;
+  flex-direction: column;
 }
 .content .content__chat ul.chat__message-list .message {
   display: flex;
   padding: 5px 7px;
-  width: auto;
-  height: auto;
   margin: 0 0 5px 0;
 }
 .content .content__chat ul.chat__message-list .message .message__avatar {
@@ -257,6 +259,15 @@ body {
 .content .content__chat ul.chat__message-list .message .message__body .body__text {
   font-size: 16px;
   margin: 0 7px 5px 7px;
+}
+.content .content__chat ul.chat__message-list .self-message {
+  align-self: flex-end;
+}
+.content .content__chat ul.chat__message-list .self-message .message__avatar {
+  order: 2;
+}
+.content .content__chat ul.chat__message-list .self-message .message__body {
+  order: 1;
 }
 .content .content__chat .chat__input-line {
   display: flex;
