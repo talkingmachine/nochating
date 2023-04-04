@@ -5,3 +5,10 @@ export const USER_INFO: UserType = {
   displayName: 'Incognito',
   uid: '0',
 };
+
+type RoomType = {
+  formDefaultPicture: string;
+};
+export const ROOM_INFO: RoomType = {
+  formDefaultPicture: 'img/default-room-create-image.svg',
+};

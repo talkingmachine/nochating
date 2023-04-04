@@ -58,14 +58,16 @@ function PasswordPlate({password, closePasswordMenu, chatId, isOpen}: PasswordPl
   };
 
   return (
-    <article className='password-plate'>
-      <span className="password-plate__title">Say the password</span>
-      <button onClick={exitButtonHandler} className="exit">
-        <svg width={24} height={24} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 6L6 18M18 18L6 6" stroke="#CCCCCC" strokeWidth={2} strokeLinecap="round" /></svg>
-      </button>
-      <input type="text" className="password-plate__input" placeholder='Password:' ref={passwordInput}/>
-      <button onClick={joinClickHandler} className="password-plate__join"><u>Join us</u></button>
-    </article>
+    <div className="blur-wrapper">
+      <article className='password-plate'>
+        <span className="password-plate__title">Say the password</span>
+        <button onClick={exitButtonHandler} className="exit">
+          <svg width={24} height={24} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 6L6 18M18 18L6 6" stroke="#CCCCCC" strokeWidth={2} strokeLinecap="round" /></svg>
+        </button>
+        <input type="text" className="password-plate__input" placeholder='Password:' ref={passwordInput}/>
+        <button onClick={joinClickHandler} className="password-plate__join">Join us</button>
+      </article>
+    </div>
   );
 }
 

@@ -10,11 +10,12 @@ $bgColor: #0A0613;
 $chatBgColor: #0A0613;
 $roomPlatesBgColor: #514b5f50;
 $messageBgColor: #514b5f50;
+$windowBgColor: #5e56707c;
 $fontColorLight: white;
 $borderColor: #514b5f50;
 $imageBorderColor: #CCCCCC;
 
-$header-height: 65px;
+$header-height: 63px;
 $message-input-height: 35px;
 
 ::-webkit-scrollbar{
@@ -22,11 +23,19 @@ $message-input-height: 35px;
 }
 ::-webkit-scrollbar-track{
   background: $bgColor;
-  margin-block-end: 10px;
 }
 ::-webkit-scrollbar-thumb{
   background: $borderColor;
 }
+@supports (scrollbar-color: #5e56707c #0A0613) {
+  * {
+    scrollbar-color: #5e56707c #0A0613;
+    scrollbar-width: thin;
+  }
+}
+
+
+
 
 .defaultInput{
   background-color: #ffffff00;
@@ -42,20 +51,17 @@ body{
   display: flex;
   overflow: hidden;
 }
-// .wrapper {
-// }
 .password-plate{
-  display: flex;
   flex-direction: column;
+  width: 320px;
+  margin-bottom: 15px;
+  padding: 15px;
+  display: flex;
+  background: $windowBgColor;
   position: absolute;
   top: 40%;
-  left: 50%;
-  width: 500px;
-  padding: 15px;
-  margin-left: -250px;
-
-  border: 1px solid $borderColor;
-  background: black;
+  left: 40%;
+  border-radius: 5px;
   input.password-plate__input{
     @extend .defaultInput;
   }
@@ -67,29 +73,111 @@ body{
   .password-plate__input{
     @extend .defaultInput;
   }
-  .password-plate__join{
+  button.password-plate__join{
+    align-self: end;
+    padding: 3px 5px;
+    margin-left: auto;
+    margin-bottom: -5px;
+    font-size: 15px;
     color: $fontColorLight;
+    border-radius: 3px;
+    transition: all .15s linear;
+  }
+  button.password-plate__join:hover{
+    background-color: $windowBgColor;
   }
 }
 .alt-context-menu{
   display: flex;
   flex-direction: column;
   position: absolute;
-  padding: 5px;
-
-  border: 1px solid $borderColor;
-  background: black;
+  padding: 6px 17px;
+  background: $chatBgColor;
+  border: 1px solid $windowBgColor;
+  border-radius: 2px;
   font-size: 12px;
   ul.context-menu__options{
     li{
       display: flex;
       justify-items: center;
       span{
-        margin: 0 3px;
+        margin: 0 5px;
       }
       cursor: pointer;
     }
   }
+}
+.room__new-room{
+  margin-bottom: 15px;
+  padding: 15px;
+  display: flex;
+  background: $windowBgColor;
+  position: absolute;
+  top: 40%;
+  left: 40%;
+  border-radius: 5px;
+  form.new-room__form{
+    display: flex;
+    label.form__picture{
+      width: 100px;
+      height: 100px;
+      border: 1px solid $borderColor;
+      img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: 50% 50%;
+        border: 2px $borderColor solid;
+      }
+    }
+    .form__wrapper{
+      display: flex;
+      flex-direction: column;
+      margin: 6px 0 0 15px;
+      .form__title{
+        display: flex;
+        align-items: center;
+        margin-bottom: 6px;
+        input{
+          width: 100%;
+          @extend .defaultInput;
+          padding-left: 5px;
+          margin-left: 6px;
+        }
+      }
+      .form__password{
+        display: flex;
+        align-items: center;
+        input{
+          width: 100%;
+          @extend .defaultInput;
+          padding-left: 5px;
+          margin-left: 6px;
+        }
+      }
+    }
+  }
+  button.new-room__accept{
+    align-self: end;
+    padding: 3px 5px;
+    margin-left: auto;
+    margin-bottom: -5px;
+    font-size: 15px;
+    color: $fontColorLight;
+    border-radius: 3px;
+    transition: all .15s linear;
+  }
+  button.new-room__accept:hover{
+    background-color: $windowBgColor;
+  }
+
+}
+.blur-wrapper{
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  backdrop-filter: blur(5px);
 }
 //////////
 .sidebar{
@@ -98,7 +186,7 @@ body{
   margin-left: 20px;
   overflow: auto;
   .rooms{
-    padding-top: 50px;
+    padding-top: 25px;
     .rooms__search-line{
       display: flex;
       flex-direction: row;
@@ -107,7 +195,7 @@ body{
       width: 97%;
       input.search-line__input{
         width: 100%;
-        background-color: $bgColor;
+        background-color: $windowBgColor;
         border: 1px solid $borderColor;
         color: $fontColorLight;
         outline: none;
@@ -118,68 +206,7 @@ body{
         padding: 0 7px;
         color: $fontColorLight;
         font-size: 16px;
-        background: #ffffff15;
-      }
-    }
-    .room__new-room{
-      margin-bottom: 15px;
-      padding: 15px;
-      display: flex;
-
-      position: absolute;
-      top: 40%;
-      left: 30%;
-
-      background: #ffffff15;
-      border-radius: 5px;
-      form.new-room__form{
-        display: flex;
-        label.form__picture{
-          width: 100px;
-          height: 100px;
-          border: 1px solid $borderColor;
-          img{
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: 50% 50%;
-            border: 2px $borderColor solid;
-          }
-        }
-        .form__wrapper{
-          display: flex;
-          flex-direction: column;
-          margin: 6px 0 0 15px;
-          .form__title{
-            display: flex;
-            align-items: center;
-            margin-bottom: 6px;
-            input{
-              width: 100%;
-              @extend .defaultInput;
-              padding-left: 5px;
-              margin-left: 6px;
-            }
-          }
-          .form__password{
-            display: flex;
-            align-items: center;
-            input{
-              width: 100%;
-              @extend .defaultInput;
-              padding-left: 5px;
-              margin-left: 6px;
-            }
-          }
-        }
-      }
-      button.new-room__accept{
-        align-self: end;
-        margin-left: auto;
-        margin-bottom: -9px;
-        font-size: 20px;
-
-        color: $fontColorLight;
+        background: $windowBgColor;
       }
     }
     ul.rooms__list{
@@ -215,14 +242,19 @@ body{
 }
 .content{
   width: 100%;
-  padding: 0 30px 0 30px;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   .content__header{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px;
+    padding: 8px 25px;
     height: $header-height;
-    background-color: $messageBgColor;
+    background-color: $windowBgColor;
+    border-radius: 1px;
+    margin: 0 0 10px 0;
     .header__logo{
       width: 150px;
     }
@@ -235,7 +267,7 @@ body{
       img{
         width: 45px;
         height: 45px;
-        margin-left: 15px;
+        margin: 0 -5px 0 15px;
         object-fit: cover;
         object-position: 50% 50%;
         border-radius: 50%;
@@ -244,7 +276,7 @@ body{
   }
   .content__chat{
     background-color: $chatBgColor;
-    height: calc(100vh - $message-input-height - $header-height);
+    height: calc(100vh - $message-input-height - $header-height + 20px);
     display: flex;
     flex-direction: column;
     justify-content: end;
@@ -271,7 +303,7 @@ body{
           flex-direction: column;
           margin: 0 10px;
           min-width: 150px;
-
+          max-width: 400px;
           color: $fontColorLight;
           background-color: $messageBgColor;
           .body__user-name{
@@ -279,9 +311,9 @@ body{
             margin: 5px 0 0 7px;
           }
           .body__text{
+            word-wrap: break-word;
             font-size: 16px;
             margin: 0 7px 5px 7px ;
-
           }
         }
       }
@@ -297,6 +329,7 @@ body{
     }
     .chat__input-line{
       display: flex;
+      margin-top: 10px;
       input.form__message{
         width: 100%;
         @extend .defaultInput;

@@ -45,7 +45,7 @@ function MessageList(): JSX.Element {
           <img src={document.profilePicture as string} alt="avatar" className="message__avatar"/>
           <div className="message__body">
             <div className="body__user-name">{document.username}</div>
-            <div className="body__text">{document.message}</div>
+            <span className="body__text">{document.message}</span>
           </div>
           {isContextMenuOpen ?
             <AltContextMenu
