@@ -13,6 +13,7 @@ export type RoomInfoDocumentData = {
 export type MessageInfoDocumentData = {
   id: string;
   username: string;
+  authorID: string;
   email: string;
   profilePicture: string;
   message: string;

@@ -14,6 +14,7 @@ function InputForm(): JSX.Element {
     try {
       await addDoc(collection(database, `chats/${chatId}`, 'messages'), {
         username: user.displayName,
+        authorID: user.uid,
         email: 'test-email',
         profilePicture: user.photoURL,
         message: message,

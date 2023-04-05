@@ -5,12 +5,14 @@ import { ALT_MENU_TYPES } from '../../../consts/altMenuTypes';
 import { useAppSelector } from '../../../hooks/useStoreSelectors';
 import { MessageInfoDocumentData } from '../../../types/DocumentData';
 import AltContextMenu from '../../app/popups/altContextMenu/altContextMenu';
+import classNames from 'classnames';
 
 
 function MessageList(): JSX.Element {
   const {database} = useContext(GContext);
   const chatId = useAppSelector((state) => state.currentRoomInfo.chatId);
-  const [messageList, setMessageList] = useState<DocumentData[]>([]);
+  const user = useAppSelector((state) => state.user);
+  const [messageList, setMessageList] = useState<MessageInfoDocumentData[]>([]);
   const [isContextMenuOpen, setIsContextMenuOpen] = useState<boolean>();
   const [contextMenuCoords, setContextMenuCoords] = useState<{x: number; y: number}>({x: 0, y: 0});
   const [contextMenuIds, setContextMenuIds] = useState<{messageId: string}>({ messageId: ''});
@@ -22,7 +24,7 @@ function MessageList(): JSX.Element {
       querySnapshot.forEach((doc) => {
         currentList.push({...doc.data(), id: doc.id});
       });
-      setMessageList(currentList);
+      setMessageList(currentList as MessageInfoDocumentData[]);
     });
   }, [chatId, database]);
 
@@ -38,11 +40,16 @@ function MessageList(): JSX.Element {
     });
   };
 
+
   return (
     <ul className="chat__message-list">
       {messageList.map((document) => (
-        <li key={document.id as string} onContextMenu={(e) => RMCHandler(e, document as MessageInfoDocumentData)} className="message self-message">
-          <img src={document.profilePicture as string} alt="avatar" className="message__avatar"/>
+        <li
+          key={document.id}
+          onContextMenu={(e) => RMCHandler(e, document)}
+          className={classNames('message', {'self-message': user.uid === document.authorID})}
+        >
+          <img src={document.profilePicture} alt="avatar" className="message__avatar"/>
           <div className="message__body">
             <div className="body__user-name">{document.username}</div>
             <span className="body__text">{document.message}</span>

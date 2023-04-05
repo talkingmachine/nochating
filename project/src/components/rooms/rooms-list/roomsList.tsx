@@ -6,11 +6,16 @@ import { RoomInfoDocumentData } from '../../../types/DocumentData';
 import AltContextMenu from '../../app/popups/altContextMenu/altContextMenu';
 import RoomImage from './RoomImage/roomImage';
 import PasswordPlate from '../../app/popups/passwordPlate/passwordPlate';
+import { roomsFilter } from '../../../utils/roomsFilter';
 
-function RoomsList(): JSX.Element {
+type RoomsListType = {
+  filterWord: string;
+}
+function RoomsList({filterWord}: RoomsListType): JSX.Element {
 
   const {database} = useContext(GContext);
   const [roomsList, setRoomsList] = useState<DocumentData[]>([]);
+  const [filteredRoomsList, setFilteredRoomsList] = useState<RoomInfoDocumentData[]>([]);
 
   type PasswordMenuType = {
     isOpen: boolean;
@@ -48,7 +53,17 @@ function RoomsList(): JSX.Element {
       });
       setRoomsList(currentList);
     });
+    // return unsubscribe();
   }, [database]);
+
+  useEffect(() => {
+    if (filterWord) {
+      setFilteredRoomsList(roomsFilter(roomsList as RoomInfoDocumentData[], filterWord));
+    } else {
+      setFilteredRoomsList(roomsList as RoomInfoDocumentData[]);
+    }
+  }, [filterWord, roomsList]);
+
 
   const joinClickHandler = (document: RoomInfoDocumentData) => {
     setPasswordMenuState((prev) => ({...prev, isOpen: true}));
@@ -69,15 +84,16 @@ function RoomsList(): JSX.Element {
     }));
   };
 
+
   return (
     <ul className="rooms__list">
-      {roomsList.map((document) => (
-        <li key={document.id as string}
-          onContextMenu={(e) => RMCHandler(e, document as RoomInfoDocumentData)}
+      {filteredRoomsList.map((document) => (
+        <li key={document.id}
+          onContextMenu={(e) => RMCHandler(e, document)}
           className="list__room"
         >
-          <div onClick={() => joinClickHandler(document as RoomInfoDocumentData)} className="room__content">
-            <RoomImage chatId={document.chatId as string}/>
+          <div onClick={() => joinClickHandler(document)} className="room__content">
+            <RoomImage chatId={document.chatId}/>
             <div className="room__middle-row">
               <h3 className="room-header">{document.title}</h3>
             </div>
@@ -93,14 +109,12 @@ function RoomsList(): JSX.Element {
           closeContextMenu={() => setContextMenuState((prev) => ({...prev, isOpen: false}))}
         />
         : false}
-      {passwordMenuState.isOpen ?
-        <PasswordPlate
-          password={passwordMenuState.password}
-          closePasswordMenu={() => setPasswordMenuState((prev) => ({...prev, isOpen: false}))}
-          chatId = {passwordMenuState.chatId}
-          isOpen={passwordMenuState.isOpen}
-        />
-        : false}
+      <PasswordPlate
+        password={passwordMenuState.password}
+        closePasswordMenu={() => setPasswordMenuState((prev) => ({...prev, isOpen: false}))}
+        chatId = {passwordMenuState.chatId}
+        isOpen={passwordMenuState.isOpen}
+      />
     </ul>
   );
 }

@@ -1,15 +1,20 @@
 import { addDoc, collection, doc, serverTimestamp, setDoc } from 'firebase/firestore';
 import { ref, uploadBytes } from 'firebase/storage';
 import { nanoid } from 'nanoid';
-import { FormEvent, memo, useContext, useState } from 'react';
-import { GContext } from '../../..';
-import { useAppSelector } from '../../../hooks/useStoreSelectors';
-import { ROOM_INFO } from '../../../consts/constUserInfo';
+import { FormEvent, memo, useContext, useEffect, useRef, useState } from 'react';
+import { GContext } from '../../../..';
+import { useAppSelector } from '../../../../hooks/useStoreSelectors';
+import { ROOM_INFO } from '../../../../consts/constUserInfo';
 
-function NewRoom(): JSX.Element {
+type NewRoomProps = {
+  isOpen: boolean;
+  closeNewRoomMenu: () => void;
+}
+function NewRoom({isOpen, closeNewRoomMenu}: NewRoomProps): JSX.Element {
 
   const {database, storage} = useContext(GContext);
   const [currentRoomImage, setCurrentRoomImage] = useState<File>();
+  const backgroundRef = useRef<HTMLDivElement>(null);
   const user = useAppSelector((state) => state.user);
 
 
@@ -18,10 +23,36 @@ function NewRoom(): JSX.Element {
   }
   const [formData, setFormData] = useState<FormDataType>({
     title: '',
-    picture : '/image.jpg', // TODO Mockpicture add
+    picture : ROOM_INFO.formDefaultPicture, // TODO Mockpicture add
     password: '',
     passwordView: '',
   });
+
+  useEffect(() => {
+    const removeNewRoomPlateWhenEsc = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        window.removeEventListener('keydown', removeNewRoomPlateWhenEsc);
+        window.removeEventListener('click', removeNewRoomPlateClick);
+        closeNewRoomMenu();
+      }
+    };
+    const removeNewRoomPlateClick = (e: MouseEvent) => {
+      if (e.target === backgroundRef.current) { // click outside the plate
+        window.removeEventListener('keydown', removeNewRoomPlateWhenEsc);
+        window.removeEventListener('click', removeNewRoomPlateClick);
+        closeNewRoomMenu();
+      }
+    };
+
+    if (isOpen) {
+      window.addEventListener('keydown', removeNewRoomPlateWhenEsc);
+      window.addEventListener('click', removeNewRoomPlateClick); // otherwise closes immediately
+    }
+    if (!isOpen) {
+      window.removeEventListener('click', removeNewRoomPlateClick);
+      window.removeEventListener('keydown', removeNewRoomPlateWhenEsc);
+    }
+  }, [closeNewRoomMenu, isOpen]);
 
   const addRoom = async (chatId:string) => {
     try {
@@ -38,7 +69,6 @@ function NewRoom(): JSX.Element {
       console.warn('Error adding room: ', e);
     }
   };
-
   const addChat = async (chatId: string) => {
     try {
       await setDoc(doc(database, 'chats', chatId), {});
@@ -73,10 +103,19 @@ function NewRoom(): JSX.Element {
     }
     addRoom(currentRoomId);
     addChat(currentRoomId); // TODO - add toast if success
+
+    closeNewRoomMenu();
+    setFormData({
+      title: '',
+      picture : ROOM_INFO.formDefaultPicture, // TODO Mockpicture add
+      password: '',
+      passwordView: '',
+    });
+    setCurrentRoomImage(undefined);
   };
 
   return (
-    <div className="blur-wrapper">
+    <div className="blur-wrapper" ref={backgroundRef} hidden={!isOpen}>
       <div className="room__new-room">
         <form onSubmit={newRoomCreateHandler} className="new-room__form" autoComplete='Off'>
           <label className="form__picture" htmlFor='form__picture'>

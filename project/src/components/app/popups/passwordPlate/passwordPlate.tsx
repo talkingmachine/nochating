@@ -14,6 +14,7 @@ type PasswordPlateProps = {
 function PasswordPlate({password, closePasswordMenu, chatId, isOpen}: PasswordPlateProps): JSX.Element {
 
   const passwordInput = useRef<HTMLInputElement>(null);
+  const backgroundRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -22,14 +23,15 @@ function PasswordPlate({password, closePasswordMenu, chatId, isOpen}: PasswordPl
       if (e.key === 'Escape') {
         window.removeEventListener('keydown', removePasswordPlateWhenEsc);
         window.removeEventListener('click', removePasswordPlateClick);
+        closePasswordMenu();
       }
     };
     const removePasswordPlateClick = (e: MouseEvent) => {
-      // if (backgroundRef.current && e.target === backgroundRef.current) { // click outside the plate
-      //   window.removeEventListener('keydown', removePasswordPlateWhenEsc);
-      //   window.removeEventListener('click', removePasswordPlateClick);
-      //   dispatch(setCurrentRoomIsPasswordPlateOpened(false));
-      // }
+      if (e.target === backgroundRef.current) { // click outside the plate
+        window.removeEventListener('keydown', removePasswordPlateWhenEsc);
+        window.removeEventListener('click', removePasswordPlateClick);
+        closePasswordMenu();
+      }
     };
 
     if (isOpen) {
@@ -43,7 +45,7 @@ function PasswordPlate({password, closePasswordMenu, chatId, isOpen}: PasswordPl
         passwordInput.current.value = '';
       }
     }
-  }, [isOpen]);
+  }, [closePasswordMenu, isOpen]);
 
   const exitButtonHandler = () => {
     closePasswordMenu();
@@ -58,7 +60,7 @@ function PasswordPlate({password, closePasswordMenu, chatId, isOpen}: PasswordPl
   };
 
   return (
-    <div className="blur-wrapper">
+    <div className="blur-wrapper" hidden={!isOpen} ref={backgroundRef}>
       <article className='password-plate'>
         <span className="password-plate__title">Say the password</span>
         <button onClick={exitButtonHandler} className="exit">

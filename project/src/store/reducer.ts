@@ -14,7 +14,7 @@ const initialState: InitialStateType = {
   user: USER_INFO,
   currentRoomInfo: {
     id: '',
-    chatId: '123',
+    chatId: '',
   },
 };
 

@@ -35,8 +35,6 @@ $message-input-height: 35px;
 }
 
 
-
-
 .defaultInput{
   background-color: #ffffff00;
   border: none;
@@ -122,12 +120,14 @@ body{
       width: 100px;
       height: 100px;
       border: 1px solid $borderColor;
+      border-radius: 5%;
       img{
         width: 100%;
         height: 100%;
         object-fit: cover;
         object-position: 50% 50%;
         border: 2px $borderColor solid;
+        border-radius: 5%;
       }
     }
     .form__wrapper{
@@ -252,10 +252,11 @@ body{
     justify-content: space-between;
     padding: 8px 25px;
     height: $header-height;
-    background-color: $windowBgColor;
+    background: linear-gradient(45deg, black 35%, $windowBgColor 35%);
     border-radius: 1px;
     margin: 0 0 10px 0;
     .header__logo{
+      margin-top: 10px;
       width: 150px;
     }
     .header__userinfo{
@@ -347,12 +348,42 @@ body{
       }
     }
     .chat__no-data{
+      width: 100%;
+      height: 100%;
+      display: flex;
       background-color: $chatBgColor;
-      span.no-data__message{
-        position: relative;
-        left: 40%;
-        top: 40%;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  .content__login{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .login__userinfo{
+      display: flex;
+      align-items: center;
+      transition: all .15s linear;
+      border-radius: 5px;
+      padding: 15px 20px;
+      span{
+        margin: 0 25px;
+        font-size: 17px;
       }
+      img{
+        width: 90px;
+        height: 90px;
+        margin: 0 -5px 0 15px;
+        object-fit: cover;
+        object-position: 50% 50%;
+        border-radius: 50%;
+      }
+      cursor: pointer;
+    }
+    .login__userinfo:hover{
+      background-color: $windowBgColor;
     }
   }
 }

@@ -1,12 +1,15 @@
-import { useRef, FocusEvent, useState } from 'react';
-import NewRoom from '../new-room/newRoom';
+import { useRef, FocusEvent, useState, ChangeEvent } from 'react';
+import NewRoom from '../../app/popups/new-room/newRoom';
+import RoomsList from '../rooms-list/roomsList';
 
 
 function RoomsSearchLine(): JSX.Element {
 
   const input = useRef<HTMLInputElement>(null);
-  const [isShown, setIsShown] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [filterWord, setFilterWord] = useState<string>('');
 
+  // Add Remove Event listeners
   const messageFocusHandler = (e: FocusEvent<HTMLInputElement>) => {
     e.target.addEventListener('keydown', enterClickHandler);
   };
@@ -14,7 +17,7 @@ function RoomsSearchLine(): JSX.Element {
     e.target.removeEventListener('keydown', enterClickHandler);
   };
   const showNewRoomToggle = () => {
-    setIsShown((prev) => !prev);
+    setIsOpen((prev) => !prev);
   };
   const enterClickHandler = (e: KeyboardEvent) => {
     if (e.key === 'Enter') {
@@ -22,13 +25,21 @@ function RoomsSearchLine(): JSX.Element {
     }
   };
 
+  const changeFilterHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setFilterWord(e.target.value);
+  };
+
   return (
     <>
       <div className="rooms__search-line">
-        <input onFocus={messageFocusHandler} onBlur={messageBlurHandler} className="search-line__input" ref={input}/>
+        <input onFocus={messageFocusHandler} onBlur={messageBlurHandler} onChange={changeFilterHandler} className="search-line__input" ref={input}/>
         <button onClick={showNewRoomToggle} className="search-line__new-room">+</button>
       </div>
-      {isShown ? <NewRoom/> : false}
+      <NewRoom
+        isOpen={isOpen}
+        closeNewRoomMenu={() => setIsOpen(false)}
+      />
+      <RoomsList filterWord={filterWord}/>
     </>
   );
 }

@@ -1,7 +1,8 @@
-import { BrowserRouter} from 'react-router-dom';
+import { BrowserRouter, Route, Routes} from 'react-router-dom';
 import Chat from '../../pages/chat/chat';
 import Rooms from '../../pages/rooms/rooms';
 import ContentHeader from '../content-header/contentHeader';
+import Login from '../../pages/login/login';
 
 function App(): JSX.Element {
 
@@ -12,17 +13,16 @@ function App(): JSX.Element {
       </aside>
       <section className="content">
         <ContentHeader/>
-        <Chat/>
-        {/* <Routes>
+        <Routes>
           <Route
             path='/'
-            element={<Chat/>}
+            element={<Login/>}
           />
           <Route
             path='/chat'
             element={<Chat/>}
           />
-        </Routes> */}
+        </Routes>
       </section>
     </BrowserRouter>
   );
