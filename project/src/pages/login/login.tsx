@@ -40,7 +40,7 @@ function Login(): JSX.Element {
     }
   };
   const signOutClickHandler = () => {
-    logOut().then((result) => {
+    logOut().then(() => {
       localStorage.setItem(
         LOCAL_STORAGE_NAMES.userDisplayName,
         USER_INFO.displayName
@@ -65,7 +65,7 @@ function Login(): JSX.Element {
         <span>{userInfo.displayName}</span>
       </div>
       <div className="login__buttons">
-        <button onClick={signOutClickHandler} className="buttons__logout" hidden={userInfo.uid === '0'}>Logout</button>
+        <button onClick={signOutClickHandler} className="buttons__logout" hidden={!isAuthorized(userInfo)}>Logout</button>
       </div>
     </section>
   );
