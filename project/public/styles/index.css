@@ -183,6 +183,7 @@ body {
   width: 100%;
   background-color: rgba(94, 86, 112, 0.4862745098);
   border: 1px solid rgba(81, 75, 95, 0.3137254902);
+  border-radius: 3px;
   color: white;
   outline: none;
   padding-left: 5px;
@@ -193,6 +194,7 @@ body {
   color: white;
   font-size: 16px;
   background: rgba(94, 86, 112, 0.4862745098);
+  border-radius: 3px;
 }
 .sidebar .rooms ul.rooms__list li.list__room .room__content {
   margin-bottom: 15px;
@@ -232,9 +234,7 @@ body {
   align-items: center;
   justify-content: space-between;
   padding: 8px 25px;
-  height: 63px;
-  background: linear-gradient(45deg, black 35%, rgba(94, 86, 112, 0.4862745098) 35%);
-  border-radius: 1px;
+  height: 73px;
   margin: 0 0 10px 0;
 }
 .content .content__header .header__logo {
@@ -244,6 +244,14 @@ body {
 .content .content__header .header__userinfo {
   display: flex;
   align-items: center;
+  cursor: pointer;
+}
+.content .content__header .header__userinfo svg {
+  height: 73px;
+  fill: rgba(94, 86, 112, 0.4862745098);
+  z-index: -1;
+  position: absolute;
+  right: 0;
 }
 .content .content__header .header__userinfo span {
   font-size: 11px;
@@ -258,7 +266,7 @@ body {
 }
 .content .content__chat {
   background-color: #0A0613;
-  height: calc(100vh - 35px - 63px + 20px);
+  height: calc(100vh - 35px - 73px + 20px);
   display: flex;
   flex-direction: column;
   justify-content: end;
@@ -336,10 +344,14 @@ body {
   justify-content: center;
   align-items: center;
 }
+.content .content__chat .chat__no-data span {
+  margin-top: -150px;
+}
 .content .content__login {
   width: 100%;
   height: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
@@ -364,6 +376,23 @@ body {
   border-radius: 50%;
 }
 .content .content__login .login__userinfo:hover {
+  background-color: rgba(94, 86, 112, 0.4862745098);
+}
+.content .content__login .login__buttons {
+  margin-top: 40px;
+  height: 15vh;
+  display: flex;
+  flex-direction: column;
+}
+.content .content__login .login__buttons button {
+  padding: 5px 50px;
+  margin-top: 15px;
+  background-color: rgba(81, 75, 95, 0.3137254902);
+  border-radius: 3px;
+  color: white;
+  transition: all 0.15s linear;
+}
+.content .content__login .login__buttons button:hover {
   background-color: rgba(94, 86, 112, 0.4862745098);
 }
 

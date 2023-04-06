@@ -2,7 +2,7 @@ import React, { createContext } from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 import { initializeApp } from 'firebase/app';
-import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
 import { ContextType } from './types/Context';
 import { getFirestore } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
@@ -35,8 +35,9 @@ const signIn = () => signInWithPopup(auth, provider);
 //const email = error.customData.email;// The email of the user's account used.
 //const credential = GoogleAuthProvider.credentialFromError(error);// The AuthCredential type that was used.
 //});
+const logOut = () => signOut(auth);
 
-export const GContext = createContext<ContextType>({signIn, database, storage});
+export const GContext = createContext<ContextType>({signIn, logOut, database, storage});
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
@@ -46,6 +47,7 @@ root.render(
   <Provider store={store}>
     <GContext.Provider value={{
       signIn,
+      logOut,
       database,
       storage
     }}

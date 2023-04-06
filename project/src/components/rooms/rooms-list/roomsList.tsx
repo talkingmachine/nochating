@@ -7,6 +7,8 @@ import AltContextMenu from '../../app/popups/altContextMenu/altContextMenu';
 import RoomImage from './RoomImage/roomImage';
 import PasswordPlate from '../../app/popups/passwordPlate/passwordPlate';
 import { roomsFilter } from '../../../utils/roomsFilter';
+import { useAppSelector } from '../../../hooks/useStoreSelectors';
+import { isAuthorized } from '../../../utils/isAuthorized';
 
 type RoomsListType = {
   filterWord: string;
@@ -14,6 +16,7 @@ type RoomsListType = {
 function RoomsList({filterWord}: RoomsListType): JSX.Element {
 
   const {database} = useContext(GContext);
+  const user = useAppSelector((state) => state.user);
   const [roomsList, setRoomsList] = useState<DocumentData[]>([]);
   const [filteredRoomsList, setFilteredRoomsList] = useState<RoomInfoDocumentData[]>([]);
 
@@ -66,22 +69,28 @@ function RoomsList({filterWord}: RoomsListType): JSX.Element {
 
 
   const joinClickHandler = (document: RoomInfoDocumentData) => {
-    setPasswordMenuState((prev) => ({...prev, isOpen: true}));
-    setPasswordMenuState((prev) => ({...prev, password: document.password}));
-    setPasswordMenuState((prev) => ({...prev, chatId: document.chatId}));
+    if (isAuthorized(user)) {
+      setPasswordMenuState((prev) => ({...prev, isOpen: true}));
+      setPasswordMenuState((prev) => ({...prev, password: document.password}));
+      setPasswordMenuState((prev) => ({...prev, chatId: document.chatId}));
+    } else {
+      // TODO - say something about it
+    }
   };
 
   const RMCHandler = (e: React.MouseEvent<HTMLLIElement, MouseEvent>, document: RoomInfoDocumentData) => {
     e.preventDefault();
-    setContextMenuState((prev) => ({...prev, isOpen: true}));
-    setContextMenuState((prev) => ({...prev, coords: {
-      x: e.clientX,
-      y: e.clientY
-    }}));
-    setContextMenuState((prev) => ({...prev,
-      roomId: document.id,
-      chatId: document.chatId
-    }));
+    if (isAuthorized(user)) {
+      setContextMenuState((prev) => ({...prev, isOpen: true}));
+      setContextMenuState((prev) => ({...prev, coords: {
+        x: e.clientX,
+        y: e.clientY
+      }}));
+      setContextMenuState((prev) => ({...prev,
+        roomId: document.id,
+        chatId: document.chatId
+      }));
+    }
   };
 
 

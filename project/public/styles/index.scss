@@ -15,7 +15,7 @@ $fontColorLight: white;
 $borderColor: #514b5f50;
 $imageBorderColor: #CCCCCC;
 
-$header-height: 63px;
+$header-height: 73px;
 $message-input-height: 35px;
 
 ::-webkit-scrollbar{
@@ -197,6 +197,7 @@ body{
         width: 100%;
         background-color: $windowBgColor;
         border: 1px solid $borderColor;
+        border-radius: 3px;
         color: $fontColorLight;
         outline: none;
         padding-left: 5px;
@@ -207,6 +208,7 @@ body{
         color: $fontColorLight;
         font-size: 16px;
         background: $windowBgColor;
+        border-radius: 3px;
       }
     }
     ul.rooms__list{
@@ -252,8 +254,7 @@ body{
     justify-content: space-between;
     padding: 8px 25px;
     height: $header-height;
-    background: linear-gradient(45deg, black 35%, $windowBgColor 35%);
-    border-radius: 1px;
+    //background: linear-gradient(41deg, rgba(0,0,0,0) 55%, $windowBgColor 55%, $windowBgColor 62%, rgba(0,0,0,0) 62%, rgba(0,0,0,0) 70%, $windowBgColor 70%);
     margin: 0 0 10px 0;
     .header__logo{
       margin-top: 10px;
@@ -262,6 +263,14 @@ body{
     .header__userinfo{
       display: flex;
       align-items: center;
+      cursor: pointer;
+      svg{
+        height: 73px;
+        fill: $windowBgColor;
+        z-index: -1;
+        position: absolute;
+        right: 0;
+      }
       span{
         font-size: 11px;
       }
@@ -354,12 +363,16 @@ body{
       background-color: $chatBgColor;
       justify-content: center;
       align-items: center;
+      span{
+        margin-top: -150px;
+      }
     }
   }
   .content__login{
     width: 100%;
     height: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     .login__userinfo{
@@ -384,6 +397,23 @@ body{
     }
     .login__userinfo:hover{
       background-color: $windowBgColor;
+    }
+    .login__buttons{
+      margin-top: 40px;
+      height: 15vh;
+      display: flex;
+      flex-direction: column;
+      button {
+        padding: 5px 50px;
+        margin-top: 15px;
+        background-color: $messageBgColor;
+        border-radius: 3px;
+        color: $fontColorLight;
+        transition: all .15s linear;
+      }
+      button:hover {
+        background-color: $windowBgColor;
+      }
     }
   }
 }

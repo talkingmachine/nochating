@@ -1,15 +1,17 @@
 import { useRef, FocusEvent, useState, ChangeEvent } from 'react';
-import NewRoom from '../../app/popups/new-room/newRoom';
+import NewRoom from '../../app/popups/newRoom/newRoom';
 import RoomsList from '../rooms-list/roomsList';
+import { isAuthorized } from '../../../utils/isAuthorized';
+import { useAppSelector } from '../../../hooks/useStoreSelectors';
 
 
 function RoomsSearchLine(): JSX.Element {
 
   const input = useRef<HTMLInputElement>(null);
+  const user = useAppSelector((state) => state.user);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [filterWord, setFilterWord] = useState<string>('');
 
-  // Add Remove Event listeners
   const messageFocusHandler = (e: FocusEvent<HTMLInputElement>) => {
     e.target.addEventListener('keydown', enterClickHandler);
   };
@@ -17,12 +19,12 @@ function RoomsSearchLine(): JSX.Element {
     e.target.removeEventListener('keydown', enterClickHandler);
   };
   const showNewRoomToggle = () => {
-    setIsOpen((prev) => !prev);
+    if (isAuthorized(user)) {
+      setIsOpen((prev) => !prev);
+    }
   };
   const enterClickHandler = (e: KeyboardEvent) => {
-    if (e.key === 'Enter') {
-      showNewRoomToggle();
-    }
+    ///
   };
 
   const changeFilterHandler = (e: ChangeEvent<HTMLInputElement>) => {
