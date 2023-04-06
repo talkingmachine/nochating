@@ -51,6 +51,7 @@ function NewRoom({isOpen, closeNewRoomMenu}: NewRoomProps): JSX.Element {
     if (!isOpen) {
       window.removeEventListener('click', removeNewRoomPlateClick);
       window.removeEventListener('keydown', removeNewRoomPlateWhenEsc);
+      resetForm();
     }
   }, [closeNewRoomMenu, isOpen]);
 
@@ -77,7 +78,6 @@ function NewRoom({isOpen, closeNewRoomMenu}: NewRoomProps): JSX.Element {
     }
   };
 
-
   const titleChangeHandler = (e: FormEvent<HTMLInputElement>) => {
     const {value} = e.target as HTMLInputElement;
     setFormData({...formData, title: value});
@@ -92,7 +92,20 @@ function NewRoom({isOpen, closeNewRoomMenu}: NewRoomProps): JSX.Element {
     }
   };
 
+  const resetForm = () => {
+    setFormData({
+      title: '',
+      picture : ROOM_INFO.formDefaultPicture, // TODO Mockpicture add
+      password: '',
+      passwordView: '',
+    });
+    setCurrentRoomImage(undefined);
+  };
+
   const newRoomCreateHandler = () => {
+    if (!formData.title) {
+      return;
+    }
     const currentRoomId = nanoid();
     if (currentRoomImage) {
       const storageRef = ref(storage, `img/room-image/${currentRoomId}`);
@@ -102,13 +115,7 @@ function NewRoom({isOpen, closeNewRoomMenu}: NewRoomProps): JSX.Element {
     addChat(currentRoomId); // TODO - add toast if success
 
     closeNewRoomMenu();
-    setFormData({
-      title: '',
-      picture : ROOM_INFO.formDefaultPicture, // TODO Mockpicture add
-      password: '',
-      passwordView: '',
-    });
-    setCurrentRoomImage(undefined);
+    resetForm();
   };
 
   return (

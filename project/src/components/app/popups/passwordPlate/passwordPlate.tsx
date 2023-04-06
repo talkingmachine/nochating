@@ -23,6 +23,7 @@ function PasswordPlate({password, closePasswordMenu, chatId, isOpen}: PasswordPl
       if (e.key === 'Escape') {
         window.removeEventListener('keydown', removePasswordPlateWhenEsc);
         window.removeEventListener('click', removePasswordPlateClick);
+        window.removeEventListener('keydown', removePasswordPlateEnter);
         closePasswordMenu();
       }
     };
@@ -30,22 +31,37 @@ function PasswordPlate({password, closePasswordMenu, chatId, isOpen}: PasswordPl
       if (e.target === backgroundRef.current) { // click outside the plate
         window.removeEventListener('keydown', removePasswordPlateWhenEsc);
         window.removeEventListener('click', removePasswordPlateClick);
+        window.removeEventListener('keydown', removePasswordPlateEnter);
         closePasswordMenu();
+      }
+    };
+    const removePasswordPlateEnter = (e: KeyboardEvent) => {
+      if (e.key === 'Enter') {
+        joinClickHandler();
+        if (passwordInput.current && passwordInput.current.value === password) {
+          window.removeEventListener('keydown', removePasswordPlateWhenEsc);
+          window.removeEventListener('click', removePasswordPlateClick);
+          window.removeEventListener('keydown', removePasswordPlateEnter);
+          closePasswordMenu();
+        }
       }
     };
 
     if (isOpen) {
       window.addEventListener('keydown', removePasswordPlateWhenEsc);
       window.addEventListener('click', removePasswordPlateClick); // otherwise closes immediately
+      window.addEventListener('keydown', removePasswordPlateEnter);
     }
     if (!isOpen) {
       window.removeEventListener('click', removePasswordPlateClick);
       window.removeEventListener('keydown', removePasswordPlateWhenEsc);
+      window.removeEventListener('keydown', removePasswordPlateEnter);
       if (passwordInput.current) {
         passwordInput.current.value = '';
       }
     }
-  }, [closePasswordMenu, isOpen]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [closePasswordMenu, isOpen, password]);
 
   const exitButtonHandler = () => {
     closePasswordMenu();

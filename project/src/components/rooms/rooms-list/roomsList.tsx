@@ -7,8 +7,10 @@ import AltContextMenu from '../../app/popups/altContextMenu/altContextMenu';
 import RoomImage from './RoomImage/roomImage';
 import PasswordPlate from '../../app/popups/passwordPlate/passwordPlate';
 import { roomsFilter } from '../../../utils/roomsFilter';
-import { useAppSelector } from '../../../hooks/useStoreSelectors';
+import { useAppDispatch, useAppSelector } from '../../../hooks/useStoreSelectors';
 import { isAuthorized } from '../../../utils/isAuthorized';
+import { useNavigate } from 'react-router-dom';
+import { setCurrentRoomChatId } from '../../../store/actions';
 
 type RoomsListType = {
   filterWord: string;
@@ -17,6 +19,8 @@ function RoomsList({filterWord}: RoomsListType): JSX.Element {
 
   const {database} = useContext(GContext);
   const user = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const [roomsList, setRoomsList] = useState<DocumentData[]>([]);
   const [filteredRoomsList, setFilteredRoomsList] = useState<RoomInfoDocumentData[]>([]);
 
@@ -69,6 +73,11 @@ function RoomsList({filterWord}: RoomsListType): JSX.Element {
 
 
   const joinClickHandler = (document: RoomInfoDocumentData) => {
+    if (!document.password) { // join immideatly if no pass
+      dispatch(setCurrentRoomChatId(document.chatId));
+      navigate('/chat');
+      return;
+    }
     if (isAuthorized(user)) {
       setPasswordMenuState((prev) => ({...prev, isOpen: true}));
       setPasswordMenuState((prev) => ({...prev, password: document.password}));

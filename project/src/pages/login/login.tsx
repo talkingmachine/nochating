@@ -34,8 +34,7 @@ function Login(): JSX.Element {
         );
 
         dispatch(setUser(uploadStorageInfo()));
-        setTimeout(() => navigate('/chat'), 900);
-
+        navigate('/chat');
       });
     }
   };
