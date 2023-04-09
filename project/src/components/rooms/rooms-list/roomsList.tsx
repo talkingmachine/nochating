@@ -3,14 +3,12 @@ import React, { useContext, useEffect, useState } from 'react';
 import { GContext } from '../../..';
 import { ALT_MENU_TYPES } from '../../../consts/altMenuTypes';
 import { RoomInfoDocumentData } from '../../../types/DocumentData';
-import AltContextMenu from '../../app/popups/altContextMenu/altContextMenu';
 import RoomImage from './RoomImage/roomImage';
-import PasswordPlate from '../../app/popups/passwordPlate/passwordPlate';
 import { roomsFilter } from '../../../utils/roomsFilter';
 import { useAppDispatch, useAppSelector } from '../../../hooks/useStoreSelectors';
 import { isAuthorized } from '../../../utils/isAuthorized';
 import { useNavigate } from 'react-router-dom';
-import { setCurrentRoomChatId } from '../../../store/actions';
+import { setContextMenuInfo, setCurrentRoomChatId, setPasswordPlateInfo } from '../../../store/actions';
 
 type RoomsListType = {
   filterWord: string;
@@ -19,37 +17,12 @@ function RoomsList({filterWord}: RoomsListType): JSX.Element {
 
   const {database} = useContext(GContext);
   const user = useAppSelector((state) => state.user);
+  const currentChatId = useAppSelector((state) => state.currentRoomInfo.chatId);
+  const contextMenuInfo = useAppSelector((state) => state.contextMenuInfo);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [roomsList, setRoomsList] = useState<DocumentData[]>([]);
   const [filteredRoomsList, setFilteredRoomsList] = useState<RoomInfoDocumentData[]>([]);
-
-  type PasswordMenuType = {
-    isOpen: boolean;
-    password: string;
-    chatId: string;
-  }
-  const [passwordMenuState, setPasswordMenuState] = useState<PasswordMenuType>({
-    isOpen: false,
-    password: '',
-    chatId: '',
-  });
-
-  type ContextMenuType = {
-    isOpen: boolean;
-    chatId: string;
-    roomId: string;
-    coords: {
-      x: number;
-      y: number;
-    };
-  }
-  const [contextMenuState, setContextMenuState] = useState<ContextMenuType>({
-    isOpen: false,
-    roomId: '',
-    chatId: '',
-    coords: {x: 0, y: 0}
-  });
 
   useEffect(() => {
     const q = query(collection(database, 'rooms'), orderBy('createdAt', 'desc'));
@@ -73,15 +46,20 @@ function RoomsList({filterWord}: RoomsListType): JSX.Element {
 
 
   const joinClickHandler = (document: RoomInfoDocumentData) => {
-    if (!document.password) { // join immideatly if no pass
-      dispatch(setCurrentRoomChatId(document.chatId));
-      navigate('/chat');
-      return;
-    }
     if (isAuthorized(user)) {
-      setPasswordMenuState((prev) => ({...prev, isOpen: true}));
-      setPasswordMenuState((prev) => ({...prev, password: document.password}));
-      setPasswordMenuState((prev) => ({...prev, chatId: document.chatId}));
+      if (!document.password) { // join immediately if no password
+        dispatch(setCurrentRoomChatId(document.chatId));
+        navigate('/chat');
+        return;
+      }
+      if (document.chatId === currentChatId) { // reject trying to join current chat
+        return;
+      }
+      dispatch(setPasswordPlateInfo({
+        password: document.password,
+        chatId: document.chatId,
+        isOpen: true,
+      }));
     } else {
       // TODO - say something about it
     }
@@ -89,17 +67,17 @@ function RoomsList({filterWord}: RoomsListType): JSX.Element {
 
   const RMCHandler = (e: React.MouseEvent<HTMLLIElement, MouseEvent>, document: RoomInfoDocumentData) => {
     e.preventDefault();
-    if (isAuthorized(user)) {
-      setContextMenuState((prev) => ({...prev, isOpen: true}));
-      setContextMenuState((prev) => ({...prev, coords: {
+    dispatch(setContextMenuInfo({
+      ...contextMenuInfo,
+      isOpen: true,
+      contextMenuType: ALT_MENU_TYPES.roomContextMenu,
+      chatId: document.chatId,
+      contextMenuCoords: {
         x: e.clientX,
         y: e.clientY
-      }}));
-      setContextMenuState((prev) => ({...prev,
-        roomId: document.id,
-        chatId: document.chatId
-      }));
-    }
+      },
+      roomId: document.id
+    }));
   };
 
 
@@ -118,21 +96,6 @@ function RoomsList({filterWord}: RoomsListType): JSX.Element {
           </div>
         </li>
       ))}
-      {contextMenuState.isOpen ?
-        <AltContextMenu
-          contextMenuType={ALT_MENU_TYPES.roomContextMenu}
-          contextMenuCoords={contextMenuState.coords}
-          roomId={contextMenuState.roomId}
-          chatId={contextMenuState.chatId}
-          closeContextMenu={() => setContextMenuState((prev) => ({...prev, isOpen: false}))}
-        />
-        : false}
-      <PasswordPlate
-        password={passwordMenuState.password}
-        closePasswordMenu={() => setPasswordMenuState((prev) => ({...prev, isOpen: false}))}
-        chatId = {passwordMenuState.chatId}
-        isOpen={passwordMenuState.isOpen}
-      />
     </ul>
   );
 }

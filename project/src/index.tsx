@@ -8,8 +8,6 @@ import { getFirestore } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 import { Provider } from 'react-redux';
 import { store } from './store';
-import { LOCAL_STORAGE_NAMES } from './consts/localStorageNames';
-import { USER_INFO } from './consts/constUserInfo';
 
 
 const firebaseConfig = {
@@ -22,20 +20,6 @@ const firebaseConfig = {
   appId: '1:1064480803286:web:bb3135a35ab0cd5ef6fc77'
 };
 
-if (localStorage.getItem(LOCAL_STORAGE_NAMES.userUID) === null) { // creating localStorage
-  localStorage.setItem(
-    LOCAL_STORAGE_NAMES.userDisplayName,
-    USER_INFO.displayName
-  );
-  localStorage.setItem(
-    LOCAL_STORAGE_NAMES.userPhotoURL,
-    USER_INFO.photoURL
-  );
-  localStorage.setItem(
-    LOCAL_STORAGE_NAMES.userUID,
-    USER_INFO.uid,
-  );
-}
 
 const provider = new GoogleAuthProvider();
 const app = initializeApp(firebaseConfig);

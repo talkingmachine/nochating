@@ -3,31 +3,24 @@ import { deleteObject, ref } from 'firebase/storage';
 import { useContext, useEffect, useRef } from 'react';
 import { GContext } from '../../../..';
 import { ALT_MENU_TYPES } from '../../../../consts/altMenuTypes';
+import { useAppDispatch, useAppSelector } from '../../../../hooks/useStoreSelectors';
+import { setContextMenuInfo } from '../../../../store/actions';
 
-type AltContextMenuProps = {
-  contextMenuType: string;
-  contextMenuCoords: {
-    x: number;
-    y: number;
-  };
-  roomId?: string;
-  messageId?: string;
-  chatId: string;
-  closeContextMenu: () => void;
-}
-function AltContextMenu({contextMenuType, contextMenuCoords, roomId = '', messageId = '', chatId, closeContextMenu}: AltContextMenuProps): JSX.Element {
+function AltContextMenu(): JSX.Element {
 
   const {database, storage} = useContext(GContext);
+  const dispatch = useAppDispatch();
+  const contextMenuInfo = useAppSelector((state) => state.contextMenuInfo);
   const contextMenuRef = useRef(null);
   const style = {
-    left: contextMenuCoords.x,
-    top: contextMenuCoords.y,
+    left: contextMenuInfo.contextMenuCoords.x,
+    top: contextMenuInfo.contextMenuCoords.y,
   };
 
   const removePasswordPlateClick = (e: MouseEvent) => {
     if (e.target !== contextMenuRef.current) {
       window.removeEventListener('click', removePasswordPlateClick);
-      closeContextMenu();
+      dispatch(setContextMenuInfo({...contextMenuInfo, isOpen: false}));
     }
   };
   useEffect(()=>{
@@ -36,43 +29,39 @@ function AltContextMenu({contextMenuType, contextMenuCoords, roomId = '', messag
 
   const removeRoom = async (currentRoomId: string) => {
     try {
-      await deleteDoc(doc(database, 'chats', chatId));
+      await deleteDoc(doc(database, 'chats', contextMenuInfo.chatId));
     } catch (e) {
-      // eslint-disable-next-line no-console
-      console.warn('Error removing chat: ', e);
+      // TODO say something
     }
     try {
       await deleteDoc(doc(database, 'rooms', currentRoomId));
     } catch (e) {
-      // eslint-disable-next-line no-console
-      console.warn('Error removing room: ', e);
+      // TODO say something
     }
     try {
-      await deleteObject(ref(storage, `img/room-image/${chatId}`));
+      await deleteObject(ref(storage, `img/room-image/${contextMenuInfo.chatId}`));
     } catch (e) {
-      // eslint-disable-next-line no-console
-      console.warn('Error removing room-image: ', e);
+      // TODO say something
     }
   };
 
   const removeMessage = async (currentMessageId: string) => {
     try {
-      await deleteDoc(doc(database, 'chats', chatId, 'messages', currentMessageId));
+      await deleteDoc(doc(database, 'chats', contextMenuInfo.chatId, 'messages', currentMessageId));
     } catch (e) {
-      // eslint-disable-next-line no-console
-      console.warn('Error removing message message: ', e);
+      // TODO say something
     }
   };
 
   const deleteClickHandler = (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
-    switch (contextMenuType) {
+    switch (contextMenuInfo.contextMenuType) {
       case ALT_MENU_TYPES.roomContextMenu:
-        closeContextMenu();
-        removeRoom(roomId);
+        dispatch(setContextMenuInfo({...contextMenuInfo, isOpen: false}));
+        removeRoom(contextMenuInfo.roomId);
         break;
       case ALT_MENU_TYPES.messageContextMenu:
-        closeContextMenu();
-        removeMessage(messageId);
+        dispatch(setContextMenuInfo({...contextMenuInfo, isOpen: false}));
+        removeMessage(contextMenuInfo.messageId);
         break;
     }
   };

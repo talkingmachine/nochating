@@ -3,18 +3,28 @@ import Chat from '../../pages/chat/chat';
 import Rooms from '../../pages/rooms/rooms';
 import ContentHeader from '../content-header/contentHeader';
 import Login from '../../pages/login/login';
-import { useAppDispatch } from '../../hooks/useStoreSelectors';
-import { setUser } from '../../store/actions';
+import classNames from 'classnames';
+import { isAuthorized } from '../../utils/isAuthorized';
+import { useAppDispatch, useAppSelector } from '../../hooks/useStoreSelectors';
+import { useEffect } from 'react';
 import { uploadStorageInfo } from '../../utils/uploadStorageInfo';
+import { setUser } from '../../store/actions';
+import Popups from './popups/popups';
 
 
 function App(): JSX.Element {
+
   const dispatch = useAppDispatch();
-  dispatch(setUser(uploadStorageInfo()));
+  const user = useAppSelector((state) => state.user);
+
+  useEffect(() => {
+    dispatch(setUser(uploadStorageInfo()));
+  }, [dispatch]);
 
   return (
     <BrowserRouter>
-      <aside className="sidebar">
+      <Popups/>
+      <aside className={classNames('sidebar', {'sidebar--locked' : !isAuthorized(user)})}>
         <Rooms/>
       </aside>
       <section className="content">

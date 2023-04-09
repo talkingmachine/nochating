@@ -2,21 +2,19 @@
 import { useEffect } from 'react';
 import { memo, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { setCurrentRoomChatId } from '../../../../store/actions';
-import { useAppDispatch } from '../../../../hooks/useStoreSelectors';
+import { setCurrentRoomChatId, setPasswordPlateInfo } from '../../../../store/actions';
+import { useAppDispatch, useAppSelector } from '../../../../hooks/useStoreSelectors';
 
-type PasswordPlateProps = {
-  password: string;
-  closePasswordMenu: () => void;
-  chatId: string;
-  isOpen: boolean;
-}
-function PasswordPlate({password, closePasswordMenu, chatId, isOpen}: PasswordPlateProps): JSX.Element {
+function PasswordPlate(): JSX.Element {
 
   const passwordInput = useRef<HTMLInputElement>(null);
   const backgroundRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const passwordPlateInfo = useAppSelector((state) => state.passwordPlateInfo);
+  const closePasswordPlate = () => {
+    dispatch(setPasswordPlateInfo({...passwordPlateInfo, isOpen: false}));
+  };
 
   useEffect(() => {
     const removePasswordPlateWhenEsc = (e: KeyboardEvent) => {
@@ -24,7 +22,7 @@ function PasswordPlate({password, closePasswordMenu, chatId, isOpen}: PasswordPl
         window.removeEventListener('keydown', removePasswordPlateWhenEsc);
         window.removeEventListener('click', removePasswordPlateClick);
         window.removeEventListener('keydown', removePasswordPlateEnter);
-        closePasswordMenu();
+        closePasswordPlate();
       }
     };
     const removePasswordPlateClick = (e: MouseEvent) => {
@@ -32,27 +30,27 @@ function PasswordPlate({password, closePasswordMenu, chatId, isOpen}: PasswordPl
         window.removeEventListener('keydown', removePasswordPlateWhenEsc);
         window.removeEventListener('click', removePasswordPlateClick);
         window.removeEventListener('keydown', removePasswordPlateEnter);
-        closePasswordMenu();
+        closePasswordPlate();
       }
     };
     const removePasswordPlateEnter = (e: KeyboardEvent) => {
       if (e.key === 'Enter') {
         joinClickHandler();
-        if (passwordInput.current && passwordInput.current.value === password) {
+        if (passwordInput.current && passwordInput.current.value === passwordPlateInfo.password) {
           window.removeEventListener('keydown', removePasswordPlateWhenEsc);
           window.removeEventListener('click', removePasswordPlateClick);
           window.removeEventListener('keydown', removePasswordPlateEnter);
-          closePasswordMenu();
+          closePasswordPlate();
         }
       }
     };
 
-    if (isOpen) {
+    if (passwordPlateInfo.isOpen) {
       window.addEventListener('keydown', removePasswordPlateWhenEsc);
       window.addEventListener('click', removePasswordPlateClick); // otherwise closes immediately
       window.addEventListener('keydown', removePasswordPlateEnter);
     }
-    if (!isOpen) {
+    if (!passwordPlateInfo.isOpen) {
       window.removeEventListener('click', removePasswordPlateClick);
       window.removeEventListener('keydown', removePasswordPlateWhenEsc);
       window.removeEventListener('keydown', removePasswordPlateEnter);
@@ -61,29 +59,29 @@ function PasswordPlate({password, closePasswordMenu, chatId, isOpen}: PasswordPl
       }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [closePasswordMenu, isOpen, password]);
+  }, [passwordPlateInfo.isOpen, passwordPlateInfo.password]);
 
   const exitButtonHandler = () => {
-    closePasswordMenu();
+    closePasswordPlate();
   };
 
   const joinClickHandler = () => {
-    if (passwordInput.current && passwordInput.current.value === password) {
-      dispatch(setCurrentRoomChatId(chatId));
+    if (passwordInput.current && passwordInput.current.value === passwordPlateInfo.password) {
+      dispatch(setCurrentRoomChatId(passwordPlateInfo.chatId));
       navigate('/chat');
-      closePasswordMenu();
+      closePasswordPlate();
     }
   };
 
   return (
-    <div className="blur-wrapper" hidden={!isOpen} ref={backgroundRef}>
+    <div className="blur-wrapper" hidden={!passwordPlateInfo.isOpen} ref={backgroundRef}>
       <article className='password-plate'>
         <span className="password-plate__title">Say the password</span>
         <button onClick={exitButtonHandler} className="exit">
           <svg width={24} height={24} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 6L6 18M18 18L6 6" stroke="#CCCCCC" strokeWidth={2} strokeLinecap="round" /></svg>
         </button>
         <input type="text" className="password-plate__input" placeholder='Password:' ref={passwordInput}/>
-        <button onClick={joinClickHandler} className="password-plate__join">Join us</button>
+        <button onClick={joinClickHandler} className="password-plate__join">Join</button>
       </article>
     </div>
   );

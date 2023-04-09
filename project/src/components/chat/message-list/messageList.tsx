@@ -1,21 +1,21 @@
+import classNames from 'classnames';
 import { collection,DocumentData,onSnapshot, orderBy, query } from 'firebase/firestore';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { GContext } from '../../..';
 import { ALT_MENU_TYPES } from '../../../consts/altMenuTypes';
-import { useAppSelector } from '../../../hooks/useStoreSelectors';
+import { useAppDispatch, useAppSelector } from '../../../hooks/useStoreSelectors';
+import { setContextMenuInfo } from '../../../store/actions';
 import { MessageInfoDocumentData } from '../../../types/DocumentData';
-import AltContextMenu from '../../app/popups/altContextMenu/altContextMenu';
-import classNames from 'classnames';
 
 
 function MessageList(): JSX.Element {
   const {database} = useContext(GContext);
+  const dispatch = useAppDispatch();
+  const listRef = useRef<HTMLUListElement>(null);
   const chatId = useAppSelector((state) => state.currentRoomInfo.chatId);
   const user = useAppSelector((state) => state.user);
+  const contextMenuInfo = useAppSelector((state) => state.contextMenuInfo);
   const [messageList, setMessageList] = useState<MessageInfoDocumentData[]>([]);
-  const [isContextMenuOpen, setIsContextMenuOpen] = useState<boolean>();
-  const [contextMenuCoords, setContextMenuCoords] = useState<{x: number; y: number}>({x: 0, y: 0});
-  const [contextMenuIds, setContextMenuIds] = useState<{messageId: string}>({ messageId: ''});
 
   useEffect(() => {
     const q = query(collection(database, `chats/${chatId}`, 'messages'), orderBy('createdAt'));
@@ -28,21 +28,30 @@ function MessageList(): JSX.Element {
     });
   }, [chatId, database]);
 
+  useEffect(() => {
+    if (listRef.current) { // scroll to bottom when redraw
+      listRef.current.scrollTop = listRef.current.scrollHeight;
+    }
+  }, [messageList]);
+
   const RMCHandler = (e: React.MouseEvent<HTMLLIElement, MouseEvent>, document: MessageInfoDocumentData) => {
     e.preventDefault();
-    setIsContextMenuOpen(true);
-    setContextMenuIds({
-      messageId: document.id
-    });
-    setContextMenuCoords({
-      x: e.clientX,
-      y: e.clientY
-    });
+    dispatch(setContextMenuInfo({
+      ...contextMenuInfo,
+      isOpen: true,
+      contextMenuType: ALT_MENU_TYPES.messageContextMenu,
+      messageId: document.id,
+      chatId: chatId,
+      contextMenuCoords: {
+        x: e.clientX,
+        y: e.clientY
+      }
+    }));
   };
 
 
   return (
-    <ul className="chat__message-list">
+    <ul className="chat__message-list" ref={listRef}>
       {messageList.map((document) => (
         <li
           key={document.id}
@@ -54,15 +63,6 @@ function MessageList(): JSX.Element {
             <div className="body__user-name">{document.username}</div>
             <span className="body__text">{document.message}</span>
           </div>
-          {isContextMenuOpen ?
-            <AltContextMenu
-              contextMenuType={ALT_MENU_TYPES.messageContextMenu}
-              contextMenuCoords={contextMenuCoords}
-              messageId={contextMenuIds.messageId}
-              chatId={chatId}
-              closeContextMenu={() => setIsContextMenuOpen(false)}
-            />
-            : false}
         </li>
       ))}
     </ul>
