@@ -1,8 +1,8 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { USER_INFO } from '../consts/constUserInfo';
-import { ContextMenuInfo, NewRoomInfo, PasswordPlateInfo } from '../types/Popups';
+import { ContextMenuInfo, NewRoomInfo, PasswordPlateInfo, WarningMessageInfo } from '../types/Popups';
 import { UserType } from '../types/User';
-import { setContextMenuInfo, setCurrentRoomChatId, setNewRoomInfo, setPasswordPlateInfo, setUser } from './actions';
+import { setContextMenuInfo, setCurrentRoomChatId, setNewRoomInfo, setPasswordPlateInfo, setUser, setWarningMessageInfo } from './actions';
 
 type InitialStateType = {
   user: UserType;
@@ -12,6 +12,7 @@ type InitialStateType = {
   passwordPlateInfo: PasswordPlateInfo;
   newRoomInfo: NewRoomInfo;
   contextMenuInfo: ContextMenuInfo;
+  warningMessageInfo: WarningMessageInfo;
 }
 const initialState: InitialStateType = {
   user: USER_INFO,
@@ -36,6 +37,11 @@ const initialState: InitialStateType = {
     roomId: '',
     messageId: '',
     chatId: '',
+  },
+  warningMessageInfo: {
+    isOpen: false,
+    title: '',
+    description: '',
   }
 };
 
@@ -55,6 +61,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setContextMenuInfo, (state, action) => {
       state.contextMenuInfo = action.payload;
+    })
+    .addCase(setWarningMessageInfo, (state, action) => {
+      state.warningMessageInfo = action.payload;
     });
 });
 

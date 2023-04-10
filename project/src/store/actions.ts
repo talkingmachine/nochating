@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
-import { ContextMenuInfo, NewRoomInfo, PasswordPlateInfo } from '../types/Popups';
+import { ContextMenuInfo, NewRoomInfo, PasswordPlateInfo, WarningMessageInfo } from '../types/Popups';
 import { UserType } from '../types/User';
 
 
@@ -10,4 +10,5 @@ export const setCurrentRoomChatId = createAction<string>('setCurrentRoomChatId')
 export const setPasswordPlateInfo = createAction<PasswordPlateInfo>('setPasswordPlateInfo');
 export const setNewRoomInfo = createAction<NewRoomInfo>('setNewRoomInfo');
 export const setContextMenuInfo = createAction<ContextMenuInfo>('setContextMenuInfo');
+export const setWarningMessageInfo = createAction<WarningMessageInfo>('setWarningMessageInfo');
 //popups

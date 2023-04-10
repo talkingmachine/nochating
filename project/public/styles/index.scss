@@ -11,6 +11,7 @@ $chatBgColor: #0A0613;
 $roomPlatesBgColor: #514b5f50;
 $messageBgColor: #514b5f50;
 $windowBgColor: #5e56707c;
+$windowBgColorLight: #5e5670;
 $popupBgColor: #30293e;
 $fontColorLight: white;
 $borderColor: #514b5f50;
@@ -44,15 +45,22 @@ $message-input-height: 35px;
   left: 40%;
   border-radius: 5px;
 }
-
-@mixin input{
+@mixin input {
   background-color: #ffffff00;
-  border: none;
+  border: 3px solid transparent;
   color: $fontColorLight;
   outline: none;
+  width: 150px;
+  transition: all .15s linear;
+  &:focus {
+    border-bottom: 3px solid $windowBgColorLight;
+  }
+}
+.--input-reject{
+  border-color: red; 
 }
 
-body{
+body {
   font-family: Lucida-Console, sans-serif;
   color: $fontColorLight;
   background-color: $bgColor;
@@ -65,29 +73,24 @@ body{
     top: 0;
     backdrop-filter: blur(5px);
   }
-  .password-plate{
+  .popups__password-plate{
+    @include popup;
     flex-direction: column;
     width: 320px;
-    margin-bottom: 15px;
     padding: 15px;
     display: flex;
-    @include popup;
-    input.password-plate__input{
-      @include input;
-    }
     button.exit{
       position: absolute;
-      top: -5px;
+      top: 10px;
       right: 10px;
     }
     .password-plate__input{
       @include input;
+      margin-top: 15px;
     }
     button.password-plate__join{
       align-self: end;
-      padding: 3px 5px;
-      margin-left: auto;
-      margin-bottom: -5px;
+      padding: 0 5px;
       font-size: 15px;
       color: $fontColorLight;
       border-radius: 3px;
@@ -97,14 +100,14 @@ body{
       background-color: $windowBgColor;
     }
   }
-  .alt-context-menu{
+  .popups__alt-context-menu{
     display: flex;
     flex-direction: column;
     position: absolute;
     padding: 6px 17px;
     background: $chatBgColor;
     border: 1px solid $windowBgColor;
-    border-radius: 2px;
+    border-radius: 5px;
     font-size: 12px;
     ul.context-menu__options{
       li{
@@ -117,7 +120,7 @@ body{
       }
     }
   }
-  .room__new-room{
+  .popups__new-room{
     margin-bottom: 15px;
     padding: 15px;
     display: flex;
@@ -147,7 +150,6 @@ body{
           align-items: center;
           margin-bottom: 6px;
           input{
-            width: 100%;
             @include input;
             padding-left: 5px;
             margin-left: 6px;
@@ -157,7 +159,6 @@ body{
           display: flex;
           align-items: center;
           input{
-            width: 100%;
             @include input;
             padding-left: 5px;
             margin-left: 6px;
@@ -180,6 +181,25 @@ body{
     }
 
   }
+  .popups__warning-message{
+    @include popup;
+    top: 2%;
+    display: flex;
+    padding: 15px;
+    align-items: center;
+    svg.warning-message__sign{
+      height: 50px;
+      width: 50px; 
+    }
+    .warning-message__text{
+      display: flex;
+      flex-direction: column;
+      margin-left: 15px;
+      .text__description{
+        font-size: 13px;
+      }
+    }
+  }   
 }
 
 .sidebar{
@@ -349,8 +369,8 @@ body{
       display: flex;
       margin-top: 10px;
       input.form__message{
-        width: 100%;
         @include input;
+        width: 100%;
         background-color: $roomPlatesBgColor;
         height: $message-input-height;
         padding-left: 7px;

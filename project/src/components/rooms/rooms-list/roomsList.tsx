@@ -61,7 +61,7 @@ function RoomsList({filterWord}: RoomsListType): JSX.Element {
         isOpen: true,
       }));
     } else {
-      // TODO - say something about it
+      // TODO say something about it
     }
   };
 

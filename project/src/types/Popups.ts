@@ -4,7 +4,6 @@ export type PasswordPlateInfo = {
   chatId: string;
   isOpen: boolean;
 };
-
 export type NewRoomInfo = {
   isOpen: boolean;
 };
@@ -18,4 +17,9 @@ export type ContextMenuInfo = {
   roomId: string;
   messageId: string;
   chatId: string;
+};
+export type WarningMessageInfo = {
+  isOpen: boolean;
+  title: string;
+  description: string;
 };

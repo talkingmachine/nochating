@@ -25,6 +25,10 @@
     scrollbar-width: thin;
   }
 }
+.--input-reject {
+  border-color: red;
+}
+
 body {
   font-family: Lucida-Console, sans-serif;
   color: white;
@@ -39,12 +43,7 @@ body .blur-wrapper {
   top: 0;
   backdrop-filter: blur(5px);
 }
-body .password-plate {
-  flex-direction: column;
-  width: 320px;
-  margin-bottom: 15px;
-  padding: 15px;
-  display: flex;
+body .popups__password-plate {
   background: #30293e;
   -webkit-box-shadow: 5px 5px 15px 8px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: 5px 5px 15px 8px rgba(0, 0, 0, 0.2);
@@ -53,56 +52,58 @@ body .password-plate {
   top: 40%;
   left: 40%;
   border-radius: 5px;
+  flex-direction: column;
+  width: 320px;
+  padding: 15px;
+  display: flex;
 }
-body .password-plate input.password-plate__input {
-  background-color: rgba(255, 255, 255, 0);
-  border: none;
-  color: white;
-  outline: none;
-}
-body .password-plate button.exit {
+body .popups__password-plate button.exit {
   position: absolute;
-  top: -5px;
+  top: 10px;
   right: 10px;
 }
-body .password-plate .password-plate__input {
+body .popups__password-plate .password-plate__input {
   background-color: rgba(255, 255, 255, 0);
-  border: none;
+  border: 3px solid transparent;
   color: white;
   outline: none;
+  width: 150px;
+  transition: all 0.15s linear;
+  margin-top: 15px;
 }
-body .password-plate button.password-plate__join {
+body .popups__password-plate .password-plate__input:focus {
+  border-bottom: 3px solid #5e5670;
+}
+body .popups__password-plate button.password-plate__join {
   align-self: end;
-  padding: 3px 5px;
-  margin-left: auto;
-  margin-bottom: -5px;
+  padding: 0 5px;
   font-size: 15px;
   color: white;
   border-radius: 3px;
   transition: all 0.15s linear;
 }
-body .password-plate button.password-plate__join:hover {
+body .popups__password-plate button.password-plate__join:hover {
   background-color: rgba(94, 86, 112, 0.4862745098);
 }
-body .alt-context-menu {
+body .popups__alt-context-menu {
   display: flex;
   flex-direction: column;
   position: absolute;
   padding: 6px 17px;
   background: #0A0613;
   border: 1px solid rgba(94, 86, 112, 0.4862745098);
-  border-radius: 2px;
+  border-radius: 5px;
   font-size: 12px;
 }
-body .alt-context-menu ul.context-menu__options li {
+body .popups__alt-context-menu ul.context-menu__options li {
   display: flex;
   justify-items: center;
   cursor: pointer;
 }
-body .alt-context-menu ul.context-menu__options li span {
+body .popups__alt-context-menu ul.context-menu__options li span {
   margin: 0 5px;
 }
-body .room__new-room {
+body .popups__new-room {
   margin-bottom: 15px;
   padding: 15px;
   display: flex;
@@ -115,16 +116,16 @@ body .room__new-room {
   left: 40%;
   border-radius: 5px;
 }
-body .room__new-room form.new-room__form {
+body .popups__new-room form.new-room__form {
   display: flex;
 }
-body .room__new-room form.new-room__form label.form__picture {
+body .popups__new-room form.new-room__form label.form__picture {
   width: 100px;
   height: 100px;
   border: 1px solid rgba(81, 75, 95, 0.3137254902);
   border-radius: 5%;
 }
-body .room__new-room form.new-room__form label.form__picture img {
+body .popups__new-room form.new-room__form label.form__picture img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -132,39 +133,47 @@ body .room__new-room form.new-room__form label.form__picture img {
   border: 2px rgba(81, 75, 95, 0.3137254902) solid;
   border-radius: 5%;
 }
-body .room__new-room form.new-room__form .form__wrapper {
+body .popups__new-room form.new-room__form .form__wrapper {
   display: flex;
   flex-direction: column;
   margin: 6px 0 0 15px;
 }
-body .room__new-room form.new-room__form .form__wrapper .form__title {
+body .popups__new-room form.new-room__form .form__wrapper .form__title {
   display: flex;
   align-items: center;
   margin-bottom: 6px;
 }
-body .room__new-room form.new-room__form .form__wrapper .form__title input {
-  width: 100%;
+body .popups__new-room form.new-room__form .form__wrapper .form__title input {
   background-color: rgba(255, 255, 255, 0);
-  border: none;
+  border: 3px solid transparent;
   color: white;
   outline: none;
+  width: 150px;
+  transition: all 0.15s linear;
   padding-left: 5px;
   margin-left: 6px;
 }
-body .room__new-room form.new-room__form .form__wrapper .form__password {
+body .popups__new-room form.new-room__form .form__wrapper .form__title input:focus {
+  border-bottom: 3px solid #5e5670;
+}
+body .popups__new-room form.new-room__form .form__wrapper .form__password {
   display: flex;
   align-items: center;
 }
-body .room__new-room form.new-room__form .form__wrapper .form__password input {
-  width: 100%;
+body .popups__new-room form.new-room__form .form__wrapper .form__password input {
   background-color: rgba(255, 255, 255, 0);
-  border: none;
+  border: 3px solid transparent;
   color: white;
   outline: none;
+  width: 150px;
+  transition: all 0.15s linear;
   padding-left: 5px;
   margin-left: 6px;
 }
-body .room__new-room button.new-room__accept {
+body .popups__new-room form.new-room__form .form__wrapper .form__password input:focus {
+  border-bottom: 3px solid #5e5670;
+}
+body .popups__new-room button.new-room__accept {
   align-self: end;
   padding: 3px 5px;
   margin-left: auto;
@@ -174,8 +183,34 @@ body .room__new-room button.new-room__accept {
   border-radius: 3px;
   transition: all 0.15s linear;
 }
-body .room__new-room button.new-room__accept:hover {
+body .popups__new-room button.new-room__accept:hover {
   background-color: rgba(94, 86, 112, 0.4862745098);
+}
+body .popups__warning-message {
+  background: #30293e;
+  -webkit-box-shadow: 5px 5px 15px 8px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 5px 5px 15px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 5px 5px 15px 8px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  top: 40%;
+  left: 40%;
+  border-radius: 5px;
+  top: 2%;
+  display: flex;
+  padding: 15px;
+  align-items: center;
+}
+body .popups__warning-message svg.warning-message__sign {
+  height: 50px;
+  width: 50px;
+}
+body .popups__warning-message .warning-message__text {
+  display: flex;
+  flex-direction: column;
+  margin-left: 15px;
+}
+body .popups__warning-message .warning-message__text .text__description {
+  font-size: 13px;
 }
 
 .sidebar {
@@ -345,14 +380,19 @@ body .room__new-room button.new-room__accept:hover {
   margin-top: 10px;
 }
 .content .content__chat .chat__input-line input.form__message {
-  width: 100%;
   background-color: rgba(255, 255, 255, 0);
-  border: none;
+  border: 3px solid transparent;
   color: white;
   outline: none;
+  width: 150px;
+  transition: all 0.15s linear;
+  width: 100%;
   background-color: rgba(81, 75, 95, 0.3137254902);
   height: 35px;
   padding-left: 7px;
+}
+.content .content__chat .chat__input-line input.form__message:focus {
+  border-bottom: 3px solid #5e5670;
 }
 .content .content__chat .chat__input-line button.buttons-section__clip {
   width: 25px;
