@@ -25,10 +25,6 @@
     scrollbar-width: thin;
   }
 }
-.--input-reject {
-  border-color: red;
-}
-
 body {
   font-family: Lucida-Console, sans-serif;
   color: white;
@@ -64,7 +60,7 @@ body .popups__password-plate button.exit {
 }
 body .popups__password-plate .password-plate__input {
   background-color: rgba(255, 255, 255, 0);
-  border: 3px solid transparent;
+  border: 1px solid transparent;
   color: white;
   outline: none;
   width: 150px;
@@ -72,11 +68,11 @@ body .popups__password-plate .password-plate__input {
   margin-top: 15px;
 }
 body .popups__password-plate .password-plate__input:focus {
-  border-bottom: 3px solid #5e5670;
+  border-bottom: 1px solid #5e5670;
 }
 body .popups__password-plate button.password-plate__join {
   align-self: end;
-  padding: 0 5px;
+  padding: 3px 7px;
   font-size: 15px;
   color: white;
   border-radius: 3px;
@@ -145,7 +141,7 @@ body .popups__new-room form.new-room__form .form__wrapper .form__title {
 }
 body .popups__new-room form.new-room__form .form__wrapper .form__title input {
   background-color: rgba(255, 255, 255, 0);
-  border: 3px solid transparent;
+  border: 1px solid transparent;
   color: white;
   outline: none;
   width: 150px;
@@ -154,7 +150,7 @@ body .popups__new-room form.new-room__form .form__wrapper .form__title input {
   margin-left: 6px;
 }
 body .popups__new-room form.new-room__form .form__wrapper .form__title input:focus {
-  border-bottom: 3px solid #5e5670;
+  border-bottom: 1px solid #5e5670;
 }
 body .popups__new-room form.new-room__form .form__wrapper .form__password {
   display: flex;
@@ -162,7 +158,7 @@ body .popups__new-room form.new-room__form .form__wrapper .form__password {
 }
 body .popups__new-room form.new-room__form .form__wrapper .form__password input {
   background-color: rgba(255, 255, 255, 0);
-  border: 3px solid transparent;
+  border: 1px solid transparent;
   color: white;
   outline: none;
   width: 150px;
@@ -171,7 +167,7 @@ body .popups__new-room form.new-room__form .form__wrapper .form__password input 
   margin-left: 6px;
 }
 body .popups__new-room form.new-room__form .form__wrapper .form__password input:focus {
-  border-bottom: 3px solid #5e5670;
+  border-bottom: 1px solid #5e5670;
 }
 body .popups__new-room button.new-room__accept {
   align-self: end;
@@ -381,7 +377,7 @@ body .popups__warning-message .warning-message__text .text__description {
 }
 .content .content__chat .chat__input-line input.form__message {
   background-color: rgba(255, 255, 255, 0);
-  border: 3px solid transparent;
+  border: 1px solid transparent;
   color: white;
   outline: none;
   width: 150px;
@@ -392,7 +388,7 @@ body .popups__warning-message .warning-message__text .text__description {
   padding-left: 7px;
 }
 .content .content__chat .chat__input-line input.form__message:focus {
-  border-bottom: 3px solid #5e5670;
+  border-bottom: 1px solid #5e5670;
 }
 .content .content__chat .chat__input-line button.buttons-section__clip {
   width: 25px;
@@ -460,6 +456,10 @@ body .popups__warning-message .warning-message__text .text__description {
 }
 .content .content__login .login__buttons button:hover {
   background-color: rgba(94, 86, 112, 0.4862745098);
+}
+
+.--input-red {
+  border-bottom: 1px solid red !important;
 }
 
 /*# sourceMappingURL=index.css.map */

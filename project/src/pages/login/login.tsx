@@ -31,7 +31,6 @@ function Login(): JSX.Element {
       );
 
       dispatch(setUser(uploadStorageInfo()));
-      navigate('/chat');
     }).catch(
       // TODO say something
     );

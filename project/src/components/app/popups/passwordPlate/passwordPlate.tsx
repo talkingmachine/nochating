@@ -70,13 +70,15 @@ function PasswordPlate(): JSX.Element {
       dispatch(setCurrentRoomChatId(passwordPlateInfo.chatId));
       navigate('/chat');
       closePasswordPlate();
+    } else {
+      passwordInput.current?.classList.add('--input-red');
     }
   };
 
   return (
     <div className="blur-wrapper" hidden={!passwordPlateInfo.isOpen} ref={backgroundRef}>
       <article className='popups__password-plate'>
-        <span className="password-plate__title">Say the password</span>
+        <span className="password-plate__title">Say the password:</span>
         <button onClick={exitButtonHandler} className="exit">
           <svg width={24} height={24} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 6L6 18M18 18L6 6" stroke="#CCCCCC" strokeWidth={2} strokeLinecap="round" /></svg>
         </button>

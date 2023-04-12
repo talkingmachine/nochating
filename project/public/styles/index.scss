@@ -47,17 +47,14 @@ $message-input-height: 35px;
 }
 @mixin input {
   background-color: #ffffff00;
-  border: 3px solid transparent;
+  border: 1px solid transparent;
   color: $fontColorLight;
   outline: none;
   width: 150px;
   transition: all .15s linear;
   &:focus {
-    border-bottom: 3px solid $windowBgColorLight;
+    border-bottom: 1px solid $windowBgColorLight;
   }
-}
-.--input-reject{
-  border-color: red; 
 }
 
 body {
@@ -90,7 +87,7 @@ body {
     }
     button.password-plate__join{
       align-self: end;
-      padding: 0 5px;
+      padding: 3px 7px;
       font-size: 15px;
       color: $fontColorLight;
       border-radius: 3px;
@@ -189,7 +186,7 @@ body {
     align-items: center;
     svg.warning-message__sign{
       height: 50px;
-      width: 50px; 
+      width: 50px;
     }
     .warning-message__text{
       display: flex;
@@ -199,7 +196,7 @@ body {
         font-size: 13px;
       }
     }
-  }   
+  }
 }
 
 .sidebar{
@@ -446,4 +443,8 @@ body {
   }
 }
 
+// mods
+.--input-red{
+  border-bottom: 1px solid red !important;
+}
 
