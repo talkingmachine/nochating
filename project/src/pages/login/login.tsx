@@ -60,7 +60,7 @@ function Login(): JSX.Element {
   };
 
   return (
-    <section className="content__login">
+    <section className="content__login --hidden">
       <div onClick={signInClickHandler} className="login__userinfo">
         <img src={userInfo.photoURL} alt="user avatar"/>
         <span>{userInfo.displayName}</span>

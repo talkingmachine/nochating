@@ -1,6 +1,7 @@
 import { getDownloadURL, ref } from 'firebase/storage';
 import { useContext, useState } from 'react';
 import { GContext } from '../../../..';
+import { GLOBAL_CONSTS } from '../../../../consts/globalConsts';
 
 type RoomImageProps = {
   chatId: string;
@@ -19,7 +20,7 @@ function RoomImage({chatId}: RoomImageProps): JSX.Element {
     <>
       {imageUrl ? <img src={imageUrl} alt="room preview" className="room__picture" />
         :
-        <img src='img/course-preview.jpg' alt="room preview" className="room__picture" />}
+        <img src={GLOBAL_CONSTS.defaultRoomImage} alt="room preview" className="room__picture" />}
       {}
     </>
   );

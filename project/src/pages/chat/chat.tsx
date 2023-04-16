@@ -8,7 +8,7 @@ import { useAppSelector } from '../../hooks/useStoreSelectors';
 function Chat(): JSX.Element {
   const chatId = useAppSelector((state) => state.currentRoomInfo.chatId);
   return (
-    <section className="content__chat">
+    <section className="content__chat --hidden">
       {chatId ?
         <>
           <MessageList/>
@@ -16,7 +16,6 @@ function Chat(): JSX.Element {
         </>
         :
         <NoData/>}
-
     </section>
   );
 }
