@@ -2,7 +2,7 @@ import { createReducer } from '@reduxjs/toolkit';
 import { USER_INFO } from '../consts/constUserInfo';
 import { ContextMenuInfo, NewRoomInfo, PasswordPlateInfo, WarningMessageInfo } from '../types/Popups';
 import { UserType } from '../types/User';
-import { setContextMenuInfo, setCurrentRoomChatId, setNewRoomInfo, setPasswordPlateInfo, setUser, setWarningMessageInfo } from './actions';
+import { setContextMenuInfo, setCurrentRoomChatId, setNewRoomInfo, setOnTop, setPasswordPlateInfo, setUser, setWarningMessageInfo } from './actions';
 
 type InitialStateType = {
   user: UserType;
@@ -13,6 +13,7 @@ type InitialStateType = {
   newRoomInfo: NewRoomInfo;
   contextMenuInfo: ContextMenuInfo;
   warningMessageInfo: WarningMessageInfo;
+  onTop: boolean;
 }
 const initialState: InitialStateType = {
   user: USER_INFO,
@@ -42,7 +43,8 @@ const initialState: InitialStateType = {
     isOpen: false,
     title: '',
     description: '',
-  }
+  },
+  onTop: false
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -64,6 +66,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setWarningMessageInfo, (state, action) => {
       state.warningMessageInfo = action.payload;
+    })
+    .addCase(setOnTop, (state, action) => {
+      state.onTop = action.payload;
     });
 });
 

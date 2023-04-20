@@ -1,8 +1,8 @@
 
 import { useEffect } from 'react';
-import { memo, useRef } from 'react';
+import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { setCurrentRoomChatId, setPasswordPlateInfo } from '../../../../store/actions';
+import { setCurrentRoomChatId, setOnTop, setPasswordPlateInfo } from '../../../../store/actions';
 import { useAppDispatch, useAppSelector } from '../../../../hooks/useStoreSelectors';
 
 function PasswordPlate(): JSX.Element {
@@ -68,6 +68,7 @@ function PasswordPlate(): JSX.Element {
   const joinClickHandler = () => {
     if (passwordInput.current && passwordInput.current.value === passwordPlateInfo.password) {
       dispatch(setCurrentRoomChatId(passwordPlateInfo.chatId));
+      dispatch(setOnTop(false));
       navigate('/chat');
       closePasswordPlate();
     } else {
@@ -89,4 +90,4 @@ function PasswordPlate(): JSX.Element {
   );
 }
 
-export default memo(PasswordPlate);
+export default PasswordPlate;

@@ -16,6 +16,7 @@ function App(): JSX.Element {
 
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.user);
+  const onTop = useAppSelector((state) => state.onTop);
 
   useEffect(() => {
     dispatch(setUser(uploadStorageInfo()));
@@ -24,7 +25,11 @@ function App(): JSX.Element {
   return (
     <BrowserRouter>
       <Popups/>
-      <aside className={classNames('sidebar', {'sidebar--locked' : !isAuthorized(user)})}>
+      <aside className={classNames(
+        'sidebar',
+        {'--blur' : !isAuthorized(user)},
+        {'--aside-on-top' : onTop})}
+      >
         <Rooms/>
       </aside>
       <section className="content">

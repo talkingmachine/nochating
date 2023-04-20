@@ -1,7 +1,7 @@
 import { addDoc, collection, doc, serverTimestamp, setDoc } from 'firebase/firestore';
 import { ref, uploadBytes } from 'firebase/storage';
 import { nanoid } from 'nanoid';
-import { FormEvent, memo, useContext, useEffect, useRef, useState } from 'react';
+import { FormEvent, useContext, useEffect, useRef, useState } from 'react';
 import { GContext } from '../../../..';
 import { useAppDispatch, useAppSelector } from '../../../../hooks/useStoreSelectors';
 import { ROOM_INFO } from '../../../../consts/constUserInfo';
@@ -153,4 +153,4 @@ function NewRoom(): JSX.Element {
   );
 }
 
-export default memo(NewRoom);
+export default NewRoom;

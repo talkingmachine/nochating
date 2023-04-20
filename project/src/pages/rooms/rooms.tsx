@@ -1,4 +1,4 @@
-import { memo, } from 'react';
+import { memo } from 'react';
 import RoomsSearchLine from '../../components/rooms/rooms-search-line/roomsSearchLine';
 
 function Chat(): JSX.Element {

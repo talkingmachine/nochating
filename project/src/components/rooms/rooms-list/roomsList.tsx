@@ -1,5 +1,5 @@
 import { collection, DocumentData, onSnapshot, orderBy, query } from 'firebase/firestore';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { memo, useContext, useEffect, useState } from 'react';
 import { GContext } from '../../..';
 import { ALT_MENU_TYPES } from '../../../consts/altMenuTypes';
 import { RoomInfoDocumentData } from '../../../types/DocumentData';
@@ -8,7 +8,7 @@ import { roomsFilter } from '../../../utils/roomsFilter';
 import { useAppDispatch, useAppSelector } from '../../../hooks/useStoreSelectors';
 import { isAuthorized } from '../../../utils/isAuthorized';
 import { useNavigate } from 'react-router-dom';
-import { setContextMenuInfo, setCurrentRoomChatId, setPasswordPlateInfo } from '../../../store/actions';
+import { setContextMenuInfo, setCurrentRoomChatId, setOnTop, setPasswordPlateInfo } from '../../../store/actions';
 
 type RoomsListType = {
   filterWord: string;
@@ -49,6 +49,7 @@ function RoomsList({filterWord}: RoomsListType): JSX.Element {
     if (isAuthorized(user)) {
       if (!document.password) { // join immediately if no password
         dispatch(setCurrentRoomChatId(document.chatId));
+        dispatch(setOnTop(false));
         navigate('/chat');
         return;
       }
@@ -61,7 +62,7 @@ function RoomsList({filterWord}: RoomsListType): JSX.Element {
         isOpen: true,
       }));
     } else {
-      // TODO say something about it
+      // TODO say something
     }
   };
 
@@ -100,4 +101,4 @@ function RoomsList({filterWord}: RoomsListType): JSX.Element {
   );
 }
 
-export default RoomsList;
+export default memo(RoomsList);

@@ -1,4 +1,4 @@
-import { useRef, useState, ChangeEvent } from 'react';
+import { useRef, useState, ChangeEvent, memo } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../hooks/useStoreSelectors';
 import { setNewRoomInfo } from '../../../store/actions';
 import RoomsList from '../rooms-list/roomsList';
@@ -30,4 +30,4 @@ function RoomsSearchLine(): JSX.Element {
   );
 }
 
-export default RoomsSearchLine;
+export default memo(RoomsSearchLine);

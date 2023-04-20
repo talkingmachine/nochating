@@ -4,7 +4,7 @@ import { USER_INFO } from '../../consts/constUserInfo';
 import { useNavigate } from 'react-router-dom';
 import { LOCAL_STORAGE_NAMES } from '../../consts/localStorageNames';
 import { useAppDispatch, useAppSelector } from '../../hooks/useStoreSelectors';
-import { setCurrentRoomChatId, setUser } from '../../store/actions';
+import { setCurrentRoomChatId, setOnTop, setUser } from '../../store/actions';
 import { uploadStorageInfo } from '../../utils/uploadStorageInfo';
 import { isAuthorized } from '../../utils/isAuthorized';
 
@@ -39,6 +39,7 @@ function Login(): JSX.Element {
     if (isAuthorized(userInfo)) {
       navigate('/chat');
     }
+    dispatch(setOnTop(true));
   };
   const signOutClickHandler = () => {
     logOut().then(() => {
@@ -60,7 +61,7 @@ function Login(): JSX.Element {
   };
 
   return (
-    <section className="content__login --hidden">
+    <section className="content__login">
       <div onClick={signInClickHandler} className="login__userinfo">
         <img src={userInfo.photoURL} alt="user avatar"/>
         <span>{userInfo.displayName}</span>
